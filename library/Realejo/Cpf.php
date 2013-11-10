@@ -66,7 +66,6 @@ class Cpf
 
         // Retorna o CPF formatado
         return $cpf;
-
     }
 
     /**

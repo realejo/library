@@ -20,9 +20,17 @@ class Cnpj
     {
         $cnpj = self::unformat($cnpj);
 
-        // Verifica se não é inválido
-        if ($cnpj == '00000000000000') return false;
+        // Verifica se há algo a ser verificado
+        if (empty($cnpj)) {
+            return false;
+        }
 
+        // Verifica se não é inválido
+        if ($cnpj == '00000000000000') {
+            return false;
+        }
+
+        //Inicia a validação do CNPJ
         $dig_1 = 0;
         $dig_2 = 0;
         $controle_1 = 5;
@@ -71,10 +79,15 @@ class Cnpj
      */
     static function format($cnpj)
     {
-        if ( !is_null($cnpj) && $cnpj != '') {
-            $cnpj = self::unformat($cnpj);
+        // Reduz ao CNPJ desformatado
+        $cnpj = self::unformat($cnpj);
+
+        // Verifica se há um CNPJ
+        if ( !empty($cnpj) ) {
             $cnpj = substr($cnpj,0,2) . '.' . substr($cnpj,2,3) . '.' . substr($cnpj,5,3) . '/' . substr($cnpj,8,4) . '-' . substr($cnpj,12,2);
         }
+
+        // Retorna o CPF formatado
         return $cnpj;
 
     }
@@ -82,14 +95,23 @@ class Cnpj
     /**
      * Remove a formatação do CNPJ, reduzindo a apenas numeros
      *
-     * @param string $cpf
+     * @param string $cnpj
+     *
      * @return string
      */
     static function unformat($cnpj)
     {
+
+        // Remove tudo que não for numeros
+        $cnpj = preg_replace('/[^0-9]/', '', $cnpj);
+
+        // Verifica se sobrou numero para o CNPJ
+        //@todo verificar o tamamho minimo de um CNPJ
         if ( !empty($cnpj) ) {
-            $cnpj = str_pad(preg_replace('/[^0-9]/', '', $cnpj), 14, '0', STR_PAD_LEFT);
-        } else $cnpj = '';
-        return $cnpj;
+            return str_pad($cnpj, 14, '0', STR_PAD_LEFT);
+        }
+
+        // Se não achou um CNPJ possível retorna vazio
+        return '';
     }
 }
