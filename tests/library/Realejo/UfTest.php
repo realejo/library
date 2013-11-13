@@ -114,7 +114,6 @@ class UfTest extends PHPUnit_Framework_TestCase
         // TODO Auto-generated UfTest::setUp()
 
         $this->Uf = new Uf(/* parameters */);
-
     }
 
     /**

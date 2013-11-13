@@ -18,11 +18,6 @@ require_once 'Realejo/Cpf.php';
 class CpfTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Cpf
-     */
-    private $Cpf;
-
-    /**
      * Tests Cpf::unformat()
      */
     public function testUnformat ()
@@ -91,6 +86,7 @@ class CpfTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(Cpf::valid('string'));
 
         $this->assertFalse(Cpf::valid('11111111111'));
+        $this->assertFalse(Cpf::valid('111.111.111-11'));
         $this->assertFalse(Cpf::valid('22222222222'));
         $this->assertFalse(Cpf::valid('33333333333'));
         $this->assertFalse(Cpf::valid('44444444444'));
