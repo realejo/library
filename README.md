@@ -2,14 +2,14 @@
 
 Biblioteca com funções comuns
 
-## CPF/CNPJ/CEP
+### CPF/CNPJ/CEP
 Permite a validação e foprmatação de CPF, CNPJ e CEP
 
-## Image
+### Image
 Permite a manipilação de imagens
 
-## Math
+### Math
 Funções matemáticas que não existem módulo stats do PHP: moda e mediana
 
-# String
+### String
 Manipulição de strings: remover acentos, criar slug, detectar e converter para UTF8, etc
