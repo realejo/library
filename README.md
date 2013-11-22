@@ -13,3 +13,6 @@ Funções matemáticas que não existem módulo stats do PHP: moda e mediana
 
 ### String
 Manipulição de strings: remover acentos, criar slug, detectar e converter para UTF8, etc
+
+### UF
+Manipulação das unidades federativas do Brasil. Não se chama estado por que DF não é estado.
