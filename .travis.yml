@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 language: php
+=======
+﻿language: php
+>>>>>>> refs/heads/master
 
 php:
   - 5.5
