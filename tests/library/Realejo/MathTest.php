@@ -16,16 +16,49 @@ class MathTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Tests Math::moda()
+     *
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function testModaInvalido1()
+    {
+        Math::moda(1);
+    }
+
+    /**
+     * Tests Math::moda()
+     *
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function testModaInvalidoNull()
+    {
+        Math::moda(null);
+    }
+
+    /**
+     * Tests Math::moda()
+     *
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function testModaInvalidoStdClass()
+    {
+        Math::moda(new \stdClass());
+    }
+
+    /**
+     * Tests Math::moda()
+     *
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function testModaInvalidoString()
+    {
+        Math::moda('string');
+    }
+
+    /**
+     * Tests Math::moda()
      */
     public function testModa()
     {
-        // Valores inválidos
-        // @todo como testar exceptions?
-        //$this->getExpectedException(Math::moda(1));
-        //$this->getExpectedException(Math::moda(null));
-        //$this->getExpectedException(Math::moda(new stdClass()));
-        //$this->getExpectedException(Math::moda('oi'));
-
         // Valores válidos
         $this->assertTrue(count(Math::moda(array()))===0);
         $this->assertEquals(array(1),   Math::moda(array(1,1,2)));
@@ -35,13 +68,15 @@ class MathTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(1,2), Math::moda(array(1,1,2,2,3,4)));
         $this->assertEquals(array(1,2), Math::moda(array(1,2,1,3,4,1,2,2,3)));
     }
+
+
+
     /**
      * Tests Math::mediana()
      */
     public function testMediana()
     {
         // Valores inválidos
-        // @todo como testar exceptions?
         $this->assertFalse(Math::mediana(array()));
 
         // Valores válidos

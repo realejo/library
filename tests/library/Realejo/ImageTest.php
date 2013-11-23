@@ -248,7 +248,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     public function testSendScreen()
     {
         // TODO Auto-generated ImageTest->testSendScreen()
-        $this->markTestIncomplete("sendScreen test not implemented");
+        $this->markTestSkipped("sendScreen test not implemented");
 		// $file = dirname(__FILE__).'/img/songbird.png';
 		// $oImage->open($file);
         // $this->assertTrue($oImage->sendScreen());

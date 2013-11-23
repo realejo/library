@@ -142,7 +142,7 @@ class UfTest extends PHPUnit_Framework_TestCase
     public function testGetUfs ()
     {
         // TODO Auto-generated UfTest::testGetUfs()
-        $this->markTestIncomplete("getUfs test not implemented");
+        $this->markTestSkipped("getUfs test not implemented");
 
         Uf::getUfs(/* parameters */);
 
@@ -154,7 +154,7 @@ class UfTest extends PHPUnit_Framework_TestCase
     public function testGetUf ()
     {
         // TODO Auto-generated UfTest::testGetUf()
-        $this->markTestIncomplete("getUf test not implemented");
+        $this->markTestSkipped("getUf test not implemented");
 
         Uf::getUf(/* parameters */);
 
@@ -166,7 +166,7 @@ class UfTest extends PHPUnit_Framework_TestCase
     public function testGetRegioes ()
     {
         // TODO Auto-generated UfTest::testGetRegioes()
-        $this->markTestIncomplete("getRegioes test not implemented");
+        $this->markTestSkipped("getRegioes test not implemented");
 
         Uf::getRegioes(/* parameters */);
 
@@ -178,7 +178,7 @@ class UfTest extends PHPUnit_Framework_TestCase
     public function testGetUfRegiao ()
     {
         // TODO Auto-generated UfTest::testGetUfRegiao()
-        $this->markTestIncomplete("getUfRegiao test not implemented");
+        $this->markTestSkipped("getUfRegiao test not implemented");
 
         Uf::getUfRegiao(/* parameters */);
 
