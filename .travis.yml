@@ -7,9 +7,8 @@ php:
 
 before_script:
   - cd ./tests
- 
+
 branches:
   only:
     - develop
     - master
-	
