@@ -15,7 +15,7 @@ require_once 'Realejo/Image.php';
 class ImageTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var RW_Image
+     * @var Image
      */
     private $Image;
 
@@ -27,7 +27,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp ()
+    protected function setUp()
     {
         parent::setUp();
         $this->Image = new Image(/* parameters */);
@@ -39,7 +39,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown ()
+    protected function tearDown()
     {
         // TODO Auto-generated ImageTest::tearDown()
         $this->Image = null;
@@ -49,14 +49,14 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Constructs the test case.
      */
-    public function __construct ()
+    public function __construct()
     {
         // TODO Auto-generated constructor
     }
     /**
      * Tests RW_Image->__construct()
      */
-    public function test__construct ()
+    public function test__construct()
     {
         // TODO Auto-generated ImageTest->test__construct()
        // $this->markTestIncomplete("__construct test not implemented");
@@ -65,7 +65,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Tests RW_Image->open()
      */
-    public function testOpen ()
+    public function testOpen()
     {
         // Abrir JPG
         $file = $this->imgPath.'/exemplo.jpg';
@@ -122,7 +122,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Tests RW_Image->close()
      */
-    public function testClose ()
+    public function testClose()
     {
         $file = $this->imgPath.'/exemplo.jpg';
     	$this->Image->open($file);
@@ -134,7 +134,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Tests RW_Image->isLoaded()
      */
-    public function testIsLoaded ()
+    public function testIsLoaded()
     {
         // Cria o arquivo temporário
         copy($this->imgPath.'/exemplo.jpg', $this->imgPath.'/saves/temp.jpg');
@@ -174,7 +174,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Tests RW_Image->save()
      */
-    public function testSave ()
+    public function testSave()
     {
         $file = $this->imgPath.'/exemplo.jpg';
     	$this->Image->open($file);
@@ -185,7 +185,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Tests RW_Image->sendScreen()
      */
-    public function testSendScreen ()
+    public function testSendScreen()
     {
         // TODO Auto-generated ImageTest->testSendScreen()
         $this->markTestIncomplete("sendScreen test not implemented");
@@ -198,14 +198,14 @@ class ImageTest extends PHPUnit_Framework_TestCase
     /**
      * Tests RW_Image->resize()
      */
-    public function testResize ()
+    public function testResize()
     {
     	// Cria o arquivo temporário
         copy($this->imgPath.'/exemplo.jpg', $this->imgPath.'/saves/temp.jpg');
 
-        // Abrir JPG
-        $file = $this->imgPath.'/saves/temp.jpg';
-        $this->Image->open($file);
+        // Carrega o JPG
+        $filepath = $this->imgPath.'/saves/temp.jpg';
+        $this->Image->open($filepath);
 
         // Reduz o tamanho do JPG com crop
         $this->assertTrue($this->Image->resize('500','150',true,true));
@@ -214,7 +214,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($this->Image->save());
 
 		// Pega tamanho da imagens após mudança
-		list($width, $height, $type, $attr)= getimagesize($file);
+		list($width, $height, $type, $attr)= getimagesize($filepath);
 
 		// Compra os tamanhos passados e reais da imagem
 		$this->assertEquals('500', $width);
@@ -224,14 +224,14 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$this->Image->close();
 
 		// Abrir JPG
-        $this->Image->open($file);
+        $this->Image->open($filepath);
 
         // Aumenta a imagem JPG com Crop e forçado
 		$this->assertTrue($this->Image->resize('1000','2',true,true));
 		$this->assertTrue($this->Image->save());
 
 		// Pega tamanho da imagem após mudança
-		list($width, $height, $type, $attr)= getimagesize($file);
+		list($width, $height, $type, $attr)= getimagesize($filepath);
 
 		// Compara os tamanhos pedidos e reais
 		$this->assertEquals('1000', $width);
@@ -241,31 +241,31 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$this->Image->close();
 
 		// Abrir JPG
-        $this->Image->open($file);
+        $this->Image->open($filepath);
 
         // Reduz a imagem JPG com Crop e forçado
 		$this->assertTrue($this->Image->resize('50','1',true,true));
 		$this->assertTrue($this->Image->save());
 
 		// Retornar os atributos da imagem
-		list($width, $height, $type, $attr)= getimagesize($file);
+		list($width, $height, $type, $attr)= getimagesize($filepath);
 
 		$this->assertEquals('50', $width);
 		$this->assertEquals('1', $height);
-		unlink($file);
+		unlink($filepath);
 
 		// Sem Crop e reduzindo forçado
 		copy($this->imgPath.'/exemplo_600x800.jpg', $this->imgPath.'/saves/temp.jpg');
 
 		// Abrir JPG
-        $this->Image->open($file);
+        $this->Image->open($filepath);
 
         // Reduzir imagem sem crop e forçado
 		$this->assertTrue($this->Image->resize('113','150',false,true));
 		$this->assertTrue($this->Image->save());
 
 		// Pega tamanho da imagem após mudança
-		list($width, $height, $type, $attr)= getimagesize($file);
+		list($width, $height, $type, $attr)= getimagesize($filepath);
 
 		// Compra os tamanhos pedidos e reais
 		$this->assertEquals('113', $width);
@@ -275,19 +275,19 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$this->Image->close();
 
 		// Abrir JPG
-        $this->Image->open($file);
+        $this->Image->open($filepath);
 
         // Reduz a imagem JPG com Crop e forçado
 		$this->assertTrue($this->Image->resize('10','149',false,true));
 		$this->assertTrue($this->Image->save());
 
 		// Retornar os atributos da imagem
-		list($width, $height, $type, $attr)= getimagesize($file);
+		list($width, $height, $type, $attr)= getimagesize($filepath);
 
 		$this->assertEquals('10', $width);
 		$this->assertEquals('13', $height);
 
-		unlink($file);
+		unlink($filepath);
 
 		/*COM ARQUIVO PNG*/
 
@@ -295,27 +295,27 @@ class ImageTest extends PHPUnit_Framework_TestCase
         copy($this->imgPath.'/exemplo.png', $this->imgPath.'/saves/temp.png');
 
         // Abrindo arquivo
-        $file = $this->imgPath.'/saves/temp.png';
-        $this->Image->open($file);
+        $filepath = $this->imgPath.'/saves/temp.png';
+        $this->Image->open($filepath);
 
         // aumentando o PNG COM CROP
 		$this->assertTrue($this->Image->resize('1000','500', true,true));
 		$this->assertTrue($this->Image->save());
 
 		// conferindo os valores salvos
-		list($width, $height, $type, $attr)= getimagesize($file);
+		list($width, $height, $type, $attr)= getimagesize($filepath);
 		$this->assertEquals('1000', $width);
 		$this->assertEquals('500', $height);
 
         // Abirndo o PNG
-        $this->Image->open($file);
+        $this->Image->open($filepath);
 
         // Reduzir PNG
 		$this->assertTrue($this->Image->resize('200','100'));
 		$this->assertTrue($this->Image->save());
 
 		// conferindo os valores
-		list($width, $height, $type, $attr)= getimagesize($file);
+		list($width, $height, $type, $attr)= getimagesize($filepath);
 		$this->assertEquals('200', $width);
 		$this->assertEquals('100', $height);
 
@@ -323,14 +323,14 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$this->Image->close();
 
 		// deletando o arquivo
-		unlink($file);
+		unlink($filepath);
 
 		// Cria o arquivo temporário
         copy($this->imgPath.'/exemplo.jpg', $this->imgPath.'/saves/temp.jpg');
-        $file = $this->imgPath.'/saves/temp.jpg';
+        $filepath = $this->imgPath.'/saves/temp.jpg';
 
         // abrindo o arquivo
-        $this->Image->open($file);
+        $this->Image->open($filepath);
 
         // rezudindo o arquivo SEM CROP
 		$this->assertTrue($this->Image->resize('1000','10',false,true));
@@ -340,13 +340,13 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$this->Image->close();
 
 		// deletando o arquivo
-		unlink($file);
+		unlink($filepath);
     }
 
     /**
      * Tests RW_Image->removeMetadata()
      */
-    public function testRemoveMetadata ()
+    public function testRemoveMetadata()
     {
 		 // Cria o arquivo temporário
          copy($this->imgPath.'/exemplo_600x800.jpg', $this->imgPath.'/saves/temp.jpg');
