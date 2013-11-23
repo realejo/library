@@ -9,3 +9,5 @@ branches:
   only:
     - master
     - develop
+	
+script: phpunit --configuration ./tests/phpunit.xml
