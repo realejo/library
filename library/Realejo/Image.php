@@ -31,22 +31,24 @@ class Image
      * @var array
      */
     protected $_imageQuality = array(
-        'png'   =>  9,
+        'png'   =>  9, // 0..9
         'jpeg'  =>  100,
         'gif'   =>  100
     );
 
     /**
      * Path original da imagem
+     *
      * @var string
      */
     private $_path;
 
     /**
      * Tipo imagem
+     *
      * @var string
      */
-    public $mimeType;
+    protected $_mimeType;
 
     /**
      * Carrega aimagem ao criar a classe
@@ -55,23 +57,28 @@ class Image
      */
     public function __construct($image = null)
     {
-        if (!is_null($image)) $this->open($image);
+        // Verifica se há uma imagem para carregar
+        if (!is_null($image)) {
+            $this->open($image);
+        }
     }
 
     /**
      * Verifica se é uma imagem válida abrindo com função correta
-     * @todo deve criar a imagem quando não existir
      *
      * @param string $arquivo
      * @return bool
      */
     public function open($file)
     {
-        $this->close();
+        // Verifica se hpá imagem carregada
+        if ($this->isLoaded()) {
+            $this->close();
+        }
+
         // Verifica se o arquivo existe
         if (!file_exists($file)) {
-            //throw new Exception("Arquivo $file não existe");
-            return false;
+            throw new \Exception("Arquivo $file não existe");
         }
 
         /**
@@ -81,9 +88,9 @@ class Image
         	case IMAGETYPE_JPEG:
 		        $im = imagecreatefromjpeg($file);
 				if ($im !== false) {
-					$this->mimeType = 'jpeg';
-					$this->_image 	= $im;
-					$this->_path 	= $file;
+					$this->_mimeType = 'jpeg';
+					$this->_image 	 = $im;
+					$this->_path 	 = $file;
 					return true;
 				}
 		        break;
@@ -91,9 +98,9 @@ class Image
 		     case IMAGETYPE_GIF:
 		        $im = imagecreatefromgif($file);
 				if ($im !== false) {
-					$this->mimeType = 'gif';
-					$this->_image 	= $im;
-					$this->_path 	= $file;
+					$this->_mimeType = 'gif';
+					$this->_image 	 = $im;
+					$this->_path 	 = $file;
 					return true;
 				}
 		        break;
@@ -101,9 +108,9 @@ class Image
 	        case IMAGETYPE_PNG:
 	        	$im = imagecreatefrompng($file);
 				if ($im !== false) {
-					$this->mimeType = 'png';
-					$this->_image 	= $im;
-					$this->_path 	= $file;
+					$this->_mimeType = 'png';
+					$this->_image  	 = $im;
+					$this->_path 	 = $file;
 					return true;
 				}
 				break;
@@ -162,14 +169,14 @@ class Image
         if (is_null($file)) $file = $this->_path;
 
         // Salva a transparencia (alpha channel) dos PNGs
-        if ($this->mimeType == 'png')
+        if ($this->getMimeType() == 'png')
             imagesavealpha( $this->_image, true );
 
         // Define a função de acordo com o file type
-        $imageFunction = "image" . $this->mimeType;
+        $imageFunction = "image" . $this->getMimeType();
 
         // Salva a imagem
-        $ok = $imageFunction($this->_image, $file, $this->_imageQuality[$this->mimeType]);
+        $ok = $imageFunction($this->_image, $file, $this->_imageQuality[$this->getMimeType()]);
 
         // Verifica se deve fechar
         if ($close && $ok) $this->close();
@@ -194,14 +201,14 @@ class Image
 
        // @codeCoverageIgnoreStart
        // Define o header de acordo com o file type
-       header('Content-Type: image/'. $this->mimeType);
+       header('Content-Type: image/'. $this->getMimeType());
        // @codeCoverageIgnoreEnd
 
         // Salva a transparencia (alpha channel) dos PNGs
-        if ($this->mimeType == 'png') imagesavealpha( $this->_image, true );
+        if ($this->getMimeType() === 'png') imagesavealpha( $this->_image, true );
 
         // Define a função de acordo com o file type
-        $imageFunction = "image" . $this->mimeType;
+        $imageFunction = "image" . $this->getMimeType();
 
         // @codeCoverageIgnoreStart
         // Envia para o browser
@@ -255,7 +262,7 @@ class Image
                 $tmp = imagecreatetruecolor($newwidth, $newheight);
 
                 // Verifica se é um PNG para manter a transparencia
-                if ($this->mimeType == 'png') {
+                if ($this->getMimeType() == 'png') {
                     imagealphablending($tmp, false);
                     imagesavealpha($tmp, true);
                     imagealphablending($this->_image, true);
@@ -279,7 +286,7 @@ class Image
             $tmp = imagecreatetruecolor($w, $h);
 
             // Verifica se é um PNG para manter a transparencia
-            if ($this->mimeType == 'png') {
+            if ($this->getMimeType() === 'png') {
                 imagealphablending($tmp, false);
                 imagesavealpha($tmp, true);
                 imagealphablending($this->_image, true);
@@ -321,7 +328,7 @@ class Image
                 $tmp = imagecreatetruecolor($newwidth, $newheight);
 
                 // Verifica se é um PNG para manter a transparencia
-                if ($this->mimeType == 'png') {
+                if ($this->getMimeType() === 'png') {
                     imagealphablending($tmp, false);
                     imagesavealpha($tmp, true);
                     imagealphablending($this->_image, true);
@@ -345,7 +352,9 @@ class Image
 
     /**
      * Remove as informações extra das imagens (EXIF)
-     * Para isso ele redimenciona para o mesmo tamanho pois não copia o EXIF
+     * Para isso ele redimenciona para o mesmo tamanho pois o GD não copia o EXIF
+     *
+     * @return Image
      */
     public function removeMetadata()
     {
@@ -354,6 +363,7 @@ class Image
             throw new \Exception('Imagem não carregada em Realejo\Image::removeMetadata();');
         }
 
+        // Redimenciona a imagem para o mesmo tamanho dela. Isto irá criar uma nova imagem sem os metadados
         $width  = imagesx($this->_image);
         $height = imagesy($this->_image);
         $this->resize($width, $height, false, true);
@@ -364,33 +374,55 @@ class Image
      * Altera a qualidade padrão das imagens (100%).
      *
      * @param int    $quality Qualidade da imagem de 0 a 100
-     * @param string $format  OPCIONAL Formato a ser definido a nova qualidade (png, jpg ou gif)
+     * @param string $mimeType  OPCIONAL Formato a ser definido a nova qualidade (png, jpg ou gif)
      *
      * @return Image
      */
-    public function setImageQuality($quality, $format = null)
+    public function setImageQuality($quality, $mimeType = null)
     {
         // Passa o formato para minusculo se existir
-        if (!is_null($format)) $format = strtolower($format);
+        if (!is_null($mimeType)) $mimeType = strtolower($mimeType);
 
         // Verifica se foi informado um formato específico
-        if (!is_null($format)) {
+        if (!is_null($mimeType)) {
             // Verifica se o formato é valido
-            if (array_key_exists($format, $this->_imageQuality)) {
-                if ($format === 'png') $quality /= 10;
-                $this->_imageQuality = $quality;
+            if (array_key_exists($mimeType, $this->_imageQuality)) {
+                if ($mimeType === 'png') {
+                    $quality = ($quality/10)-1;
+                }
+                $this->_imageQuality[$mimeType] = $quality;
             } else {
-                throw new \Exception("Formato de imagem $format inválido em Realejo\Image::setImageQuality()");
+                throw new \Exception("Formato de imagem $mimeType inválido em Realejo\Image::setImageQuality()");
             }
 
         // Altera todos os formatos
         } else {
            $this->_imageQuality['jpg'] = $quality;
            $this->_imageQuality['gif'] = $quality;
-           $this->_imageQuality['png'] = $quality/10;
+           $this->_imageQuality['png'] = ($quality/10)-1;
         }
 
         // Mantem a cadeia
         return $this;
+    }
+
+	/**
+	 *
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->_mimeType;
+    }
+
+	/**
+     * @param string $mimeType
+     */
+    public function setMimeType($mimeType)
+    {
+        // Passa o formato para minusculo se existir
+        if (!is_null($mimeType)) $format = strtolower($mimeType);
+
+        $this->_mimeType = $mimeType;
     }
 }
