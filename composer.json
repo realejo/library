@@ -1,6 +1,6 @@
 {
     "name": "realejo/library",
-    "description": "Biblioteca com funções comuns.",
+    "description": "Biblioteca com funÃ§Ãµes comuns.",
     "license": "BSD-3-Clause",
     "type": "library",
     "keywords": [
@@ -10,7 +10,7 @@
     ],
     "homepage": "http://realejo.com.br",
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.3"
     },
     "autoload": {
         "psr-0": {
