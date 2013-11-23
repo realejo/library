@@ -109,9 +109,6 @@ class CpfTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(Cpf::valid('5246448452'));
         $this->assertTrue(Cpf::valid(5246448452));
 
-
-
     }
-
 }
 
