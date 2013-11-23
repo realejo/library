@@ -4,7 +4,7 @@
     </testsuite>
     <filter>
         <whitelist>
-            <directory suffix=".php">../library</directory>
+            <directory suffix="Test.php">../library</directory>
         </whitelist>
     </filter>
     <logging>
