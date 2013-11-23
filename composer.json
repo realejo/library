@@ -1,0 +1,20 @@
+{
+    "name": "realejo/library",
+    "description": "Biblioteca com funções comuns.",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "keywords": [
+        "framework",
+        "zf2",
+        "realejo"
+    ],
+    "homepage": "http://realejo.com.br",
+    "require": {
+        "php": ">=5.3.3",
+    },
+    "autoload": {
+        "psr-0": {
+            "Realejo\\": "library/"
+        }
+    }
+}
