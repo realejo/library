@@ -10,4 +10,5 @@ branches:
     - master
     - develop
 
-script: phpunit --configuration ./tests/phpunit.xml
+before_script:
+  - cd ./tests
