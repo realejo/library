@@ -22,7 +22,6 @@ class StringTest extends PHPUnit_Framework_TestCase
      */
     public function testRemoveAcentos ()
     {
-
         $string  = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝŸàáâãäåæçèéêëìíîïñòóôõöùúûüýÿ';
         $retorno = 'AAAAAAAECEEEEIIIINOOOOOUUUUYYaaaaaaaeceeeeiiiinooooouuuuyy';
         $this->assertEquals($retorno, String::RemoveAcentos($string));
@@ -33,18 +32,18 @@ class StringTest extends PHPUnit_Framework_TestCase
      */
     public function testStrip_tags_attributes ()
     {
-    	//$allow = '<span><p><ul><li><b><strong><a>';
-    	$allow1 = '<span><a><p>';
-    	$allowatributs1 = 'style';
-    	$str1 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a href="#">Header</a>';
-    	$equals1 = '<p style_-_-"text-align:center">Paragraph</p>Bold<span style_-_-"color:red">Red</span><a href="#">Header</a>';
-    	$this->assertEquals($equals1, String::strip_tags_attributes($str1,$allow1,$allowatributs1));
+        //$allow = '<span><p><ul><li><b><strong><a>';
+        $allow1 = '<span><a><p>';
+        $allowatributs1 = 'style';
+        $str1 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a href="#">Header</a>';
+        $equals1 = '<p style_-_-"text-align:center">Paragraph</p>Bold<span style_-_-"color:red">Red</span><a href="#">Header</a>';
+        $this->assertEquals($equals1, String::strip_tags_attributes($str1,$allow1,$allowatributs1));
 
-    	$allow2 = '<span><p><ul><li><b><strong><a>';
-    	$allowatributs2 = 'style';
-    	$str2 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a style="color:red" href="#">Header</a>';
-    	$equals2 = '<p style_-_-"text-align:center">Paragraph</p><strong style_-_-"color:red">Bold</strong><span style_-_-"color:red">Red</span><a style_-_-"color:red" href="#">Header</a>';
-    	$this->assertEquals($equals2, String::strip_tags_attributes($str2,$allow2,$allowatributs2));
+        $allow2 = '<span><p><ul><li><b><strong><a>';
+        $allowatributs2 = 'style';
+        $str2 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a style="color:red" href="#">Header</a>';
+        $equals2 = '<p style_-_-"text-align:center">Paragraph</p><strong style_-_-"color:red">Bold</strong><span style_-_-"color:red">Red</span><a style_-_-"color:red" href="#">Header</a>';
+        $this->assertEquals($equals2, String::strip_tags_attributes($str2,$allow2,$allowatributs2));
     }
 
     /**
@@ -52,7 +51,7 @@ class StringTest extends PHPUnit_Framework_TestCase
      */
     public function testCleanFileName ()
     {
-    	$filename = '#$%@#%$ãoçáàbácôíxêchôçú';
+        $filename = '#$%@#%$ãoçáàbácôíxêchôçú';
         $this->assertEquals('aocaabacoixechocu', String::CleanFileName($filename));
     }
 
@@ -97,13 +96,17 @@ class StringTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSlug()
     {
-    	$url 		= 'fazendo uma tremenda bagunça e uma GRANDE confusão';
-    	$urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
+        $url        = 'fazendo uma tremenda bagunça e uma GRANDE confusão';
+        $urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
         $this->assertEquals($urlRetorno, String::getSlug($url));
 
-        $url 		= utf8_decode('fazendo uma tremenda bagunça e uma GRANDE confusão');
-    	$urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
-        $this->assertEquals($urlRetorno, String::getSlug($url));
+        // A partir do PHP 5.4 o enconding padrão é o UTF-8
+        //@todo verificar se precisa testar outra coisa diferente
+        if (PHP_MAJOR_VERSION === 5 && PHP_MINOR_VERSION == 3) {
+            $url    = utf8_decode('fazendo uma tremenda bagunça e uma GRANDE confusão');
+            $urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
+            $this->assertEquals($urlRetorno, String::getSlug($url));
+        }
     }
 
     /**
@@ -135,10 +138,9 @@ class StringTest extends PHPUnit_Framework_TestCase
      */
     public function testCleanHTML ()
     {
-        $allow 	 = '<span><a><br>';
-        $str 	 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br><span style="color:red">Red</span><a href="#">Header</a>';
+        $allow   = '<span><a><br>';
+        $str     = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br><span style="color:red">Red</span><a href="#">Header</a>';
         $retorno = 'ParagraphBold<br><span style="color:red">Red</span><a href="#">Header</a>';
         $this->assertEquals($retorno, String::CleanHTML($str,$allow));
     }
 }
-
