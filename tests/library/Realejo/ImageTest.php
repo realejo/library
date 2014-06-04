@@ -1,16 +1,8 @@
 <?php
 /**
  * Image test case.
- *
- * @author     Realejo
- * @version    $Id: CPF.php 33 2012-06-19 14:18:04Z rodrigo $
- * @copyright  Copyright (c) 2013 Realejo Design Ltda. (http:// www.realejo.com.br)
  */
-namespace Realejo;
-
-use PHPUnit_Framework_TestCase;
-
-require_once 'Realejo/Image.php';
+use Realejo\Image;
 
 class ImageTest extends PHPUnit_Framework_TestCase
 {
@@ -472,7 +464,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     {
         $files = scandir($this->imgPath.'/temp');
         foreach ($files as $f) {
-            if ($f === '.' || $f === '..') continue;
+            if ($f === '.' || $f === '..' || $f === '.gitignore') continue;
             unlink($this->imgPath."/temp/$f");
         }
     }

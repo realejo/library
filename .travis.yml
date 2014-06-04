@@ -5,7 +5,11 @@ php:
   - 5.4
   - 5.3
 
-script: phpunit --configuration ./tests/phpunit.travis.xml
+before_script:
+  - composer dump-autoload
+  - cd ./tests
+  
+script: phpunit --configuration phpunit.travis.xml
 
 branches:
   only:
