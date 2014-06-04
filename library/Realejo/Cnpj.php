@@ -1,10 +1,9 @@
 <?php
 /**
- * Valida e formata o CNPJ
+ * Validação e formatação de CNPJ (Cadastro Nacional de Pessoa Jurídica)
  *
- * @author     Realejo
- * @version    $Id: CNPJ.php 46 2012-11-26 16:10:22Z rodrigo $
- * @copyright  Copyright (c) 2013 Realejo Design Ltda. (http://www.realejo.com.br)
+ * @link      http://github.com/realejo/library
+ * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
 namespace Realejo;
 

@@ -6,7 +6,8 @@
     "keywords": [
         "framework",
         "zf2",
-        "realejo"
+        "realejo",
+        "cnpj", "cpf", "uf"
     ],
     "homepage": "http://realejo.com.br",
     "require": {

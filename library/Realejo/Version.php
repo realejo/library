@@ -49,7 +49,7 @@ class Version
         if (null === self::$_latestVersion) {
             self::$_latestVersion = 'not available';
 
-            $handle = fopen('http://realejo.com.br/api/realejo-library-version', 'r');
+            $handle = fopen('http://realejo.com.br/api/library-version', 'r');
             if (false !== $handle) {
                 self::$_latestVersion = stream_get_contents($handle);
                 fclose($handle);

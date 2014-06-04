@@ -2,10 +2,10 @@
 /**
  * Classe para gerenciamente de UFs e Regiões geográficas
  *
- * Não se chama estadfo pois DF não é estado
+ * Não se chama estado pois DF não é estado
  *
- * @author     Realejo
- * @copyright  Copyright (c) 2013 Realejo Design Ltda. (http://www.realejo.com.br)
+ * @link      http://github.com/realejo/library
+ * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
 namespace Realejo;
 
