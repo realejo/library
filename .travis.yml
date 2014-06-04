@@ -8,7 +8,7 @@ php:
 before_script:
   - composer dump-autoload
   - cd ./tests
-  
+
 script: phpunit --configuration phpunit.travis.xml
 
 branches:
