@@ -2,9 +2,8 @@
 /**
  * Classe com funções comuns para tratamenteo de imagens
  *
- * @author     Realejo
- * @version    $Id: UF.php 34 2012-06-19 14:21:55Z rodrigo $
- * @copyright  Copyright (c) 2013 Realejo Design Ltda. (http://www.realejo.com.br)
+ * @link      http://github.com/realejo/library
+ * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
 namespace Realejo;
 

@@ -2,9 +2,8 @@
 /**
  * Funções para busca de DNS
  *
- * @author     Realejo
- * @version    $Id: Base.php 25 2012-05-09 23:40:14Z rodrigo $
- * @copyright  Copyright (c) 2011-2012 Realejo Design Ltda. (http://www.realejo.com.br)
+ * @link      http://github.com/realejo/library
+ * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
 namespace Realejo;
 

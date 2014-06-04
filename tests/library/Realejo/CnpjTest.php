@@ -1,16 +1,8 @@
 <?php
 /**
  * Cnpj test case.
- *
- * @author     Realejo
- * @version    $Id: CPF.php 33 2012-06-19 14:18:04Z rodrigo $
- * @copyright  Copyright (c) 2013 Realejo Design Ltda. (http://www.realejo.com.br)
  */
-namespace Realejo;
-
-use PHPUnit_Framework_TestCase;
-
-require_once 'Realejo/Cnpj.php';
+use Realejo\Cnpj;
 
 class CnpjTest extends PHPUnit_Framework_TestCase
 {
