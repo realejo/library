@@ -5,7 +5,9 @@ php:
   - 5.4
   - 5.3
 
-script: phpunit --configuration "tests/phpunit.travis.xml"
+before-script: cd ./tests
+ 
+script: phpunit --configuration phpunit.travis.xml
 
 branches:
   only:
