@@ -67,30 +67,30 @@ class CnpjTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests Cnpj::valid()
+     * Tests Cnpj::isValid()
      * @see http://www.geradorcnpj.com/
      */
     public function testValid ()
     {
-        $this->assertFalse(Cnpj::valid(null));
-        $this->assertFalse(Cnpj::valid(''));
-        $this->assertFalse(Cnpj::valid('string'));
+        $this->assertFalse(Cnpj::isValid(null));
+        $this->assertFalse(Cnpj::isValid(''));
+        $this->assertFalse(Cnpj::isValid('string'));
 
-        $this->assertFalse(Cnpj::valid(1));
-        $this->assertFalse(Cnpj::valid('1'));
+        $this->assertFalse(Cnpj::isValid(1));
+        $this->assertFalse(Cnpj::isValid('1'));
 
-        $this->assertFalse(Cnpj::valid('12.345.678/9012-34'));
-        $this->assertFalse(Cnpj::valid('12345678901234'));
-        $this->assertFalse(Cnpj::valid(12345678901234));
+        $this->assertFalse(Cnpj::isValid('12.345.678/9012-34'));
+        $this->assertFalse(Cnpj::isValid('12345678901234'));
+        $this->assertFalse(Cnpj::isValid(12345678901234));
 
-        $this->assertTrue(Cnpj::valid('83.316.432/0001-33'));
-        $this->assertTrue(Cnpj::valid('83316432000133'));
-        $this->assertTrue(Cnpj::valid(83316432000133));
+        $this->assertTrue(Cnpj::isValid('83.316.432/0001-33'));
+        $this->assertTrue(Cnpj::isValid('83316432000133'));
+        $this->assertTrue(Cnpj::isValid(83316432000133));
 
-        $this->assertTrue(Cnpj::valid('05.722.935/0001-03'));
-        $this->assertTrue(Cnpj::valid('05722935000103'));
-        $this->assertTrue(Cnpj::valid('5722935000103'));
-        $this->assertTrue(Cnpj::valid(05722935000103));
+        $this->assertTrue(Cnpj::isValid('05.722.935/0001-03'));
+        $this->assertTrue(Cnpj::isValid('05722935000103'));
+        $this->assertTrue(Cnpj::isValid('5722935000103'));
+        $this->assertTrue(Cnpj::isValid(05722935000103));
     }
 
 }

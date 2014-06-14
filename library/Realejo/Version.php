@@ -13,7 +13,7 @@ class Version
      * RWLIB indentificador de versão
      * @see compareVersion()
      */
-    CONST VERSION = '1.0';
+    CONST VERSION = '1.1';
 
     /**
      * The latest stable version Zend Framework available
@@ -49,7 +49,7 @@ class Version
         if (null === self::$_latestVersion) {
             self::$_latestVersion = 'not available';
 
-            $handle = fopen('http://realejo.com.br/api/library-version', 'r');
+            $handle = fopen('https://raw.githubusercontent.com/realejo/library/master/version', 'r');
             if (false !== $handle) {
                 self::$_latestVersion = stream_get_contents($handle);
                 fclose($handle);
