@@ -65,38 +65,38 @@ class CpfTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests Cpf::valid()
+     * Tests Cpf::isValid()
      * @see http://www.geradorcpf.com/
      */
     public function testValid ()
     {
-        $this->assertFalse(Cpf::valid(null));
-        $this->assertFalse(Cpf::valid(''));
-        $this->assertFalse(Cpf::valid('string'));
+        $this->assertFalse(Cpf::isValid(null));
+        $this->assertFalse(Cpf::isValid(''));
+        $this->assertFalse(Cpf::isValid('string'));
 
-        $this->assertFalse(Cpf::valid('11111111111'));
-        $this->assertFalse(Cpf::valid('111.111.111-11'));
-        $this->assertFalse(Cpf::valid('22222222222'));
-        $this->assertFalse(Cpf::valid('33333333333'));
-        $this->assertFalse(Cpf::valid('44444444444'));
-        $this->assertFalse(Cpf::valid('55555555555'));
-        $this->assertFalse(Cpf::valid('66666666666'));
-        $this->assertFalse(Cpf::valid('77777777777'));
-        $this->assertFalse(Cpf::valid('88888888888'));
-        $this->assertFalse(Cpf::valid('99999999999'));
+        $this->assertFalse(Cpf::isValid('11111111111'));
+        $this->assertFalse(Cpf::isValid('111.111.111-11'));
+        $this->assertFalse(Cpf::isValid('22222222222'));
+        $this->assertFalse(Cpf::isValid('33333333333'));
+        $this->assertFalse(Cpf::isValid('44444444444'));
+        $this->assertFalse(Cpf::isValid('55555555555'));
+        $this->assertFalse(Cpf::isValid('66666666666'));
+        $this->assertFalse(Cpf::isValid('77777777777'));
+        $this->assertFalse(Cpf::isValid('88888888888'));
+        $this->assertFalse(Cpf::isValid('99999999999'));
 
-        $this->assertFalse(Cpf::valid('123.456.789-01'));
-        $this->assertFalse(Cpf::valid('12345678901'));
+        $this->assertFalse(Cpf::isValid('123.456.789-01'));
+        $this->assertFalse(Cpf::isValid('12345678901'));
 
-        $this->assertTrue(Cpf::valid('493.761.649-89'));
-        $this->assertTrue(Cpf::valid('49376164989'));
-        $this->assertTrue(Cpf::valid(49376164989));
+        $this->assertTrue(Cpf::isValid('493.761.649-89'));
+        $this->assertTrue(Cpf::isValid('49376164989'));
+        $this->assertTrue(Cpf::isValid(49376164989));
 
-        $this->assertTrue(Cpf::valid('052.464.484-52'));
-        $this->assertTrue(Cpf::valid('52.464.484-52'));
-        $this->assertTrue(Cpf::valid('05246448452'));
-        $this->assertTrue(Cpf::valid('5246448452'));
-        $this->assertTrue(Cpf::valid(5246448452));
+        $this->assertTrue(Cpf::isValid('052.464.484-52'));
+        $this->assertTrue(Cpf::isValid('52.464.484-52'));
+        $this->assertTrue(Cpf::isValid('05246448452'));
+        $this->assertTrue(Cpf::isValid('5246448452'));
+        $this->assertTrue(Cpf::isValid(5246448452));
 
     }
 }
