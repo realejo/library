@@ -1,7 +1,7 @@
 {
     "name": "realejo/library",
     "description": "Biblioteca com funções comuns.",
-    "license": "BSD-3-Clause",
+    "license" : "Unlicense",
     "type": "library",
     "keywords": [
         "framework",
