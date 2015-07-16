@@ -90,7 +90,7 @@ class CnpjTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(Cnpj::isValid('05.722.935/0001-03'));
         $this->assertTrue(Cnpj::isValid('05722935000103'));
         $this->assertTrue(Cnpj::isValid('5722935000103'));
-        $this->assertTrue(Cnpj::isValid(05722935000103));
+        $this->assertTrue(Cnpj::isValid(5722935000103));
     }
 
 }
