@@ -17,7 +17,7 @@ class Dns
      *
      * @return string
      */
-    static function getAddrByHost($host, $timeout = 3)
+    public static function getAddrByHost($host, $timeout = 3)
     {
         // Define a busca pelo prompt
         $query = `nslookup -timeout=$timeout -retry=1 $host`;

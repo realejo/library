@@ -13,7 +13,7 @@ class Image
      * Imagem carregada
      * @var binary image
      */
-    protected  $_image = null;
+    protected $_image = null;
 
     /**
      * Mime types válidos
@@ -83,36 +83,36 @@ class Image
         /**
          * Tenta identificar o formato e abrir a imagem
          */
-        switch (exif_imagetype($file)){
-        	case IMAGETYPE_JPEG:
-		        $im = imagecreatefromjpeg($file);
-				if ($im !== false) {
-					$this->_mimeType = 'jpeg';
-					$this->_image 	 = $im;
-					$this->_path 	 = $file;
-					return true;
-				}
-		        break;
+        switch (exif_imagetype($file)) {
+            case IMAGETYPE_JPEG:
+                $im = imagecreatefromjpeg($file);
+                if ($im !== false) {
+                    $this->_mimeType = 'jpeg';
+                    $this->_image    = $im;
+                    $this->_path     = $file;
+                    return true;
+                }
+                break;
 
-		     case IMAGETYPE_GIF:
-		        $im = imagecreatefromgif($file);
-				if ($im !== false) {
-					$this->_mimeType = 'gif';
-					$this->_image 	 = $im;
-					$this->_path 	 = $file;
-					return true;
-				}
-		        break;
+             case IMAGETYPE_GIF:
+                $im = imagecreatefromgif($file);
+                if ($im !== false) {
+                    $this->_mimeType = 'gif';
+                    $this->_image    = $im;
+                    $this->_path     = $file;
+                    return true;
+                }
+                break;
 
-	        case IMAGETYPE_PNG:
-	        	$im = imagecreatefrompng($file);
-				if ($im !== false) {
-					$this->_mimeType = 'png';
-					$this->_image  	 = $im;
-					$this->_path 	 = $file;
-					return true;
-				}
-				break;
+            case IMAGETYPE_PNG:
+                $im = imagecreatefrompng($file);
+                if ($im !== false) {
+                    $this->_mimeType = 'png';
+                    $this->_image    = $im;
+                    $this->_path     = $file;
+                    return true;
+                }
+                break;
         }
 
         // Tipo não identificado ou não valido
@@ -126,11 +126,12 @@ class Image
     public function close()
     {
         // Verifica se a imagem está definida
-        if ( isset ($this->_image)) {
-            if ( is_resource($this->_image) ) {
+        if (isset($this->_image)) {
+            if (is_resource($this->_image)) {
                 imagedestroy($this->_image);
             }
             $this->_image = null;
+
             return true;
         }
 
@@ -165,11 +166,14 @@ class Image
             $close = true;
         }
 
-        if (is_null($file)) $file = $this->_path;
+        if (is_null($file)) {
+            $file = $this->_path;
+        }
 
         // Salva a transparencia (alpha channel) dos PNGs
-        if ($this->getMimeType() == 'png')
-            imagesavealpha( $this->_image, true );
+        if ($this->getMimeType() == 'png') {
+            imagesavealpha($this->_image, true);
+        }
 
         // Define a função de acordo com o file type
         $imageFunction = "image" . $this->getMimeType();
@@ -178,7 +182,9 @@ class Image
         $ok = $imageFunction($this->_image, $file, $this->_imageQuality[$this->getMimeType()]);
 
         // Verifica se deve fechar
-        if ($close && $ok) $this->close();
+        if ($close && $ok) {
+            $this->close();
+        }
 
         return $ok;
     }
@@ -204,7 +210,9 @@ class Image
        // @codeCoverageIgnoreEnd
 
         // Salva a transparencia (alpha channel) dos PNGs
-        if ($this->getMimeType() === 'png') imagesavealpha( $this->_image, true );
+        if ($this->getMimeType() === 'png') {
+            imagesavealpha($this->_image, true);
+        }
 
         // Define a função de acordo com o file type
         $imageFunction = "image" . $this->getMimeType();
@@ -215,8 +223,9 @@ class Image
         // @codeCoverageIgnoreEnd
 
         // fecha o arquivo
-        if ($close) $this->close();
-
+        if ($close) {
+            $this->close();
+        }
 
         return true;
     }
@@ -246,10 +255,10 @@ class Image
         if ($crop) {
 
             // Redimenciona a imagem se necessário
-            if ( ($width > $w) || ($height > $h) || $force ) {
+            if (($width > $w) || ($height > $h) || $force) {
 
                 // Calcula o novo tamanho
-                if ( ($width/$w) > ($height/$h) ) {
+                if (($width/$w) > ($height/$h)) {
                     $newheight = $h;
                     $newwidth = ($width * $h) / $height;
                 } else {
@@ -268,7 +277,7 @@ class Image
                 }
 
                 // Redimenciona
-                imagecopyresampled($tmp, $this->_image, 0,0, 0,0, $newwidth,$newheight, $width,$height);
+                imagecopyresampled($tmp, $this->_image, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
                 // Destroi a imagem original
                 imagedestroy($this->_image);
@@ -296,7 +305,7 @@ class Image
             $y = ($newheight>$h) ? $newheight/2 - $h/2 : 0;
 
             // Faz o crop
-            imagecopyresampled( $tmp, $this->_image, 0,0, $x,$y, $w,$h, $w,$h );
+            imagecopyresampled($tmp, $this->_image, 0, 0, $x, $y, $w, $h, $w, $h);
 
             // Destroi a imagem original
             imagedestroy($this->_image);
@@ -306,46 +315,45 @@ class Image
 
             // Finaliza com sucesso
             return true;
+        }
 
-        } else {
-
-            // Define os novos tamanhos
-            if ( ($width > $w) || ($height > $h) || $force  ) {
-                if ( ($width/$w) > ($height/$h) ) {
-                    $newwidth = $w;
-                    $newheight = round(($height * $w) / $width);
-                } else {
-                    $newheight = $h;
-                    $newwidth = round(($width * $h) / $height);
-                }
-            }
-
-            // Verifica se o tamamnho mudou
-            if ( ($newheight != $height) || ($newwidth != $width)) {
-
-                // Cria a imagem temporária
-                $tmp = imagecreatetruecolor($newwidth, $newheight);
-
-                // Verifica se é um PNG para manter a transparencia
-                if ($this->getMimeType() === 'png') {
-                    imagealphablending($tmp, false);
-                    imagesavealpha($tmp, true);
-                    imagealphablending($this->_image, true);
-                }
-
-                // Faz o redimencionamento
-                imagecopyresampled($tmp, $this->_image, 0,0, 0,0, $newwidth,$newheight, $width,$height);
-
-                // Destroi a imagem original
-                imagedestroy($this->_image);
-
-                // Passa a usar a imagem temporaria
-                $this->_image = $tmp;
-
-                // Finaliza com sucesso
-                return true;
+        // Define os novos tamanhos
+        if (($width > $w) || ($height > $h) || $force) {
+            if (($width/$w) > ($height/$h)) {
+                $newwidth = $w;
+                $newheight = round(($height * $w) / $width);
+            } else {
+                $newheight = $h;
+                $newwidth = round(($width * $h) / $height);
             }
         }
+
+        // Verifica se o tamamnho mudou
+        if (($newheight != $height) || ($newwidth != $width)) {
+
+            // Cria a imagem temporária
+            $tmp = imagecreatetruecolor($newwidth, $newheight);
+
+            // Verifica se é um PNG para manter a transparencia
+            if ($this->getMimeType() === 'png') {
+                imagealphablending($tmp, false);
+                imagesavealpha($tmp, true);
+                imagealphablending($this->_image, true);
+            }
+
+            // Faz o redimencionamento
+            imagecopyresampled($tmp, $this->_image, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+            // Destroi a imagem original
+            imagedestroy($this->_image);
+
+            // Passa a usar a imagem temporaria
+            $this->_image = $tmp;
+
+            // Finaliza com sucesso
+            return true;
+        }
+
         return false;
     }
 
@@ -380,7 +388,9 @@ class Image
     public function setImageQuality($quality, $mimeType = null)
     {
         // Passa o formato para minusculo se existir
-        if (!is_null($mimeType)) $mimeType = strtolower($mimeType);
+        if (!is_null($mimeType)) {
+            $mimeType = strtolower($mimeType);
+        }
 
         // Verifica se foi informado um formato específico
         if (!is_null($mimeType)) {
@@ -396,17 +406,17 @@ class Image
 
         // Altera todos os formatos
         } else {
-           $this->_imageQuality['jpg'] = $quality;
-           $this->_imageQuality['gif'] = $quality;
-           $this->_imageQuality['png'] = ($quality/10)-1;
+            $this->_imageQuality['jpg'] = $quality;
+            $this->_imageQuality['gif'] = $quality;
+            $this->_imageQuality['png'] = ($quality/10)-1;
         }
 
         // Mantem a cadeia
         return $this;
     }
 
-	/**
-	 *
+    /**
+     *
      * @return string
      */
     public function getMimeType()
@@ -414,13 +424,15 @@ class Image
         return $this->_mimeType;
     }
 
-	/**
+    /**
      * @param string $mimeType
      */
     public function setMimeType($mimeType)
     {
         // Passa o formato para minusculo se existir
-        if (!is_null($mimeType)) $format = strtolower($mimeType);
+        if (!is_null($mimeType)) {
+            $format = strtolower($mimeType);
+        }
 
         $this->_mimeType = $mimeType;
     }

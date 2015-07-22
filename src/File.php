@@ -18,19 +18,23 @@ class File
      * @param bool    $retbytes  OPCIONAL indica se deve retornar o numero de bytes ou o status da conexão
      * @param int     $chunk     OPCIONAL Tamanho em byte do chunk. Padrão: 1024*1024 = 1048576
      */
-    static public function readfileChunked($filename, $retbytes = true, $chunk = 1048576)
+    public static function readfileChunked($filename, $retbytes = true, $chunk = 1048576)
     {
         // Abre o arquivo no formato de laitura de bytes
         $handle = fopen($filename, 'rb');
-        if ($handle === false) return false;
+        if ($handle === false) {
+            return false;
+        }
 
         $totalBytes= 0;
-        while ( !feof($handle) ) {
+        while (!feof($handle)) {
             $buffer = fread($handle, $chunk);
             echo $buffer;
             ob_flush();
             flush();
-            if ($retbytes) $totalBytes += strlen($buffer);
+            if ($retbytes) {
+                $totalBytes += strlen($buffer);
+            }
         }
         $status = fclose($handle);
         if ($retbytes && $status) {

@@ -12,7 +12,7 @@ class CnpjTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Cnpj::unformat()
      */
-    public function testUnformat ()
+    public function testUnformat()
     {
         $this->assertEquals('', Cnpj::unformat(null));
         $this->assertEquals('', Cnpj::unformat(''));
@@ -36,13 +36,12 @@ class CnpjTest extends \PHPUnit_Framework_TestCase
         $this->assertStringMatchesFormat('01234567890123', Cnpj::unformat('01234567890123'));
         $this->assertStringMatchesFormat('12345678901234', Cnpj::unformat('12345678901234'));
         $this->assertStringMatchesFormat('12345678901234', Cnpj::unformat(12345678901234));
-
     }
 
     /**
      * Tests Cnpj::format()
      */
-    public function testFormat ()
+    public function testFormat()
     {
         $this->assertEquals('', Cnpj::format(null));
         $this->assertEquals('', Cnpj::format(''));
@@ -66,14 +65,13 @@ class CnpjTest extends \PHPUnit_Framework_TestCase
         $this->assertStringMatchesFormat('01.234.567/8901-23', Cnpj::format('01234567890123'));
         $this->assertStringMatchesFormat('12.345.678/9012-34', Cnpj::format('12345678901234'));
         $this->assertStringMatchesFormat('12.345.678/9012-34', Cnpj::format(12345678901234));
-
     }
 
     /**
      * Tests Cnpj::isValid()
      * @see http://www.geradorcnpj.com/
      */
-    public function testValid ()
+    public function testValid()
     {
         $this->assertFalse(Cnpj::isValid(null));
         $this->assertFalse(Cnpj::isValid(''));
@@ -95,7 +93,4 @@ class CnpjTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(Cnpj::isValid('5722935000103'));
         $this->assertTrue(Cnpj::isValid(5722935000103));
     }
-
 }
-
-

@@ -15,7 +15,7 @@ class Cnpj
      * @param string $cnpj CNPJ com ou sem formatação
      * @return boolean
      */
-    static function isValid($cnpj)
+    public static function isValid($cnpj)
     {
         $cnpj = self::unformat($cnpj);
 
@@ -37,7 +37,7 @@ class Cnpj
         $resto = 0;
 
         //coloca no formato padrao
-        for ( $i=0 ; $i < 12 ; $i++) {
+        for ($i=0 ; $i < 12 ; $i++) {
             $dig_1 = $dig_1 + (double)(substr($cnpj, $i, 1) * $controle_1);
             $controle_1 = $controle_1 - 1;
             if ($i == 3) {
@@ -47,10 +47,10 @@ class Cnpj
 
         $resto = $dig_1 % 11;
         $dig_1 = 11 - $resto;
-        if (($resto == 0) || ($resto == 1)){
+        if (($resto == 0) || ($resto == 1)) {
             $dig_1 = 0;
         }
-        for ( $i=0 ; $i < 12 ; $i++) {
+        for ($i=0 ; $i < 12 ; $i++) {
             $dig_2 = $dig_2 + (int) (substr($cnpj, $i, 1) * $controle_2);
             $controle_2 = $controle_2 - 1;
             if ($i == 4) {
@@ -60,11 +60,11 @@ class Cnpj
         $dig_2 = $dig_2 + (2 * $dig_1);
         $resto = $dig_2 %11;
         $dig_2 = 11 - $resto;
-        if (($resto == 0) || ($resto == 1)){
+        if (($resto == 0) || ($resto == 1)) {
             $dig_2 = 0;
         }
         $dig_ver = ($dig_1 * 10) + $dig_2;
-        if ($dig_ver != (double)(substr($cnpj, strlen($cnpj)-2,2))) {
+        if ($dig_ver != (double)(substr($cnpj, strlen($cnpj)-2, 2))) {
             return false;
         }
         return true;
@@ -76,19 +76,18 @@ class Cnpj
      * @param string $cnpj CNPJ com ou sem formatação
      * @return string
      */
-    static function format($cnpj)
+    public static function format($cnpj)
     {
         // Reduz ao CNPJ desformatado
         $cnpj = self::unformat($cnpj);
 
         // Verifica se há um CNPJ
-        if ( !empty($cnpj) ) {
-            $cnpj = substr($cnpj,0,2) . '.' . substr($cnpj,2,3) . '.' . substr($cnpj,5,3) . '/' . substr($cnpj,8,4) . '-' . substr($cnpj,12,2);
+        if (!empty($cnpj)) {
+            $cnpj = substr($cnpj, 0, 2) . '.' . substr($cnpj, 2, 3) . '.' . substr($cnpj, 5, 3) . '/' . substr($cnpj, 8, 4) . '-' . substr($cnpj, 12, 2);
         }
 
         // Retorna o CPF formatado
         return $cnpj;
-
     }
 
     /**
@@ -98,7 +97,7 @@ class Cnpj
      *
      * @return string
      */
-    static function unformat($cnpj)
+    public static function unformat($cnpj)
     {
 
         // Remove tudo que não for numeros
@@ -106,7 +105,7 @@ class Cnpj
 
         // Verifica se sobrou numero para o CNPJ
         //@todo verificar o tamamho minimo de um CNPJ
-        if ( !empty($cnpj) ) {
+        if (!empty($cnpj)) {
             return str_pad($cnpj, 14, '0', STR_PAD_LEFT);
         }
 

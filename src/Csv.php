@@ -22,7 +22,9 @@ class Csv
     public static function getCSV($array, $exclude = array(), $labels = array())
     {
         // Verifica se há dados para gerar o CSV
-        if (!is_array($array) || empty($array)) return '';
+        if (!is_array($array) || empty($array)) {
+            return '';
+        }
 
         // Recuperar o primeiro registro para ter os nomes dos campos
         $keys = array_keys($array);
@@ -42,24 +44,26 @@ class Csv
         }
 
         // Remove as chaves não usadas
-        $keys = array_diff($keys,$exclude);
+        $keys = array_diff($keys, $exclude);
 
         $exclude = $temp;
 
         // Coloca as chaves no CSV
         $temp = $keys;
         foreach ($temp as $i=>$k) {
-            if (array_key_exists($k, $labels)) $temp[$i] = $labels[$k];
+            if (array_key_exists($k, $labels)) {
+                $temp[$i] = $labels[$k];
+            }
         }
-        $csv = array(mb_strtoupper(implode(';',$temp), 'UTF-8'));
+        $csv = array(mb_strtoupper(implode(';', $temp), 'UTF-8'));
 
         // Constroi o CSV
-        foreach($array as $row) {
+        foreach ($array as $row) {
             // Remove as chaves não usadas
             $row = array_diff_key($row, $exclude);
 
             // Coloca no CSV
-            $csv[] =  '"'. implode('";"',$row) .'"';
+            $csv[] =  '"'. implode('";"', $row) .'"';
         }
 
         $csv = implode("\n", $csv);

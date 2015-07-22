@@ -56,15 +56,13 @@ class MathTest extends \PHPUnit_Framework_TestCase
     {
         // Valores válidos
         $this->assertTrue(count(Math::moda(array()))===0);
-        $this->assertEquals(array(1),   Math::moda(array(1,1,2)));
-        $this->assertEquals(array(1),   Math::moda(array(1,1,1,2,2,3)));
-        $this->assertEquals(array(1,2), Math::moda(array(1,2)));
-        $this->assertEquals(array(1,2), Math::moda(array(1,1,2,2)));
-        $this->assertEquals(array(1,2), Math::moda(array(1,1,2,2,3,4)));
-        $this->assertEquals(array(1,2), Math::moda(array(1,2,1,3,4,1,2,2,3)));
+        $this->assertEquals(array(1),    Math::moda(array(1, 1, 2)));
+        $this->assertEquals(array(1),    Math::moda(array(1, 1, 1, 2, 2, 3)));
+        $this->assertEquals(array(1, 2), Math::moda(array(1, 2)));
+        $this->assertEquals(array(1, 2), Math::moda(array(1, 1, 2, 2 )));
+        $this->assertEquals(array(1, 2), Math::moda(array(1, 1, 2, 2, 3, 4)));
+        $this->assertEquals(array(1, 2), Math::moda(array(1, 2, 1, 3, 4, 1, 2, 2, 3)));
     }
-
-
 
     /**
      * Tests Math::mediana()
@@ -76,13 +74,12 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
         // Valores válidos
         $this->assertTrue(count(Math::moda(array()))===0);
-        $this->assertEquals(1,   Math::mediana(array(1,1,2)));
-        $this->assertEquals(1.5, Math::mediana(array(1,1,1,2,2,3)));
-        $this->assertEquals(1.5, Math::mediana(array(1,2)));
-        $this->assertEquals(1.5, Math::mediana(array(1,1,2,2)));
-        $this->assertEquals(2,   Math::mediana(array(1,1,2,2,3,4)));
-        $this->assertEquals(2,   Math::mediana(array(1,2,1,3,4,1,2,2,3)));
-        $this->assertEquals(2,   Math::mediana(array(1,2,1,3,4,1,2,2,3),'strcmp'));
+        $this->assertEquals(1,   Math::mediana(array(1, 1, 2)));
+        $this->assertEquals(1.5, Math::mediana(array(1, 1, 1, 2, 2, 3)));
+        $this->assertEquals(1.5, Math::mediana(array(1, 2)));
+        $this->assertEquals(1.5, Math::mediana(array(1, 1, 2, 2)));
+        $this->assertEquals(2,   Math::mediana(array(1, 1, 2, 2, 3, 4)));
+        $this->assertEquals(2,   Math::mediana(array(1, 2, 1, 3, 4, 1, 2, 2, 3)));
+        $this->assertEquals(2,   Math::mediana(array(1, 2, 1, 3, 4, 1, 2, 2, 3), 'strcmp'));
     }
 }
-

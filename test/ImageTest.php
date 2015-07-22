@@ -97,13 +97,13 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($oImage->isLoaded());
 
         // Abre PNG
-		$file = $this->imgPath.'/exemplo.png';
-		$this->assertTrue($oImage->open($file));
+        $file = $this->imgPath.'/exemplo.png';
+        $this->assertTrue($oImage->open($file));
 
-		// Verifica se foi criado o resource
-		$this->assertTrue($oImage->isLoaded());
+        // Verifica se foi criado o resource
+        $this->assertTrue($oImage->isLoaded());
 
-		// Verifica se o mimetype é PNG
+        // Verifica se o mimetype é PNG
         $this->assertStringMatchesFormat('png', $oImage->getMimeType());
 
         // Fecha a imagem
@@ -112,13 +112,13 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         // Verifica se foi criado o resource
         $this->assertFalse($oImage->isLoaded());
 
-		// Abre GIF
-		$this->assertTrue($oImage->open($this->imgPath.'/exemplo.gif'));
+        // Abre GIF
+        $this->assertTrue($oImage->open($this->imgPath.'/exemplo.gif'));
 
-		// Verifica se foi criado o resource
-		$this->assertTrue($oImage->isLoaded());
+        // Verifica se foi criado o resource
+        $this->assertTrue($oImage->isLoaded());
 
-		// Verifica se o mimetype é gif
+        // Verifica se o mimetype é gif
         $this->assertStringMatchesFormat('gif', $oImage->getMimeType());
 
         // Fecha a imagem
@@ -127,11 +127,11 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         // Verifica se foi criado o resource
         $this->assertFalse($oImage->isLoaded());
 
-		// Abre um arquivo em formato nao suportado
-		$this->assertFalse($oImage->open($this->imgPath.'/exemplo.tif'));
+        // Abre um arquivo em formato nao suportado
+        $this->assertFalse($oImage->open($this->imgPath.'/exemplo.tif'));
 
-		// Verifica se foi criado o resource
-		$this->assertFalse($oImage->isLoaded());
+        // Verifica se foi criado o resource
+        $this->assertFalse($oImage->isLoaded());
     }
 
     /**
@@ -140,19 +140,19 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function testClose()
     {
         // Cria o objeto magem
-    	$oImage = new Image($this->imgPath.'/exemplo.jpg');
+        $oImage = new Image($this->imgPath.'/exemplo.jpg');
 
-    	// Verifica se o resource foi criado
-    	$this->assertTrue($oImage->isLoaded());
+        // Verifica se o resource foi criado
+        $this->assertTrue($oImage->isLoaded());
 
-    	// Fecha o arquivo
-    	$this->assertTrue($oImage->close());
+        // Fecha o arquivo
+        $this->assertTrue($oImage->close());
 
-    	// Verifica se o resource foi removido
-    	$this->assertFalse($oImage->isLoaded());
+        // Verifica se o resource foi removido
+        $this->assertFalse($oImage->isLoaded());
 
-    	// Não é possível fechar mais de uma fez o arquivo
-    	$this->assertFalse($oImage->close());
+        // Não é possível fechar mais de uma fez o arquivo
+        $this->assertFalse($oImage->close());
     }
 
     /**
@@ -166,7 +166,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         // Cria o objeto da imagem
         $oImage = new Image($filename);
 
-    	// Verifica se a imagem está carregada
+        // Verifica se a imagem está carregada
         $this->assertTrue($oImage->isLoaded());
 
         // Destroi o objeto
@@ -231,9 +231,9 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         copy($this->imgPath.'/exemplo.jpg', $filenameTemp);
 
         // Abre a imagem
-    	$oImage = new Image($filenameTemp);
+        $oImage = new Image($filenameTemp);
 
-    	// Salva sem alterações
+        // Salva sem alterações
         $this->assertTrue($oImage->save(true));
     }
 
@@ -244,8 +244,8 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated ImageTest->testSendScreen()
         $this->markTestSkipped("sendScreen test not implemented");
-		// $file = dirname(__FILE__).'/img/songbird.png';
-		// $oImage->open($file);
+        // $file = dirname(__FILE__).'/img/songbird.png';
+        // $oImage->open($file);
         // $this->assertTrue($oImage->sendScreen());
     }
 
@@ -254,7 +254,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testResize()
     {
-    	// Cria o arquivo temporário
+        // Cria o arquivo temporário
         copy($this->imgPath.'/exemplo.jpg', $this->imgPath.'/temp/temp.jpg');
 
         // Carrega o JPG
@@ -265,135 +265,135 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($oImage->resize('500', '150', true, true));
 
         // Salva as mudanças
-		$this->assertTrue($oImage->save());
+        $this->assertTrue($oImage->save());
 
-		// Pega tamanho da imagens após mudança
-		list($width, $height, $type, $attr) = getimagesize($filepath);
+        // Pega tamanho da imagens após mudança
+        list($width, $height, $type, $attr) = getimagesize($filepath);
 
-		// Compara os tamanhos passados e reais da imagem
-		$this->assertEquals('500', $width);
-		$this->assertEquals('150', $height);
+        // Compara os tamanhos passados e reais da imagem
+        $this->assertEquals('500', $width);
+        $this->assertEquals('150', $height);
 
-		// Fecha o arquivo
-		$oImage->close();
+        // Fecha o arquivo
+        $oImage->close();
 
-		// Destroi o objeto
-		unset($oImage);
+        // Destroi o objeto
+        unset($oImage);
 
-		// Abre o JPG
+        // Abre o JPG
         $oImage = new Image($filepath);
 
         // Aumenta a imagem JPG com Crop e forçado
-		$this->assertTrue($oImage->resize('1000', '2', true, true));
+        $this->assertTrue($oImage->resize('1000', '2', true, true));
 
-		// Salva as mudanças
-		$this->assertTrue($oImage->save());
+        // Salva as mudanças
+        $this->assertTrue($oImage->save());
 
-		// Recupera o tamanho da imagem após a mudança
-		list($width, $height, $type, $attr) = getimagesize($filepath);
+        // Recupera o tamanho da imagem após a mudança
+        list($width, $height, $type, $attr) = getimagesize($filepath);
 
-		// Compara os tamanhos passados e reais da imagem
-		$this->assertEquals('1000', $width);
-		$this->assertEquals('2', $height);
+        // Compara os tamanhos passados e reais da imagem
+        $this->assertEquals('1000', $width);
+        $this->assertEquals('2', $height);
 
-		// Fecha o arquivo
-		$oImage->close();
+        // Fecha o arquivo
+        $oImage->close();
 
-		// Destroi o objeto
-		unset($oImage);
+        // Destroi o objeto
+        unset($oImage);
 
-		// Abre o JPG
+        // Abre o JPG
         $oImage = new Image($filepath);
 
         // Reduz a imagem JPG com Crop e forçado
-		$this->assertTrue($oImage->resize('50', '1', true, true));
-		$this->assertTrue($oImage->save());
+        $this->assertTrue($oImage->resize('50', '1', true, true));
+        $this->assertTrue($oImage->save());
 
-		// Recupera o tamanho da imagem após a mudança
-		list($width, $height, $type, $attr) = getimagesize($filepath);
+        // Recupera o tamanho da imagem após a mudança
+        list($width, $height, $type, $attr) = getimagesize($filepath);
 
-		// Compara os tamanhos passados e reais da imagem
-		$this->assertEquals('50', $width);
-		$this->assertEquals('1', $height);
+        // Compara os tamanhos passados e reais da imagem
+        $this->assertEquals('50', $width);
+        $this->assertEquals('1', $height);
 
-		// Fecha o arquivo
-		$oImage->close();
+        // Fecha o arquivo
+        $oImage->close();
 
-		// Destroi o objeto
-		unset($oImage);
+        // Destroi o objeto
+        unset($oImage);
 
-		// Sem Crop e reduzindo forçado
-		copy($this->imgPath.'/exemplo_800x600.jpg', $this->imgPath.'/temp/temp.jpg');
+        // Sem Crop e reduzindo forçado
+        copy($this->imgPath.'/exemplo_800x600.jpg', $this->imgPath.'/temp/temp.jpg');
 
-		// Abre JPG
+        // Abre JPG
         $oImage = new Image($filepath);
 
         // Reduz o  imagem sem crop e forçado
-		$this->assertTrue($oImage->resize('113','150',false,true));
-		$this->assertTrue($oImage->save());
+        $this->assertTrue($oImage->resize('113', '150', false, true));
+        $this->assertTrue($oImage->save());
 
-		// Recupera o tamanho da imagem após a mudança
-		list($width, $height, $type, $attr)= getimagesize($filepath);
+        // Recupera o tamanho da imagem após a mudança
+        list($width, $height, $type, $attr)= getimagesize($filepath);
 
-		// Compara os tamanhos passados e reais da imagem
-		$this->assertEquals('113', $width);
-		$this->assertEquals('150', $height);
+        // Compara os tamanhos passados e reais da imagem
+        $this->assertEquals('113', $width);
+        $this->assertEquals('150', $height);
 
-		// Fecha o arquivo
-		$oImage->close();
+        // Fecha o arquivo
+        $oImage->close();
 
-		// Destroi o objeto
-		unset($oImage);
+        // Destroi o objeto
+        unset($oImage);
 
-		// Abre JPG
+        // Abre JPG
         $oImage = new Image($filepath);
 
         // Reduz a imagem JPG com Crop e forçado
-		$this->assertTrue($oImage->resize('10', '149', false, true));
-		$this->assertTrue($oImage->save());
+        $this->assertTrue($oImage->resize('10', '149', false, true));
+        $this->assertTrue($oImage->save());
 
-		// Recupera o tamanho da imagem após a mudança
-		list($width, $height, $type, $attr) = getimagesize($filepath);
+        // Recupera o tamanho da imagem após a mudança
+        list($width, $height, $type, $attr) = getimagesize($filepath);
 
-		// Compara os tamanhos passados e reais da imagem
-		$this->assertEquals('10', $width);
-		$this->assertEquals('13', $height);
+        // Compara os tamanhos passados e reais da imagem
+        $this->assertEquals('10', $width);
+        $this->assertEquals('13', $height);
 
-		// Fecha o arquivo
-		$oImage->close();
+        // Fecha o arquivo
+        $oImage->close();
 
-		// Destroi o objeto
-		unset($oImage);
+        // Destroi o objeto
+        unset($oImage);
 
-		// Cria o arquivo temporário
-		copy($this->imgPath.'/exemplo_1024x768.jpg', $this->imgPath.'/temp/temp.jpg');
-		$filepath = $this->imgPath.'/temp/temp.jpg';
+        // Cria o arquivo temporário
+        copy($this->imgPath.'/exemplo_1024x768.jpg', $this->imgPath.'/temp/temp.jpg');
+        $filepath = $this->imgPath.'/temp/temp.jpg';
 
-		// Abre o arquivo
-		$oImage = new Image($filepath);
+        // Abre o arquivo
+        $oImage = new Image($filepath);
 
-		// Reduz o arquivo SEM CROP
-		$this->assertTrue($oImage->resize('800', '600', false, true));
-		$this->assertTrue($oImage->save());
+        // Reduz o arquivo SEM CROP
+        $this->assertTrue($oImage->resize('800', '600', false, true));
+        $this->assertTrue($oImage->save());
 
-		// Recupera o tamanho da imagem após a mudança
-		list($width, $height, $type, $attr) = getimagesize($filepath);
+        // Recupera o tamanho da imagem após a mudança
+        list($width, $height, $type, $attr) = getimagesize($filepath);
 
-		// Compara os tamanhos passados e reais da imagem
-		$this->assertEquals('800', $width);
-		$this->assertEquals('600',   $height);
+        // Compara os tamanhos passados e reais da imagem
+        $this->assertEquals('800', $width);
+        $this->assertEquals('600', $height);
 
-		// Fecha o arquivo
-		$oImage->close();
+        // Fecha o arquivo
+        $oImage->close();
 
-		// Destroi o objeto
-		unset($oImage);
+        // Destroi o objeto
+        unset($oImage);
 
-		/**
-		 * ARQUIVO PNG
-		 */
+        /**
+         * ARQUIVO PNG
+         */
 
-    	// Cria o arquivo temporário
+        // Cria o arquivo temporário
         copy($this->imgPath.'/exemplo.png', $this->imgPath.'/temp/temp.png');
 
         // Abre arquivo
@@ -401,35 +401,35 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $oImage = new Image($filepath);
 
         // aumentando o PNG COM CROP
-		$this->assertTrue($oImage->resize('1000','500', true, true));
-		$this->assertTrue($oImage->save());
+        $this->assertTrue($oImage->resize('1000', '500', true, true));
+        $this->assertTrue($oImage->save());
 
-		// Recupera o tamanho da imagem após a mudança
-		list($width, $height, $type, $attr) = getimagesize($filepath);
+        // Recupera o tamanho da imagem após a mudança
+        list($width, $height, $type, $attr) = getimagesize($filepath);
 
-		// Compara os tamanhos passados e reais da imagem
-		$this->assertEquals('1000', $width);
-		$this->assertEquals('500', $height);
+        // Compara os tamanhos passados e reais da imagem
+        $this->assertEquals('1000', $width);
+        $this->assertEquals('500', $height);
 
         // Abre o PNG
         $oImage->open($filepath);
 
         // Reduz o PNG
-		$this->assertTrue($oImage->resize('200','100'));
-		$this->assertTrue($oImage->save());
+        $this->assertTrue($oImage->resize('200', '100'));
+        $this->assertTrue($oImage->save());
 
-		// Recupera o tamanho da imagem após a mudança
-		list($width, $height, $type, $attr) = getimagesize($filepath);
+        // Recupera o tamanho da imagem após a mudança
+        list($width, $height, $type, $attr) = getimagesize($filepath);
 
-		// Compara os tamanhos passados e reais da imagem
-		$this->assertEquals('200', $width);
-		$this->assertEquals('100', $height);
+        // Compara os tamanhos passados e reais da imagem
+        $this->assertEquals('200', $width);
+        $this->assertEquals('100', $height);
 
-		// Fecha o arquivo
-		$oImage->close();
+        // Fecha o arquivo
+        $oImage->close();
 
-		// Destroi o objeto
-		unset($oImage);
+        // Destroi o objeto
+        unset($oImage);
     }
 
     /**
@@ -439,35 +439,37 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoveMetadata()
     {
-		 // Cria o arquivo temporário
-		 $source = $this->imgPath.'/exemplo_800x600.jpg';
-		 $target = $this->imgPath.'/temp/metadateTest.jpg';
-         copy($source, $target);
+        // Cria o arquivo temporário
+        $source = $this->imgPath.'/exemplo_800x600.jpg';
+        $target = $this->imgPath.'/temp/metadateTest.jpg';
+        copy($source, $target);
 
-         // Salva os metadados do arquivo original
-         $original = exif_read_data($source);
+        // Salva os metadados do arquivo original
+        $original = exif_read_data($source);
 
-         // Abre o arquivo
-         $oImage = new Image($target);
+        // Abre o arquivo
+        $oImage = new Image($target);
 
-         // Remove os metadados
-         $this->assertTrue($oImage->removeMetadata());
+        // Remove os metadados
+        $this->assertTrue($oImage->removeMetadata());
 
-         // salva as alterações
-         $oImage->save();
+        // salva as alterações
+        $oImage->save();
 
-         // Metadado atuais
-         $atual = exif_read_data($target);
+        // Metadado atuais
+        $atual = exif_read_data($target);
 
-         // Compara os metadados
-         $this->assertNotEquals($original, $atual);
+        // Compara os metadados
+        $this->assertNotEquals($original, $atual);
     }
 
     public function removeTempImages()
     {
         $files = scandir($this->imgPath.'/temp');
         foreach ($files as $f) {
-            if ($f === '.' || $f === '..' || $f === '.gitignore') continue;
+            if ($f === '.' || $f === '..' || $f === '.gitignore') {
+                continue;
+            }
             unlink($this->imgPath."/temp/$f");
         }
     }

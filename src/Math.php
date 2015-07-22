@@ -18,7 +18,7 @@ class Math
      * @param int $quantidade Quantidade de vezes que a moda foi observada
      * @return array Valores mais observados no vetor
      */
-    static function moda(array $a, &$quantidade = 0)
+    public static function moda(array $a, &$quantidade = 0)
     {
         $moda = array();
         if (empty($a)) {
@@ -61,7 +61,7 @@ class Math
      * @param callback $comparacao Funcao de comparacao para ordenar o vetor (ou null para usar a funcao sort para ordenar)
      * @return number || bool Mediana do vetor ou false, caso seja passado um vetor vazio
      */
-    static function mediana(array $a, $comparacao = null)
+    public static function mediana(array $a, $comparacao = null)
     {
         if (empty($a)) {
             return false;
@@ -98,8 +98,8 @@ class Math
      *
      * @see gmp_sign()
      */
-    static function sign( $number )
+    public static function sign($number)
     {
-        return ( $number > 0 ) ? 1 : ( ( $number < 0 ) ? -1 : 0 );
+        return ($number > 0) ? 1 : (($number < 0) ? -1 : 0);
     }
 }
