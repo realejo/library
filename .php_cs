@@ -1,9 +1,8 @@
 <?php
 $finder = Symfony\CS\Finder\DefaultFinder::create()
-    ->in('library')
-    ->in('tests')
-    ->notPath('assets')
-    ->notPath('logs')
+    ->in('src')
+    ->in('test')
+    ->notPath('_files')
     ->filter(function (SplFileInfo $file) {
         if (strstr($file->getPath(), 'compatibility')) {
             return false;
