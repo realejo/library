@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * Version test case.
  */
 use Realejo\Version;
 
-class VersionTest extends PHPUnit_Framework_TestCase
+class VersionTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetLatest()
     {

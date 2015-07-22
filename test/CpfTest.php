@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * CPF test case.
  */
 use Realejo\Cpf;
 
-class CpfTest extends PHPUnit_Framework_TestCase
+class CpfTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests Cpf::unformat()

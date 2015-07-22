@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * Cnpj test case.
  */
 use Realejo\Cnpj;
 
-class CnpjTest extends PHPUnit_Framework_TestCase
+class CnpjTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests Cnpj::unformat()

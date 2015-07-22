@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * Image test case.
  */
 use Realejo\Image;
 
-class ImageTest extends PHPUnit_Framework_TestCase
+class ImageTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var string
@@ -19,7 +22,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         // path para as imagens
-        $this->imgPath = realpath(__DIR__ . '/../../assets/');
+        $this->imgPath = realpath(__DIR__ . '/_files');
 
         // Remove as imagens temporárias
         $this->removeTempImages();

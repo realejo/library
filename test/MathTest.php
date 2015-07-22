@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * Math test case.
  */
 use Realejo\Math;
 
-class MathTest extends PHPUnit_Framework_TestCase
+class MathTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests Math::moda()

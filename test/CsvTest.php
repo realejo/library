@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * Csv test case.
  */
 use Realejo\Csv;
 
-class CsvTest extends PHPUnit_Framework_TestCase
+class CsvTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests RW_Base::getCSV()

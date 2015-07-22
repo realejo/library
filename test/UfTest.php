@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * Uf test case
  */
 use Realejo\Uf;
 
-class UfTest extends PHPUnit_Framework_TestCase
+class UfTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Lista de UFs

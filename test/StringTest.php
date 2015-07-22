@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * String test case.
  */
 use Realejo\String;
 
-class StringTest extends PHPUnit_Framework_TestCase
+class StringTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests String::RemoveAcentos()
