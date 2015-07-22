@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * Uf test case
  */
 use Realejo\Uf;
 
-class UfTest extends PHPUnit_Framework_TestCase
+class UfTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Lista de UFs
@@ -65,7 +68,7 @@ class UfTest extends PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $ufRegiao = array (
+    protected $ufRegiao = array(
             'AC' => 'NO',
             'AL' => 'NE',
             'AM' => 'NO',
@@ -99,7 +102,7 @@ class UfTest extends PHPUnit_Framework_TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp ()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -111,7 +114,7 @@ class UfTest extends PHPUnit_Framework_TestCase
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown ()
+    protected function tearDown()
     {
         // TODO Auto-generated UfTest::tearDown()
 
@@ -123,7 +126,7 @@ class UfTest extends PHPUnit_Framework_TestCase
     /**
      * Constructs the test case.
      */
-    public function __construct ()
+    public function __construct()
     {
         // TODO Auto-generated constructor
     }
@@ -131,50 +134,44 @@ class UfTest extends PHPUnit_Framework_TestCase
     /**
      * Tests Uf::getUfs()
      */
-    public function testGetUfs ()
+    public function testGetUfs()
     {
         // TODO Auto-generated UfTest::testGetUfs()
         $this->markTestSkipped("getUfs test not implemented");
 
         Uf::getUfs(/* parameters */);
-
     }
 
     /**
      * Tests Uf::getUf()
      */
-    public function testGetUf ()
+    public function testGetUf()
     {
         // TODO Auto-generated UfTest::testGetUf()
         $this->markTestSkipped("getUf test not implemented");
 
         Uf::getUf(/* parameters */);
-
     }
 
     /**
      * Tests Uf::getRegioes()
      */
-    public function testGetRegioes ()
+    public function testGetRegioes()
     {
         // TODO Auto-generated UfTest::testGetRegioes()
         $this->markTestSkipped("getRegioes test not implemented");
 
         Uf::getRegioes(/* parameters */);
-
     }
 
     /**
      * Tests Uf::getUfRegiao()
      */
-    public function testGetUfRegiao ()
+    public function testGetUfRegiao()
     {
         // TODO Auto-generated UfTest::testGetUfRegiao()
         $this->markTestSkipped("getUfRegiao test not implemented");
 
         Uf::getUfRegiao(/* parameters */);
-
     }
-
 }
-

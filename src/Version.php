@@ -13,7 +13,7 @@ class Version
      * RWLIB indentificador de versão
      * @see compareVersion()
      */
-    CONST VERSION = '1.1';
+    const VERSION = '1.1';
 
     /**
      * The latest stable version Zend Framework available

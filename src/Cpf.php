@@ -15,7 +15,7 @@ class Cpf
      * @param string   $cpf CPF com ou sem formatação
      * @return boolean
      */
-    static function isValid($cpf)
+    public static function isValid($cpf)
     {
         $cpf = self::unformat($cpf);
 
@@ -29,16 +29,18 @@ class Cpf
             $cpf == '66666666666' ||
             $cpf == '77777777777' ||
             $cpf == '88888888888' ||
-            $cpf == '99999999999') return false;
+            $cpf == '99999999999') {
+            return false;
+        }
 
         for ($t = 9; $t < 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
-                $d += $cpf{$c} * (($t + 1) - $c);
+                $d += $cpf[$c] * (($t + 1) - $c);
             }
 
             $d = ((10 * $d) % 11) % 10;
 
-            if ($cpf{$c} != $d) {
+            if ($cpf[$c] != $d) {
                 return false;
             }
         }
@@ -53,14 +55,14 @@ class Cpf
      *
      * @return string
      */
-    static function format($cpf)
+    public static function format($cpf)
     {
         // Reduz ao CPF desformatado
         $cpf = self::unformat($cpf);
 
         // Verifica se há um CPF
-        if ( !empty($cpf) ) {
-            $cpf = substr($cpf,0,3) . '.' . substr($cpf,3,3) . '.' . substr($cpf,6,3) . '-' . substr($cpf,9,2);
+        if (!empty($cpf)) {
+            $cpf = substr($cpf, 0, 3) . '.' . substr($cpf, 3, 3) . '.' . substr($cpf, 6, 3) . '-' . substr($cpf, 9, 2);
         }
 
         // Retorna o CPF formatado
@@ -73,14 +75,14 @@ class Cpf
      * @param string $cpf
      * @return string
      */
-    static function unformat($cpf)
+    public static function unformat($cpf)
     {
         // Remove tudo que não for numeros
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
 
         // Verifica se sobrou numero para o CPF
         //@todo verificar o tamamho minimo de um CPF
-        if ( !empty($cpf) ) {
+        if (!empty($cpf)) {
             return str_pad($cpf, 11, '0', STR_PAD_LEFT);
         }
 

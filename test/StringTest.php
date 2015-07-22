@@ -1,15 +1,18 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * String test case.
  */
 use Realejo\String;
 
-class StringTest extends PHPUnit_Framework_TestCase
+class StringTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests String::RemoveAcentos()
      */
-    public function testRemoveAcentos ()
+    public function testRemoveAcentos()
     {
         $string  = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝŸàáâãäåæçèéêëìíîïñòóôõöùúûüýÿ';
         $retorno = 'AAAAAAAECEEEEIIIINOOOOOUUUUYYaaaaaaaeceeeeiiiinooooouuuuyy';
@@ -19,26 +22,26 @@ class StringTest extends PHPUnit_Framework_TestCase
     /**
      * Tests String::strip_tags_attributes()
      */
-    public function testStrip_tags_attributes ()
+    public function testStrip_tags_attributes()
     {
         //$allow = '<span><p><ul><li><b><strong><a>';
         $allow1 = '<span><a><p>';
         $allowatributs1 = 'style';
         $str1 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a href="#">Header</a>';
         $equals1 = '<p style_-_-"text-align:center">Paragraph</p>Bold<span style_-_-"color:red">Red</span><a href="#">Header</a>';
-        $this->assertEquals($equals1, String::strip_tags_attributes($str1,$allow1,$allowatributs1));
+        $this->assertEquals($equals1, String::strip_tags_attributes($str1, $allow1, $allowatributs1));
 
         $allow2 = '<span><p><ul><li><b><strong><a>';
         $allowatributs2 = 'style';
         $str2 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a style="color:red" href="#">Header</a>';
         $equals2 = '<p style_-_-"text-align:center">Paragraph</p><strong style_-_-"color:red">Bold</strong><span style_-_-"color:red">Red</span><a style_-_-"color:red" href="#">Header</a>';
-        $this->assertEquals($equals2, String::strip_tags_attributes($str2,$allow2,$allowatributs2));
+        $this->assertEquals($equals2, String::strip_tags_attributes($str2, $allow2, $allowatributs2));
     }
 
     /**
      * Tests String::CleanFileName()
      */
-    public function testCleanFileName ()
+    public function testCleanFileName()
     {
         $filename = '#$%@#%$ãoçáàbácôíxêchôçú';
         $this->assertEquals('aocaabacoixechocu', String::CleanFileName($filename));
@@ -49,35 +52,35 @@ class StringTest extends PHPUnit_Framework_TestCase
      */
     public function testSanitize()
     {
-        $this->assertEquals("uma frase com aáeéiíoóuú e espaços",String::sanitize("uma frase com aáeéiíoóuú e espaços"));
-        $this->assertEquals("áéíóú123",String::sanitize("áéíóú123"));
-        $this->assertEquals("áéíóú123",String::sanitize("áéíóú123\n"));
+        $this->assertEquals("uma frase com aáeéiíoóuú e espaços", String::sanitize("uma frase com aáeéiíoóuú e espaços"));
+        $this->assertEquals("áéíóú123", String::sanitize("áéíóú123"));
+        $this->assertEquals("áéíóú123", String::sanitize("áéíóú123\n"));
 
         // Array
         $teste = array('linha1'=>"áéíóú123-", 'linha2'=> "áéíóú123\n", 'linha3'=> "áéíóú123\n");
 
-        $resultado = array('linha1'=>"áéíóú123-", 'linha2'=> "áéíóú123", 'linha3'=> "áéíóú123");
-        $this->assertEquals($resultado,String::sanitize($teste));
+        $resultado = array('linha1'=>"áéíóú123-", 'linha2'=> "áéíóú123", 'linha3' => "áéíóú123");
+        $this->assertEquals($resultado, String::sanitize($teste));
 
-        $resultado = array('linha1'=>"áéíóú123-", 'linha2'=> "áéíóú123\n", 'linha3'=> "áéíóú123");
-        $this->assertEquals($resultado,String::sanitize($teste,array('ignore'=>'linha2')));
+        $resultado = array('linha1' => "áéíóú123-", 'linha2' => "áéíóú123\n", 'linha3' => "áéíóú123");
+        $this->assertEquals($resultado, String::sanitize($teste, array('ignore'=>'linha2')));
 
         // Nomes com orkutify
-        $this->assertEquals('Ana P.',String::sanitize('Ana ▒ ▒ ▒ P.'));
-        $this->assertEquals('Luiz M.',String::sanitize('Luiz M. ♪♫'));
-        $this->assertEquals('Luiz áéúíó M.',String::sanitize('Luiz áéúíó M. ♪♫'));
-        $this->assertEquals('Thamyris Mendonça',String::sanitize('•●๋• Thamyris Mendonça •●๋•'));
-        $this->assertEquals('FERNANDA FIGHT',String::sanitize('☠ FERNANDA FIGHT ☠ '));
+        $this->assertEquals('Ana P.', String::sanitize('Ana ▒ ▒ ▒ P.'));
+        $this->assertEquals('Luiz M.', String::sanitize('Luiz M. ♪♫'));
+        $this->assertEquals('Luiz áéúíó M.', String::sanitize('Luiz áéúíó M. ♪♫'));
+        $this->assertEquals('Thamyris Mendonça', String::sanitize('•●๋• Thamyris Mendonça •●๋•'));
+        $this->assertEquals('FERNANDA FIGHT', String::sanitize('☠ FERNANDA FIGHT ☠ '));
 
         // Especiais
-        $this->assertEquals('',String::sanitize(null));
-        $this->assertEquals('',String::sanitize("\n"));
+        $this->assertEquals('', String::sanitize(null));
+        $this->assertEquals('', String::sanitize("\n"));
 
         // Caracteres escondidos ou inválidos
-        $this->assertEquals("bigbob !",String::sanitize("bigbob ­­ !")); // não é hifen!
-        $this->assertEquals("bigbob!",String::sanitize("bigbob­­!")); // não é hifen!
-        $this->assertEquals("!!",String::sanitize("!­­!")); // não é hifen!
-        $this->assertEquals("!--!",String::sanitize("!--!")); // é hifen!
+        $this->assertEquals("bigbob !", String::sanitize("bigbob ­­ !")); // não é hifen!
+        $this->assertEquals("bigbob!", String::sanitize("bigbob­­!")); // não é hifen!
+        $this->assertEquals("!!", String::sanitize("!­­!")); // não é hifen!
+        $this->assertEquals("!--!", String::sanitize("!--!")); // é hifen!
     }
 
     /**
@@ -109,7 +112,7 @@ class StringTest extends PHPUnit_Framework_TestCase
     /**
      * Tests String::getSEOID()
      */
-    public function testGetSlugId ()
+    public function testGetSlugId()
     {
         $this->assertEquals('123', String::getSlugId('123-bla,bla-bla'));
         $this->assertEquals('123', String::getSlugId('123,bla-bla-bla'));
@@ -117,7 +120,7 @@ class StringTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('123', String::getSlugId('123-bla-bla-bla', '-'));
         $this->assertEquals('123', String::getSlugId('123 -b la - b la - b l a ', '-'));
         $this->assertEquals('123-bla-bla-bla', String::getSlugId('123-bla-bla-bla', ','));
-        $this->assertEquals('123-bla', String::getSlugId('123-bla,bla-bla',','));
+        $this->assertEquals('123-bla', String::getSlugId('123-bla,bla-bla', ','));
 
         $this->assertEquals('agora', String::getSlugId('ágora-sim', '-'));
     }
@@ -125,11 +128,11 @@ class StringTest extends PHPUnit_Framework_TestCase
     /**
      * Tests String::CleanHTML()
      */
-    public function testCleanHTML ()
+    public function testCleanHTML()
     {
         $allow   = '<span><a><br>';
         $str     = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br><span style="color:red">Red</span><a href="#">Header</a>';
         $retorno = 'ParagraphBold<br><span style="color:red">Red</span><a href="#">Header</a>';
-        $this->assertEquals($retorno, String::CleanHTML($str,$allow));
+        $this->assertEquals($retorno, String::CleanHTML($str, $allow));
     }
 }

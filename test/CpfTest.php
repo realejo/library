@@ -1,15 +1,18 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * CPF test case.
  */
 use Realejo\Cpf;
 
-class CpfTest extends PHPUnit_Framework_TestCase
+class CpfTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests Cpf::unformat()
      */
-    public function testUnformat ()
+    public function testUnformat()
     {
         $this->assertStringMatchesFormat('', Cpf::unformat(null));
         $this->assertStringMatchesFormat('', Cpf::unformat(''));
@@ -35,7 +38,7 @@ class CpfTest extends PHPUnit_Framework_TestCase
     /**
      * Tests Cpf::format()
      */
-    public function testFormat ()
+    public function testFormat()
     {
         $this->assertEquals('', Cpf::format(null));
         $this->assertEquals('', Cpf::format(''));
@@ -61,14 +64,13 @@ class CpfTest extends PHPUnit_Framework_TestCase
         $this->assertStringMatchesFormat('123.456.789-01', Cpf::format('12345678901'));
         $this->assertStringMatchesFormat('000.000.000-01', Cpf::format('000.000.000-01'));
         $this->assertStringMatchesFormat('123.456.789-01', Cpf::format('123.456.789-01'));
-
     }
 
     /**
      * Tests Cpf::isValid()
      * @see http://www.geradorcpf.com/
      */
-    public function testValid ()
+    public function testValid()
     {
         $this->assertFalse(Cpf::isValid(null));
         $this->assertFalse(Cpf::isValid(''));
@@ -97,7 +99,5 @@ class CpfTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(Cpf::isValid('05246448452'));
         $this->assertTrue(Cpf::isValid('5246448452'));
         $this->assertTrue(Cpf::isValid(5246448452));
-
     }
 }
-

@@ -1,10 +1,13 @@
 <?php
+
+namespace RealejoTest;
+
 /**
  * Version test case.
  */
 use Realejo\Version;
 
-class VersionTest extends PHPUnit_Framework_TestCase
+class VersionTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetLatest()
     {
@@ -14,7 +17,6 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function testCompareVersion()
     {
         $this->assertEquals(0, Version::compareVersion(Version::VERSION));
-        $this->assertContains(Version::compareVersion(Version::getLatest()), array(-1,0,1));
+        $this->assertContains(Version::compareVersion(Version::getLatest()), array(-1, 0, 1));
     }
 }
-

@@ -16,7 +16,7 @@ class String
      *
      * @return string
      */
-    static public function RemoveAcentos($subject)
+    public static function RemoveAcentos($subject)
     {
         $specialChars = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',  'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ',  'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ',  'ĳ',  'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ',  'œ',  'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ',  'ǽ',  'Ǿ', 'ǿ');
         $correctChars = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o');
@@ -31,19 +31,18 @@ class String
      * @param str $allowattributes
      * @return str
      */
-    static public function strip_tags_attributes($string, $allowtags=NULL, $allowattributes=NULL)
+    public static function strip_tags_attributes($string, $allowtags=NULL, $allowattributes=NULL)
     {
         if ($allowattributes) {
-
-            if(!is_array($allowattributes)){
-                $allowattributes = explode(",",$allowattributes);
+            if (!is_array($allowattributes)) {
+                $allowattributes = explode(",", $allowattributes);
             }
 
-            foreach($allowattributes as $aa){
+            foreach ($allowattributes as $aa) {
                 $count = substr_count($string, $aa);
                 for ($i=0; $i<$count; $i++) {
-                     $rep = '/([^>]*) ('.$aa.')(=)(\'.*\'|".*")/i';
-                     $string = preg_replace($rep, '$1 $2_-_-$4', $string);
+                    $rep = '/([^>]*) ('.$aa.')(=)(\'.*\'|".*")/i';
+                    $string = preg_replace($rep, '$1 $2_-_-$4', $string);
                 }
             }
         }
@@ -59,7 +58,7 @@ class String
      * @param string $file
      * @return string
      */
-    static public function cleanFileName($subject)
+    public static function cleanFileName($subject)
     {
         $subject = preg_replace('/\s+/', '_', self::RemoveAcentos(trim($subject)));
         $search  = array( "([\40])" , "([^a-zA-Z0-9-._])", "(-{2,})" );
@@ -80,7 +79,7 @@ class String
      *
      * @return array|string
      */
-    static public function sanitize($words, $options = null)
+    public static function sanitize($words, $options = null)
     {
         // Verifica se é um array
         $isArray = true;
@@ -90,8 +89,11 @@ class String
         }
 
         // Verifica se $options é um array
-        if ( empty($options) ) {$options = array();}
-        elseif (!is_array($options)) {$options = array($options);}
+        if (empty($options)) {
+            $options = array();
+        } elseif (!is_array($options)) {
+            $options = array($options);
+        }
 
         // Verifica se o ignore é um array
         if (!isset($options['ignore'])) {
@@ -103,20 +105,22 @@ class String
         // Faz o filtro
         foreach ($words as $k=>$v) {
             // Verifica se deve ignorar
-            if (in_array($k, $options['ignore']) || $v === null) continue;
+            if (in_array($k, $options['ignore']) || $v === null) {
+                continue;
+            }
 
             // Faz o filtro
             $v = filter_var($v, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
 
             // Verifica o filtro de URL
-            if ( isset($options['url']) || in_array('url', $options) ) {
+            if (isset($options['url']) || in_array('url', $options)) {
                 $v = filter_var($v, FILTER_SANITIZE_URL);
             }
 
             // Verifica o white list
             $specialChars = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ');
-            $pattern = '/[^A-Za-z0-9_\`\~\!\@\#\$\%\^\*\(\)\; \,\.\'\/\_\-' . implode('',$specialChars) . ']/iu';
-            $v = preg_replace($pattern,'', $v);
+            $pattern = '/[^A-Za-z0-9_\`\~\!\@\#\$\%\^\*\(\)\; \,\.\'\/\_\-' . implode('', $specialChars) . ']/iu';
+            $v = preg_replace($pattern, '', $v);
 
             // Verifica o black list
 
@@ -140,20 +144,20 @@ class String
      *
      * @return string
      */
-    static public function getSlug($string, $space="-")
+    public static function getSlug($string, $space="-")
     {
         // Passa apra UTF8
         $string = self::toUTF8(trim($string));
 
         // remove os acentos considerando o UTF8
-        $string = self::RemoveAcentos(mb_strtolower($string,'UTF8'));
+        $string = self::RemoveAcentos(mb_strtolower($string, 'UTF8'));
         $string = preg_replace('([_|\s]+)', '-', $string); // change all spaces and underscores to a hyphen
         $string = preg_replace('([^a-z0-9-])', '', $string); // remove all non-numeric characters except the hyphen
         $string = preg_replace('([-]+)', '-', $string); // replace multiple instances of the hyphen with a single instance
         $string = preg_replace('(^-+|-+$)', '', $string); // trim leading and trailing hyphens
         $string = str_replace('-', $space, $string);
-        return trim($string);
 
+        return trim($string);
     }
 
     /**
@@ -163,23 +167,21 @@ class String
      *
      * @return string
      */
-    static public function getSlugId($slug, $delimiter = null)
+    public static function getSlugId($slug, $delimiter = null)
     {
-    	// Remove acentos
-    	$slug = self::RemoveAcentos($slug);
+        // Remove acentos
+        $slug = self::RemoveAcentos($slug);
 
-    	// Remove os caracteres inválidos
+        // Remove os caracteres inválidos
         $slug = self::getSafeSlug($slug);
 
         // Define o delimitador
-        if ( empty($delimiter) ) {
-            if (strpos($slug,',') && strpos($slug,'-')) {
-                $delimiter = (strpos($slug,',') < strpos($slug,'-')) ? ',':'-';
-
-            } elseif (strpos($slug,',')) {
+        if (empty($delimiter)) {
+            if (strpos($slug, ',') && strpos($slug, '-')) {
+                $delimiter = (strpos($slug, ',') < strpos($slug, '-')) ? ',':'-';
+            } elseif (strpos($slug, ',')) {
                 $delimiter = ',';
-
-            } elseif (strpos($slug,'-')) {
+            } elseif (strpos($slug, '-')) {
                 $delimiter = '-';
             }
         }
@@ -205,7 +207,7 @@ class String
      * @param str $string
      * @return string
      */
-    static public function getSafeID($codigo)
+    public static function getSafeID($codigo)
     {
         $codigo = strip_tags($codigo);
         $codigo = preg_replace('/[^A-Za-z0-9_]/', '', $codigo);
@@ -218,7 +220,7 @@ class String
      * @param str $string
      * @return string
      */
-    static public function getSafeSlug($url)
+    public static function getSafeSlug($url)
     {
         $url = strip_tags($url);
         $url = preg_replace('/[^,A-Za-z0-9_-]/', '', $url);
@@ -227,16 +229,18 @@ class String
 
     public static function cleanHTML($html,  $allowable_tags = null)
     {
-        if (is_null($html)) return '';
+        if (is_null($html)) {
+            return '';
+        }
 
-        $texto = strip_tags($html,  $allowable_tags );
+        $texto = strip_tags($html,  $allowable_tags);
         $texto = str_replace('&nbsp;', ' ', $texto);
         $texto = preg_replace('/\n/', ' ', $texto);
         $texto = preg_replace('/\t/', ' ', $texto);
         $texto = preg_replace('/\s\s+/', ' ', $texto);
 
         // volta os acentos
-        $texto = html_entity_decode ( $texto, ENT_COMPAT, 'UTF-8' );
+        $texto = html_entity_decode($texto, ENT_COMPAT, 'UTF-8');
 
         return trim($texto);
     }
