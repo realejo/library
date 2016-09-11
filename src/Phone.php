@@ -47,10 +47,9 @@ class Phone
             $phoneNumber = '('.$areaCode.') '.$fristNumber.'-'.$lastNumber;
 
         // Verifica se é só o telefone
-        }
-        else if(strlen($phoneNumber) == 8) {
+        } else if(strlen($phoneNumber) == ($totalNumber - 2)) {
             $fristNumber = substr($phoneNumber, 0, $numberDigits);
-            $lastNumber  = substr($phoneNumber, 4, 4);
+            $lastNumber  = substr($phoneNumber, $numberDigits, 4);
         
             $phoneNumber = $fristNumber.'-'.$lastNumber;
         }
