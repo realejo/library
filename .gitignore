@@ -3,11 +3,10 @@
 .project
 /composer.phar
 /composer.lock
-
 clover.xml
 composer.lock
 coveralls-upload.json
-phpunit.xml
 vendor
 /.idea/
 /phpunit.phar
+.php_cs.cache

@@ -35,20 +35,19 @@ class Math
                     'valor'       => $valor
                 );
             }
-            $ocorrencias[$valor_str]['ocorrencias'] = $ocorrencias[$valor_str]['ocorrencias'] + 1;
+            $ocorrencias[$valor_str]['ocorrencias'] += 1;
         }
 
         // Determinar maior ocorrencia
-        $quantidade = null;
         foreach ($ocorrencias as $item) {
-            if ($quantidade === null || $item['ocorrencias'] >= $quantidade) {
+            if ($item['ocorrencias'] >= $quantidade) {
                 $quantidade = $item['ocorrencias'];
             }
         }
 
         // Obter valores com a maior ocorrencia
         foreach ($ocorrencias as $item) {
-            if ($item['ocorrencias'] == $quantidade) {
+            if ($item['ocorrencias'] === $quantidade) {
                 $moda[] = $item['valor'];
             }
         }
@@ -59,7 +58,7 @@ class Math
      * Obtem a mediana de um vetor de numeros.
      * @param array $a Vetor de numeros
      * @param callback $comparacao Funcao de comparacao para ordenar o vetor (ou null para usar a funcao sort para ordenar)
-     * @return number || bool Mediana do vetor ou false, caso seja passado um vetor vazio
+     * @return number|boolean Mediana do vetor ou false, caso seja passado um vetor vazio
      */
     public static function mediana(array $a, $comparacao = null)
     {
@@ -94,12 +93,15 @@ class Math
      *
      * @param int $number número
      *
-     * @return Returns 1 if a is positive, -1 if a is negative, and 0 if a is zero.
+     * @return int Returns 1 if a is positive, -1 if a is negative, and 0 if a is zero.
      *
      * @see gmp_sign()
      */
     public static function sign($number)
     {
-        return ($number > 0) ? 1 : (($number < 0) ? -1 : 0);
+        if ($number > 0) {
+            return 1;
+        }
+        return ($number < 0) ? -1 : 0;
     }
 }

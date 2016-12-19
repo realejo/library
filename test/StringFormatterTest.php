@@ -2,12 +2,12 @@
 
 namespace RealejoTest;
 
-/**
- * String test case.
- */
 use Realejo\StringFormatter;
 
-class StringTest extends \PHPUnit_Framework_TestCase
+/**
+ * Test cases para o Realejo\StringFormatter
+ */
+class StringFormatterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests StringFormatter::RemoveAcentos()
@@ -95,7 +95,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
         // A partir do PHP 5.4 o enconding padrão é o UTF-8
         //@todo verificar se precisa testar outra coisa diferente
         if (PHP_MAJOR_VERSION === 5 && PHP_MINOR_VERSION === 3) {
-            $url    = utf8_decode('fazendo uma tremenda bagunça e uma GRANDE confusão');
+            $url        = utf8_decode('fazendo uma tremenda bagunça e uma GRANDE confusão');
             $urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
             $this->assertEquals($urlRetorno, StringFormatter::getSlug($url));
         }

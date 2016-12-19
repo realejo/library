@@ -8,6 +8,9 @@
  */
 namespace Realejo;
 
+/**
+ * @codeCoverageIgnore
+ */
 class String extends StringFormatter
 {
 }

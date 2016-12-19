@@ -1,5 +1,5 @@
 <?php
-$finder = Symfony\CS\Finder\DefaultFinder::create()
+$finder = PhpCsFixer\Finder::create()
     ->in('src')
     ->in('test')
     ->notPath('_files')
@@ -8,37 +8,18 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
             return false;
         }
     });
-$config = Symfony\CS\Config\Config::create();
-$config->level(null);
-$config->fixers(
-    array(
-        'braces',
-        'duplicate_semicolon',
-        'elseif',
-        'empty_return',
-        'encoding',
-        'eof_ending',
-        'function_call_space',
-        'function_declaration',
-        'indentation',
-        'join_function',
-        'line_after_namespace',
-        'linefeed',
-        'lowercase_keywords',
-        'parenthesis',
-        'multiple_use',
-        'method_argument_space',
-        'object_operator',
-        'php_closing_tag',
-        'remove_lines_between_uses',
-        //'short_array_syntax',
-        'short_tag',
-        'standardize_not_equal',
-        'trailing_spaces',
-        'unused_use',
-        'visibility',
-        'whitespacy_lines',
-    )
-);
-$config->finder($finder);
-return $config;
+
+return PhpCsFixer\Config::create()
+    ->setRules(array(
+        '@PSR2' => true,
+
+        // Symfony
+        'no_empty_statement' => true,
+        'no_unused_imports' => true,
+        'standardize_not_equals' => true,
+        'no_whitespace_in_blank_line' => true,
+
+        // Contrib
+        'no_useless_return' => true
+    ))
+    ->setFinder($finder);

@@ -193,7 +193,8 @@ class StringFormatter
             // Verifica se ele está presente
             if (strpos($slug, $delimiter) !== false) {
                 // Extrai a parte antes do delimitador
-                $slug = array_shift(explode($delimiter, $slug));
+                $temp = explode($delimiter, $slug);
+                $slug = $temp[0];
             }
         }
 
@@ -227,13 +228,13 @@ class StringFormatter
         return trim($url);
     }
 
-    public static function cleanHTML($html,  $allowable_tags = null)
+    public static function cleanHTML($html, $allowable_tags = null)
     {
         if (null === $html) {
             return '';
         }
 
-        $texto = strip_tags($html,  $allowable_tags);
+        $texto = strip_tags($html, $allowable_tags);
         $texto = str_replace('&nbsp;', ' ', $texto);
         $texto = preg_replace('/\n/', ' ', $texto);
         $texto = preg_replace('/\t/', ' ', $texto);

@@ -12,7 +12,52 @@ class MathTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Math::moda()
      *
-     * @expectedException PHPUnit_Framework_Error
+     * @requires PHP < 7
+     * @expectedException \PHPUnit_Framework_Error
+     */
+    public function testModaInvalido1PHP5()
+    {
+        Math::moda(1);
+    }
+
+    /**
+     * Tests Math::moda()
+     *
+     * @requires PHP < 7
+     * @expectedException \PHPUnit_Framework_Error
+     */
+    public function testModaInvalidoNullPHP5()
+    {
+        Math::moda(null);
+    }
+
+    /**
+     * Tests Math::moda()
+     *
+     * @requires PHP < 7
+     * @expectedException \PHPUnit_Framework_Error
+     */
+    public function testModaInvalidoStdClassPHP5()
+    {
+        Math::moda(new \stdClass());
+    }
+
+    /**
+     * Tests Math::moda()
+     *
+     * @requires PHP < 7
+     * @expectedException \PHPUnit_Framework_Error
+     */
+    public function testModaInvalidoStringPHP5()
+    {
+        Math::moda('string');
+    }
+
+    /**
+     * Tests Math::moda()
+     *
+     * @requires PHP 7
+     * @expectedException \TypeError
      */
     public function testModaInvalido1()
     {
@@ -22,7 +67,8 @@ class MathTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Math::moda()
      *
-     * @expectedException PHPUnit_Framework_Error
+     * @requires PHP 7
+     * @expectedException \TypeError
      */
     public function testModaInvalidoNull()
     {
@@ -32,7 +78,8 @@ class MathTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Math::moda()
      *
-     * @expectedException PHPUnit_Framework_Error
+     * @requires PHP 7
+     * @expectedException \TypeError
      */
     public function testModaInvalidoStdClass()
     {
@@ -42,7 +89,8 @@ class MathTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Math::moda()
      *
-     * @expectedException PHPUnit_Framework_Error
+     * @requires PHP 7
+     * @expectedException \TypeError
      */
     public function testModaInvalidoString()
     {
@@ -56,8 +104,8 @@ class MathTest extends \PHPUnit_Framework_TestCase
     {
         // Valores válidos
         $this->assertTrue(count(Math::moda(array()))===0);
-        $this->assertEquals(array(1),    Math::moda(array(1, 1, 2)));
-        $this->assertEquals(array(1),    Math::moda(array(1, 1, 1, 2, 2, 3)));
+        $this->assertEquals(array(1), Math::moda(array(1, 1, 2)));
+        $this->assertEquals(array(1), Math::moda(array(1, 1, 1, 2, 2, 3)));
         $this->assertEquals(array(1, 2), Math::moda(array(1, 2)));
         $this->assertEquals(array(1, 2), Math::moda(array(1, 1, 2, 2 )));
         $this->assertEquals(array(1, 2), Math::moda(array(1, 1, 2, 2, 3, 4)));
@@ -74,12 +122,12 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
         // Valores válidos
         $this->assertTrue(count(Math::moda(array()))===0);
-        $this->assertEquals(1,   Math::mediana(array(1, 1, 2)));
+        $this->assertEquals(1, Math::mediana(array(1, 1, 2)));
         $this->assertEquals(1.5, Math::mediana(array(1, 1, 1, 2, 2, 3)));
         $this->assertEquals(1.5, Math::mediana(array(1, 2)));
         $this->assertEquals(1.5, Math::mediana(array(1, 1, 2, 2)));
-        $this->assertEquals(2,   Math::mediana(array(1, 1, 2, 2, 3, 4)));
-        $this->assertEquals(2,   Math::mediana(array(1, 2, 1, 3, 4, 1, 2, 2, 3)));
-        $this->assertEquals(2,   Math::mediana(array(1, 2, 1, 3, 4, 1, 2, 2, 3), 'strcmp'));
+        $this->assertEquals(2, Math::mediana(array(1, 1, 2, 2, 3, 4)));
+        $this->assertEquals(2, Math::mediana(array(1, 2, 1, 3, 4, 1, 2, 2, 3)));
+        $this->assertEquals(2, Math::mediana(array(1, 2, 1, 3, 4, 1, 2, 2, 3), 'strcmp'));
     }
 }
