@@ -25,6 +25,7 @@ matrix:
     - php: 7.0
       env:
          - EXECUTE_CS_CHECK=true
+         - EXECUTE_TEST_COVERALLS=true
     - php: 7.1
     - php: hhvm
   allow_failures:

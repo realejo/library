@@ -5,134 +5,134 @@ namespace RealejoTest;
 /**
  * String test case.
  */
-use Realejo\String;
+use Realejo\StringFormatter;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Tests String::RemoveAcentos()
+     * Tests StringFormatter::RemoveAcentos()
      */
     public function testRemoveAcentos()
     {
         $string  = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝŸàáâãäåæçèéêëìíîïñòóôõöùúûüýÿ';
         $retorno = 'AAAAAAAECEEEEIIIINOOOOOUUUUYYaaaaaaaeceeeeiiiinooooouuuuyy';
-        $this->assertEquals($retorno, String::RemoveAcentos($string));
+        $this->assertEquals($retorno, StringFormatter::RemoveAcentos($string));
     }
 
     /**
-     * Tests String::strip_tags_attributes()
+     * Tests StringFormatter::strip_tags_attributes()
      */
     public function testStrip_tags_attributes()
     {
         //$allow = '<span><p><ul><li><b><strong><a>';
         $allow1 = '<span><a><p>';
-        $allowatributs1 = 'style';
+        $allowAttributes1 = 'style';
         $str1 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a href="#">Header</a>';
         $equals1 = '<p style_-_-"text-align:center">Paragraph</p>Bold<span style_-_-"color:red">Red</span><a href="#">Header</a>';
-        $this->assertEquals($equals1, String::strip_tags_attributes($str1, $allow1, $allowatributs1));
+        $this->assertEquals($equals1, StringFormatter::strip_tags_attributes($str1, $allow1, $allowAttributes1));
 
         $allow2 = '<span><p><ul><li><b><strong><a>';
-        $allowatributs2 = 'style';
+        $allowAttributes = 'style';
         $str2 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a style="color:red" href="#">Header</a>';
         $equals2 = '<p style_-_-"text-align:center">Paragraph</p><strong style_-_-"color:red">Bold</strong><span style_-_-"color:red">Red</span><a style_-_-"color:red" href="#">Header</a>';
-        $this->assertEquals($equals2, String::strip_tags_attributes($str2, $allow2, $allowatributs2));
+        $this->assertEquals($equals2, StringFormatter::strip_tags_attributes($str2, $allow2, $allowAttributes));
     }
 
     /**
-     * Tests String::CleanFileName()
+     * Tests StringFormatter::CleanFileName()
      */
     public function testCleanFileName()
     {
         $filename = '#$%@#%$ãoçáàbácôíxêchôçú';
-        $this->assertEquals('aocaabacoixechocu', String::CleanFileName($filename));
+        $this->assertEquals('aocaabacoixechocu', StringFormatter::CleanFileName($filename));
     }
 
     /**
-     * Tests String::testSanitize()
+     * Tests StringFormatter::testSanitize()
      */
     public function testSanitize()
     {
-        $this->assertEquals("uma frase com aáeéiíoóuú e espaços", String::sanitize("uma frase com aáeéiíoóuú e espaços"));
-        $this->assertEquals("áéíóú123", String::sanitize("áéíóú123"));
-        $this->assertEquals("áéíóú123", String::sanitize("áéíóú123\n"));
+        $this->assertEquals('uma frase com aáeéiíoóuú e espaços', StringFormatter::sanitize("uma frase com aáeéiíoóuú e espaços"));
+        $this->assertEquals('áéíóú123', StringFormatter::sanitize("áéíóú123"));
+        $this->assertEquals('áéíóú123', StringFormatter::sanitize("áéíóú123\n"));
 
         // Array
-        $teste = array('linha1'=>"áéíóú123-", 'linha2'=> "áéíóú123\n", 'linha3'=> "áéíóú123\n");
+        $teste = array('linha1'=> 'áéíóú123-', 'linha2'=> "áéíóú123\n", 'linha3'=> "áéíóú123\n");
 
-        $resultado = array('linha1'=>"áéíóú123-", 'linha2'=> "áéíóú123", 'linha3' => "áéíóú123");
-        $this->assertEquals($resultado, String::sanitize($teste));
+        $resultado = array('linha1'=> 'áéíóú123-', 'linha2'=> "áéíóú123", 'linha3' => "áéíóú123");
+        $this->assertEquals($resultado, StringFormatter::sanitize($teste));
 
-        $resultado = array('linha1' => "áéíóú123-", 'linha2' => "áéíóú123\n", 'linha3' => "áéíóú123");
-        $this->assertEquals($resultado, String::sanitize($teste, array('ignore'=>'linha2')));
+        $resultado = array('linha1' => 'áéíóú123-', 'linha2' => "áéíóú123\n", 'linha3' => "áéíóú123");
+        $this->assertEquals($resultado, StringFormatter::sanitize($teste, array('ignore'=>'linha2')));
 
         // Nomes com orkutify
-        $this->assertEquals('Ana P.', String::sanitize('Ana ▒ ▒ ▒ P.'));
-        $this->assertEquals('Luiz M.', String::sanitize('Luiz M. ♪♫'));
-        $this->assertEquals('Luiz áéúíó M.', String::sanitize('Luiz áéúíó M. ♪♫'));
-        $this->assertEquals('Thamyris Mendonça', String::sanitize('•●๋• Thamyris Mendonça •●๋•'));
-        $this->assertEquals('FERNANDA FIGHT', String::sanitize('☠ FERNANDA FIGHT ☠ '));
+        $this->assertEquals('Ana P.', StringFormatter::sanitize('Ana ▒ ▒ ▒ P.'));
+        $this->assertEquals('Luiz M.', StringFormatter::sanitize('Luiz M. ♪♫'));
+        $this->assertEquals('Luiz áéúíó M.', StringFormatter::sanitize('Luiz áéúíó M. ♪♫'));
+        $this->assertEquals('Thamyris Mendonça', StringFormatter::sanitize('•●๋• Thamyris Mendonça •●๋•'));
+        $this->assertEquals('FERNANDA FIGHT', StringFormatter::sanitize('☠ FERNANDA FIGHT ☠ '));
 
         // Especiais
-        $this->assertEquals('', String::sanitize(null));
-        $this->assertEquals('', String::sanitize("\n"));
+        $this->assertEquals('', StringFormatter::sanitize(null));
+        $this->assertEquals('', StringFormatter::sanitize("\n"));
 
         // Caracteres escondidos ou inválidos
-        $this->assertEquals("bigbob !", String::sanitize("bigbob ­­ !")); // não é hifen!
-        $this->assertEquals("bigbob!", String::sanitize("bigbob­­!")); // não é hifen!
-        $this->assertEquals("!!", String::sanitize("!­­!")); // não é hifen!
-        $this->assertEquals("!--!", String::sanitize("!--!")); // é hifen!
+        $this->assertEquals('bigbob !', StringFormatter::sanitize('bigbob ­­ !')); // não é hifen!
+        $this->assertEquals('bigbob!', StringFormatter::sanitize('bigbob­­!')); // não é hifen!
+        $this->assertEquals('!!', StringFormatter::sanitize('!­­!')); // não é hifen!
+        $this->assertEquals('!--!', StringFormatter::sanitize('!--!')); // é hifen!
     }
 
     /**
-     * Tests String::seourl()
+     * Tests StringFormatter::seourl()
      */
     public function testGetSlug()
     {
         $url        = 'fazendo uma tremenda bagunça e uma GRANDE confusão';
         $urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
-        $this->assertEquals($urlRetorno, String::getSlug($url));
+        $this->assertEquals($urlRetorno, StringFormatter::getSlug($url));
 
         // A partir do PHP 5.4 o enconding padrão é o UTF-8
         //@todo verificar se precisa testar outra coisa diferente
-        if (PHP_MAJOR_VERSION === 5 && PHP_MINOR_VERSION == 3) {
+        if (PHP_MAJOR_VERSION === 5 && PHP_MINOR_VERSION === 3) {
             $url    = utf8_decode('fazendo uma tremenda bagunça e uma GRANDE confusão');
             $urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
-            $this->assertEquals($urlRetorno, String::getSlug($url));
+            $this->assertEquals($urlRetorno, StringFormatter::getSlug($url));
         }
     }
 
     /**
-     * Tests String::getSafeSEO()
+     * Tests StringFormatter::getSafeSEO()
      */
     public function testGetSafeSlug()
     {
-        $this->assertEquals('123-bla,blsdsa-bla', String::getSafeSlug(' 123-bla,blsds   a-bla '));
+        $this->assertEquals('123-bla,blsdsa-bla', StringFormatter::getSafeSlug(' 123-bla,blsds   a-bla '));
     }
 
     /**
-     * Tests String::getSEOID()
+     * Tests StringFormatter::getSEOID()
      */
     public function testGetSlugId()
     {
-        $this->assertEquals('123', String::getSlugId('123-bla,bla-bla'));
-        $this->assertEquals('123', String::getSlugId('123,bla-bla-bla'));
+        $this->assertEquals('123', StringFormatter::getSlugId('123-bla,bla-bla'));
+        $this->assertEquals('123', StringFormatter::getSlugId('123,bla-bla-bla'));
 
-        $this->assertEquals('123', String::getSlugId('123-bla-bla-bla', '-'));
-        $this->assertEquals('123', String::getSlugId('123 -b la - b la - b l a ', '-'));
-        $this->assertEquals('123-bla-bla-bla', String::getSlugId('123-bla-bla-bla', ','));
-        $this->assertEquals('123-bla', String::getSlugId('123-bla,bla-bla', ','));
+        $this->assertEquals('123', StringFormatter::getSlugId('123-bla-bla-bla', '-'));
+        $this->assertEquals('123', StringFormatter::getSlugId('123 -b la - b la - b l a ', '-'));
+        $this->assertEquals('123-bla-bla-bla', StringFormatter::getSlugId('123-bla-bla-bla', ','));
+        $this->assertEquals('123-bla', StringFormatter::getSlugId('123-bla,bla-bla', ','));
 
-        $this->assertEquals('agora', String::getSlugId('ágora-sim', '-'));
+        $this->assertEquals('agora', StringFormatter::getSlugId('ágora-sim', '-'));
     }
 
     /**
-     * Tests String::CleanHTML()
+     * Tests StringFormatter::CleanHTML()
      */
     public function testCleanHTML()
     {
         $allow   = '<span><a><br>';
         $str     = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br><span style="color:red">Red</span><a href="#">Header</a>';
         $retorno = 'ParagraphBold<br><span style="color:red">Red</span><a href="#">Header</a>';
-        $this->assertEquals($retorno, String::CleanHTML($str, $allow));
+        $this->assertEquals($retorno, StringFormatter::cleanHTML($str, $allow));
     }
 }

@@ -26,19 +26,19 @@ class StringFormatter
     /**
      * Strip tags com tags e atributos permitidos
      *
-     * @param str $string
-     * @param str $allowtags
-     * @param str $allowattributes
-     * @return str
+     * @param string $string
+     * @param string $allowTags
+     * @param string|array $allowAttributes
+     * @return string
      */
-    public static function strip_tags_attributes($string, $allowtags=NULL, $allowattributes=NULL)
+    public static function strip_tags_attributes($string, $allowTags = null, $allowAttributes = null)
     {
-        if ($allowattributes) {
-            if (!is_array($allowattributes)) {
-                $allowattributes = explode(",", $allowattributes);
+        if (null !== $allowAttributes) {
+            if (!is_array($allowAttributes)) {
+                $allowAttributes = explode(',', $allowAttributes);
             }
 
-            foreach ($allowattributes as $aa) {
+            foreach ($allowAttributes as $aa) {
                 $count = substr_count($string, $aa);
                 for ($i=0; $i<$count; $i++) {
                     $rep = '/([^>]*) ('.$aa.')(=)(\'.*\'|".*")/i';
@@ -47,7 +47,7 @@ class StringFormatter
             }
         }
 
-        return strip_tags($string, $allowtags);
+        return strip_tags($string, $allowTags);
     }
 
     /**
@@ -55,14 +55,14 @@ class StringFormatter
      *
      * @todo remover acentos e não apaga-los
      *
-     * @param string $file
+     * @param string $subject
      * @return string
      */
     public static function cleanFileName($subject)
     {
         $subject = preg_replace('/\s+/', '_', self::RemoveAcentos(trim($subject)));
-        $search  = array( "([\40])" , "([^a-zA-Z0-9-._])", "(-{2,})" );
-        $replace = array("-", "", "-");
+        $search  = array( "([\40])" , '([^a-zA-Z0-9-._])', '(-{2,})');
+        $replace = array('-', '', '-');
         return strtolower(preg_replace($search, $replace, $subject));
     }
 
@@ -70,7 +70,7 @@ class StringFormatter
      * Remove os caracteres ilegais
      *
      * @todo un-orkutify?
-     * @todo colocar no RWLBI?
+     * @todo colocar no RWLIB?
      * @todo deveria ser um Zend_Filter?
      * @todo HTMLPurifier?
      *
@@ -98,14 +98,14 @@ class StringFormatter
         // Verifica se o ignore é um array
         if (!isset($options['ignore'])) {
             $options['ignore'] = array();
-        } elseif (isset($options['ignore']) && !is_array($options['ignore'])) {
+        } elseif (!is_array($options['ignore'])) {
             $options['ignore'] = array($options['ignore']);
         }
 
         // Faz o filtro
         foreach ($words as $k=>$v) {
             // Verifica se deve ignorar
-            if (in_array($k, $options['ignore']) || $v === null) {
+            if ($v === null || in_array($k, $options['ignore'])) {
                 continue;
             }
 
@@ -139,12 +139,12 @@ class StringFormatter
     /**
      * Transforma uma string em url friendly
      *
-     * @param str $string
-     * @param str $space
+     * @param string $string
+     * @param string $space
      *
      * @return string
      */
-    public static function getSlug($string, $space="-")
+    public static function getSlug($string, $space = '-')
     {
         // Passa apra UTF8
         $string = self::toUTF8(trim($string));
@@ -165,6 +165,7 @@ class StringFormatter
      *
      * @param  $slug string
      *
+     * @param string $delimiter
      * @return string
      */
     public static function getSlugId($slug, $delimiter = null)
@@ -179,9 +180,9 @@ class StringFormatter
         if (empty($delimiter)) {
             if (strpos($slug, ',') && strpos($slug, '-')) {
                 $delimiter = (strpos($slug, ',') < strpos($slug, '-')) ? ',':'-';
-            } elseif (strpos($slug, ',')) {
+            } elseif (strpos($slug, ',') !== false) {
                 $delimiter = ',';
-            } elseif (strpos($slug, '-')) {
+            } elseif (strpos($slug, '-') !== false) {
                 $delimiter = '-';
             }
         }
@@ -190,10 +191,9 @@ class StringFormatter
         if (!empty($delimiter)) {
 
             // Verifica se ele está presente
-            if (strpos($slug, $delimiter)) {
+            if (strpos($slug, $delimiter) !== false) {
                 // Extrai a parte antes do delimitador
-                $slug = explode($delimiter, $slug);
-                $slug = $slug[0];
+                $slug = array_shift(explode($delimiter, $slug));
             }
         }
 
@@ -204,7 +204,7 @@ class StringFormatter
     /**
      * Extrai o código válido ([A-Za-z0-9_])
      *
-     * @param str $string
+     * @param string $codigo
      * @return string
      */
     public static function getSafeID($codigo)
@@ -217,7 +217,7 @@ class StringFormatter
     /**
      * Extrai o slug da URL excluíndo caracteres inválidos
      *
-     * @param str $string
+     * @param string $url
      * @return string
      */
     public static function getSafeSlug($url)
@@ -229,7 +229,7 @@ class StringFormatter
 
     public static function cleanHTML($html,  $allowable_tags = null)
     {
-        if (is_null($html)) {
+        if (null === $html) {
             return '';
         }
 
@@ -260,7 +260,7 @@ class StringFormatter
          * O truque é que se converter de UTF-8 para UTF-8 ele apaga os caracteres,
          * então muda o tamanho do strlen. Mas não funciona com mb_strlen
          */
-        if (strlen($string) != strlen(mb_convert_encoding($string, 'UTF-8', 'UTF-8'))) {
+        if (strlen($string) !== strlen(mb_convert_encoding($string, 'UTF-8', 'UTF-8'))) {
             $string = mb_convert_encoding($string, 'UTF-8');
         }
 
