@@ -65,5 +65,4 @@ class CepTest extends \PHPUnit_Framework_TestCase
         $this->assertStringMatchesFormat('00000-001', Cep::format('00000-001'));
         $this->assertStringMatchesFormat('45678-901', Cep::format('45678-901'));
     }
-
 }

@@ -14,7 +14,7 @@ class Phone
      * Não é feita nenhuma validação
      *
      * @param string $phoneNumber Phone com ou sem formatação
-     * @param string $cellPhone   Se é um Celular ou não
+     * @param boolean $cellPhone   Se é um Celular ou não
      *
      * @return string
      */
@@ -24,36 +24,38 @@ class Phone
         $phoneNumber = self::unformat($phoneNumber);
 
         // Total de digitos só do tipo de telefone
-        $totalNumber = ($cellPhone) ? 11 : 10;
+        $totalNumber = $cellPhone ? 11 : 10;
 
         // Total de digitos só do tipo de telefone
-        $numberDigits = ($cellPhone) ? 5 : 4;
-        
+        $numberDigits = $cellPhone ? 5 : 4;
+
         // Verifica se tem código do pais
-        if(strlen($phoneNumber) > $totalNumber) {
-            $countryCode   = substr($phoneNumber, 0, strlen($phoneNumber)-$totalNumber);
-            $areaCode      = substr($phoneNumber, -$totalNumber, 2);
-            $fristNumber   = substr($phoneNumber, -($totalNumber - 2), $numberDigits);
-            $lastNumber    = substr($phoneNumber, -4, 4);
-        
-            $phoneNumber   = $countryCode.' ('.$areaCode.') '.$fristNumber.'-'.$lastNumber;
-        
+        if (strlen($phoneNumber) > $totalNumber) {
+            $countryCode = substr($phoneNumber, 0, strlen($phoneNumber) - $totalNumber);
+            $areaCode    = substr($phoneNumber, -$totalNumber, 2);
+            $firstNumber = substr($phoneNumber, -($totalNumber - 2), $numberDigits);
+            $lastNumber  = substr($phoneNumber, -4, 4);
+
+            return $countryCode . ' (' . $areaCode . ') ' . $firstNumber . '-' . $lastNumber;
+        }
+
         // Verifica se tem código de area
-        } else if(strlen($phoneNumber) == $totalNumber) {
+        if (strlen($phoneNumber) === $totalNumber) {
             $areaCode    = substr($phoneNumber, 0, 2);
-            $fristNumber = substr($phoneNumber, 2, $numberDigits);
-            $lastNumber  = substr($phoneNumber, ($numberDigits + 2), 4);
-        
-            $phoneNumber = '('.$areaCode.') '.$fristNumber.'-'.$lastNumber;
+            $firstNumber = substr($phoneNumber, 2, $numberDigits);
+            $lastNumber   = substr($phoneNumber, ($numberDigits + 2), 4);
+
+            return '(' . $areaCode . ') ' . $firstNumber . '-' . $lastNumber;
+        }
 
         // Verifica se é só o telefone
-        } else if(strlen($phoneNumber) == ($totalNumber - 2)) {
-            $fristNumber = substr($phoneNumber, 0, $numberDigits);
+        if (strlen($phoneNumber) === ($totalNumber - 2)) {
+            $firstNumber = substr($phoneNumber, 0, $numberDigits);
             $lastNumber  = substr($phoneNumber, $numberDigits, 4);
-        
-            $phoneNumber = $fristNumber.'-'.$lastNumber;
+
+            return $firstNumber.'-'.$lastNumber;
         }
-        
+
         // Retorna o Phone formatado
         return $phoneNumber;
     }
