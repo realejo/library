@@ -3,6 +3,8 @@
 .project
 /composer.phar
 /composer.lock
+.idea
+
 clover.xml
 composer.lock
 coveralls-upload.json
