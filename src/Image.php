@@ -65,8 +65,10 @@ class Image
     /**
      * Verifica se é uma imagem válida abrindo com função correta
      *
-     * @param string $arquivo
+     * @param $file
      * @return bool
+     * @throws \Exception
+     * @internal param string $arquivo
      */
     public function open($file)
     {
@@ -121,7 +123,7 @@ class Image
 
     /**
      * Retira a imagem da memória
-     * @return void
+     * @return boolean
      */
     public function close()
     {
@@ -150,9 +152,10 @@ class Image
     /**
      * Salva a imagem que está carregada na memória
      *
-     * @param string  $file  Endereço do arquivo para salvar a imagem
+     * @param string $file Endereço do arquivo para salvar a imagem
      * @param boolean $close Fecha o arquivo ou mantem na memória
-     * @return boolean
+     * @return bool
+     * @throws \Exception
      */
     public function save($file = null, $close = false)
     {
@@ -192,9 +195,10 @@ class Image
     /**
      * Salva a imagem que está carregada na memória
      *
-     * @param string $file
      * @param boolean $close fecha o arquivo ou mantem na memoria
-     *
+     * @return bool
+     * @throws \Exception
+     * @internal param string $file
      * @codeCoverageIgnore
      */
     public function sendScreen($close = true)
@@ -237,8 +241,8 @@ class Image
      * @param int $h altura da imagem
      * @param boolean $crop idica se a imagem deve se cortada para o tamanho
      * @param boolean $force aumenta a imagem caso ela seja menor
-     *
-     * @return boolean
+     * @return bool
+     * @throws \Exception
      */
     public function resize($w, $h, $crop = false, $force = false)
     {
@@ -360,8 +364,8 @@ class Image
     /**
      * Remove as informações extra das imagens (EXIF)
      * Para isso ele redimenciona para o mesmo tamanho pois o GD não copia o EXIF
-     *
-     * @return Image
+     * @return bool
+     * @throws \Exception
      */
     public function removeMetadata()
     {
@@ -380,10 +384,10 @@ class Image
     /**
      * Altera a qualidade padrão das imagens (100%).
      *
-     * @param int    $quality Qualidade da imagem de 0 a 100
-     * @param string $mimeType  OPCIONAL Formato a ser definido a nova qualidade (png, jpg ou gif)
-     *
+     * @param int $quality Qualidade da imagem de 0 a 100
+     * @param string $mimeType OPCIONAL Formato a ser definido a nova qualidade (png, jpg ou gif)
      * @return Image
+     * @throws \Exception
      */
     public function setImageQuality($quality, $mimeType = null)
     {

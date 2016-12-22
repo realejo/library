@@ -122,10 +122,10 @@ class Uf
 
     /**
      * Retorna o nome da UF
-     *
      * @return array
+     * @internal param $uf
      */
-    public static function getUf($uf)
+    public static function getUf()
     {
         $oSelf = new self();
         return $oSelf->regioes;

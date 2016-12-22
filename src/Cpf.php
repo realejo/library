@@ -81,7 +81,7 @@ class Cpf
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
 
         // Verifica se sobrou numero para o CPF
-        //@todo verificar o tamamho minimo de um CPF
+        //@todo verificar o tamanho minimo de um CPF
         if (!empty($cpf)) {
             return str_pad($cpf, 11, '0', STR_PAD_LEFT);
         }

@@ -104,7 +104,7 @@ class Cnpj
         $cnpj = preg_replace('/[^0-9]/', '', $cnpj);
 
         // Verifica se sobrou numero para o CNPJ
-        //@todo verificar o tamamho minimo de um CNPJ
+        //@todo verificar o tamanho minimo de um CNPJ
         if (!empty($cnpj)) {
             return str_pad($cnpj, 14, '0', STR_PAD_LEFT);
         }

@@ -43,7 +43,7 @@ class Cep
         $cep = preg_replace('/[^0-9]/', '', $cep);
 
         // Verifica se sobrou numero para o CEP
-        //@todo verificar o tamamho minimo de um CEP
+        //@todo verificar o tamanho minimo de um CEP
         if (!empty($cep)) {
             return str_pad($cep, 8, '0', STR_PAD_LEFT);
         }

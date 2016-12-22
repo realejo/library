@@ -14,9 +14,10 @@ class File
      * Deve ser usado quando tiver um download com acesso restrito e/ou
      * o arquivo for muito grande ou puder ser lido em pedaços. Ex: FLV, MPG
      *
-     * @param string  $filename  Nome do arquivo a ser enviado
-     * @param bool    $retbytes  OPCIONAL indica se deve retornar o numero de bytes ou o status da conexão
-     * @param int     $chunk     OPCIONAL Tamanho em byte do chunk. Padrão: 1024*1024 = 1048576
+     * @param string $filename Nome do arquivo a ser enviado
+     * @param bool $retbytes OPCIONAL indica se deve retornar o numero de bytes ou o status da conexão
+     * @param int $chunk OPCIONAL Tamanho em byte do chunk. Padrão: 1024*1024 = 1048576
+     * @return bool|int
      */
     public static function readfileChunked($filename, $retbytes = true, $chunk = 1048576)
     {
