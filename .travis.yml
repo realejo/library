@@ -20,9 +20,6 @@ matrix:
       env:
         - EXECUTE_CS_CHECK=true
         - EXECUTE_TEST_COVERALLS=true
-    - php: hhvm
-  allow_failures:
-    - php: hhvm
 
 before_install:
   - composer self-update

@@ -72,8 +72,9 @@ class TimeFormatter
 
         if (!self::isTime($time)) {
             throw new \Exception("Tempo '$time' inválido");
+        }
 
-        } elseif (strpos($time, ':') !== false || !empty($part)) {
+        if (strpos($time, ':') !== false || !empty($part)) {
             if (empty($part)) {
                 $part = (substr_count($time, ':') == 1) ? 'm:s' : 'h:m:s';
             } else {
@@ -173,15 +174,15 @@ class TimeFormatter
 
         // Retorna o part
         switch ($part) {
-            case self::SECOND :
+            case self::SECOND:
                 return str_pad($s, 2, '0', STR_PAD_LEFT);
             case self::SECOND_SHORT:
-                return (string)$s;
-            case self::MINUTE :
+                return (string) $s;
+            case self::MINUTE:
                 return str_pad($m, 2, '0', STR_PAD_LEFT);
             case self::MINUTE_SHORT:
                 return (string)$m;
-            case self::HOUR :
+            case self::HOUR:
                 return str_pad($h, 2, '0', STR_PAD_LEFT);
             case self::HOUR_SHORT:
                 return (string)$h;
