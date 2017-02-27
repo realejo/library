@@ -53,7 +53,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('00', $time->get(TimeFormatter::HOUR));
         $this->assertSame('0', $time->get(TimeFormatter::HOUR_SHORT));
 
-
         // 13 segundos
         $time = new TimeFormatter(13);
         $this->assertSame('13', $time->get(TimeFormatter::SECOND));
@@ -72,7 +71,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('00', $time->get(TimeFormatter::HOUR));
         $this->assertSame('0', $time->get(TimeFormatter::HOUR_SHORT));
 
-
         // 63 segundos
         $time = new TimeFormatter(63);
         $this->assertSame('03', $time->get(TimeFormatter::SECOND));
@@ -90,7 +88,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('1', $time->get(TimeFormatter::MINUTE_SHORT));
         $this->assertSame('00', $time->get(TimeFormatter::HOUR));
         $this->assertSame('0', $time->get(TimeFormatter::HOUR_SHORT));
-
 
         /**
          * MINUTOS
@@ -114,7 +111,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('00', $time->get(TimeFormatter::HOUR));
         $this->assertSame('0', $time->get(TimeFormatter::HOUR_SHORT));
 
-
         // 13 minutos
         $time = new TimeFormatter(13 * 60);
         $this->assertSame('00', $time->get(TimeFormatter::SECOND));
@@ -132,7 +128,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('13', $time->get(TimeFormatter::MINUTE_SHORT));
         $this->assertSame('00', $time->get(TimeFormatter::HOUR));
         $this->assertSame('0', $time->get(TimeFormatter::HOUR_SHORT));
-
 
         // 13,5 minutos
         $time = new TimeFormatter(13 * 60 + 30);
@@ -183,7 +178,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('01', $time->get(TimeFormatter::HOUR));
         $this->assertSame('1', $time->get(TimeFormatter::HOUR_SHORT));
 
-
         // 120 horas
         $time = new TimeFormatter(120 * 60 * 60);
         $this->assertSame('00', $time->get(TimeFormatter::SECOND));
@@ -201,7 +195,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('0', $time->get(TimeFormatter::MINUTE_SHORT));
         $this->assertSame('120', $time->get(TimeFormatter::HOUR));
         $this->assertSame('120', $time->get(TimeFormatter::HOUR_SHORT));
-
 
         // 27 horas
         $time = new TimeFormatter(27 * 60 * 60);
@@ -239,7 +232,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('3', $time->get(TimeFormatter::SECOND_SHORT));
         $this->assertSame('45', $time->get(TimeFormatter::MINUTE_SHORT));
         $this->assertSame('13', $time->get(TimeFormatter::HOUR_SHORT));
-
 
         /**
          * FORMATOS

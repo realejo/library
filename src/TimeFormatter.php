@@ -175,15 +175,15 @@ class TimeFormatter
         switch ($part) {
             case self::SECOND :
                 return str_pad($s, 2, '0', STR_PAD_LEFT);
-            case self::SECOND_SHORT :
+            case self::SECOND_SHORT:
                 return (string)$s;
             case self::MINUTE :
                 return str_pad($m, 2, '0', STR_PAD_LEFT);
-            case self::MINUTE_SHORT :
+            case self::MINUTE_SHORT:
                 return (string)$m;
             case self::HOUR :
                 return str_pad($h, 2, '0', STR_PAD_LEFT);
-            case self::HOUR_SHORT :
+            case self::HOUR_SHORT:
                 return (string)$h;
         }
 
