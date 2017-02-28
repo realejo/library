@@ -383,5 +383,4 @@ class TimeFormatter
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
     }
-
 }

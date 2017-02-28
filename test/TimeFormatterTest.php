@@ -270,7 +270,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('45', $time->get(TimeFormatter::SECOND_SHORT));
         $this->assertSame('24', $time->get(TimeFormatter::MINUTE_SHORT));
         $this->assertSame('13', $time->get(TimeFormatter::HOUR_SHORT));
-
     }
 
     /**
@@ -315,7 +314,6 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('-45', $time->toString('Sm'));
         $this->assertSame('-13', $time->toString('Sh'));
         $this->assertSame('=> -13', $time->toString('=> Sh'));
-
     }
 
     /**
