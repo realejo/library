@@ -27,8 +27,8 @@ class File
             return false;
         }
 
-        $totalBytes= 0;
-        while (!feof($handle)) {
+        $totalBytes = 0;
+        while (! feof($handle)) {
             $buffer = fread($handle, $chunk);
             echo $buffer;
             ob_flush();
@@ -39,7 +39,9 @@ class File
         }
         $status = fclose($handle);
         if ($retbytes && $status) {
-            return $totalBytes; // Retorna o numero de bytes enviados. Os bytes serão retornados como a função readfile() faz
+            // Retorna o numero de bytes enviados.
+            //  Os bytes serão retornados como a função readfile() faz
+            return $totalBytes;
         }
         return $status;
     }

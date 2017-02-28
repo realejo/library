@@ -3,6 +3,7 @@
  * Classe para armazenar e recuperar a versão da biblioteca da Realejo
  *
  * @author     Realejo
+ * @deprecated Tem que pegar do composer
  * @copyright  Copyright (c) 2011-2012 Realejo Design Ltda. (http://www.realejo.com.br)
  */
 namespace Realejo;
@@ -10,7 +11,7 @@ namespace Realejo;
 class Version
 {
     /**
-     * RWLIB indentificador de versão
+     * RWLIB identificador de versão
      * @see compareVersion()
      */
     const VERSION = '1.1';
@@ -20,7 +21,7 @@ class Version
      *
      * @var string
      */
-    protected static $_latestVersion;
+    protected static $latestVersion;
 
     /**
      * Compare the specified Zend Framework version string $version
@@ -46,16 +47,16 @@ class Version
      */
     public static function getLatest()
     {
-        if (null === self::$_latestVersion) {
-            self::$_latestVersion = 'not available';
+        if (null === self::$latestVersion) {
+            self::$latestVersion = 'not available';
 
             $handle = fopen('https://raw.githubusercontent.com/realejo/library/master/version', 'r');
             if (false !== $handle) {
-                self::$_latestVersion = stream_get_contents($handle);
+                self::$latestVersion = stream_get_contents($handle);
                 fclose($handle);
             }
         }
 
-        return self::$_latestVersion;
+        return self::$latestVersion;
     }
 }

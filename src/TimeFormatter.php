@@ -21,7 +21,7 @@ class TimeFormatter
     const SECOND_SHORT = 's';
     const SIGNED = 'S';
 
-    private $_time = 0;
+    private $time = 0;
 
     /**
      * TimeFormatter constructor.
@@ -70,11 +70,11 @@ class TimeFormatter
             $part = 'h:m:s';
         }
 
-        if (!self::isTime($time)) {
+        if (! self::isTime($time)) {
             throw new \Exception("Tempo '$time' inválido");
         }
 
-        if (strpos($time, ':') !== false || !empty($part)) {
+        if (strpos($time, ':') !== false || ! empty($part)) {
             if (empty($part)) {
                 $part = (substr_count($time, ':') == 1) ? 'm:s' : 'h:m:s';
             } else {
@@ -95,10 +95,10 @@ class TimeFormatter
                     $s = $aTime[$i];
                 }
             }
-            $this->_time = $s + 60 * $m + 60 * 60 * $h;
+            $this->time = $s + 60 * $m + 60 * 60 * $h;
         } else {
             // Considera que é um numero
-            $this->_time = (int)$time;
+            $this->time = (int)$time;
         }
 
         return $this;
@@ -113,10 +113,10 @@ class TimeFormatter
     public function toString($format = 'Shh:mm:ss')
     {
         // Define o tempo a ser usado
-        $time = $this->_time;
+        $time = $this->time;
 
         // Verifica o sinal
-        if ($this->_time < 0) {
+        if ($this->time < 0) {
             $format = str_replace('S', '-', $format);
             $time = -$time;
         } else {
@@ -129,16 +129,18 @@ class TimeFormatter
         $h = ($time - 60 * $m - $s) / (60 * 60);
 
         // Imprime o formato escolhido
-        $format = str_replace(array('ss', 's', 'mm', 'm', 'hh', 'h'),
-            array(
+        $format = str_replace(
+            ['ss', 's', 'mm', 'm', 'hh', 'h'],
+            [
                 str_pad($s, 2, '0', STR_PAD_LEFT),
                 $s,
                 str_pad($m, 2, '0', STR_PAD_LEFT),
                 $m,
                 str_pad($h, 2, '0', STR_PAD_LEFT),
                 $h
-            ),
-            $format);
+            ],
+            $format
+        );
 
         // Retorna a hora formatada
         return $format;
@@ -152,8 +154,8 @@ class TimeFormatter
      */
     public function setSeconds($seconds)
     {
-        $this->_time -= $this->get(TimeFormatter::SECOND);
-        $this->_time += $seconds;
+        $this->time -= $this->get(TimeFormatter::SECOND);
+        $this->time += $seconds;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -168,9 +170,9 @@ class TimeFormatter
     public function get($part = null)
     {
         // Separa o tempo
-        $s = $this->_time % 60;
-        $m = (($this->_time - $s) / 60) % 60;
-        $h = ($this->_time - 60 * $m - $s) / (60 * 60);
+        $s = $this->time % 60;
+        $m = (($this->time - $s) / 60) % 60;
+        $h = ($this->time - 60 * $m - $s) / (60 * 60);
 
         // Retorna o part
         switch ($part) {
@@ -198,7 +200,7 @@ class TimeFormatter
      */
     public function getMinutes()
     {
-        return $this->_time / 60;
+        return $this->time / 60;
     }
 
     /**
@@ -209,8 +211,8 @@ class TimeFormatter
      */
     public function setMinutes($minutes)
     {
-        $this->_time -= $this->get(TimeFormatter::MINUTE) * 60;
-        $this->_time += $minutes * 60;
+        $this->time -= $this->get(TimeFormatter::MINUTE) * 60;
+        $this->time += $minutes * 60;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -224,7 +226,7 @@ class TimeFormatter
      */
     public function getHours()
     {
-        return $this->_time / (60 * 60);
+        return $this->time / (60 * 60);
     }
 
     /**
@@ -235,8 +237,8 @@ class TimeFormatter
      */
     public function setHours($hours)
     {
-        $this->_time -= $this->get(TimeFormatter::HOUR) * 60 * 60;
-        $this->_time += $hours * 60 * 60;
+        $this->time -= $this->get(TimeFormatter::HOUR) * 60 * 60;
+        $this->time += $hours * 60 * 60;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -252,12 +254,12 @@ class TimeFormatter
     public function addTime($time, $part = null)
     {
         // Verifica se é um objeto \Realejo\TimeFormatter
-        if (!($time instanceof TimeFormatter)) {
+        if (! ($time instanceof TimeFormatter)) {
             $time = new TimeFormatter($time, $part);
         }
 
         // Adiciona o tempo
-        $this->_time += $time->getSeconds();
+        $this->time += $time->getSeconds();
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -270,7 +272,7 @@ class TimeFormatter
      */
     public function getSeconds()
     {
-        return $this->_time;
+        return $this->time;
     }
 
     /**
@@ -283,12 +285,12 @@ class TimeFormatter
     public function subTime($time, $part = null)
     {
         // Verifica se é um objeto \Realejo\TimeFormatter
-        if (!($time instanceof TimeFormatter)) {
+        if (! ($time instanceof TimeFormatter)) {
             $time = new TimeFormatter($time, $part);
         }
 
         // Subtrai o tempo
-        $this->_time -= $time->getSeconds();
+        $this->time -= $time->getSeconds();
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -303,7 +305,7 @@ class TimeFormatter
     public function addSeconds($seconds)
     {
         // Adiciona os segundos
-        $this->_time += $seconds;
+        $this->time += $seconds;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -318,7 +320,7 @@ class TimeFormatter
     public function subSeconds($seconds)
     {
         // Subtrai os segundos
-        $this->_time -= $seconds;
+        $this->time -= $seconds;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -333,7 +335,7 @@ class TimeFormatter
     public function addMinutes($minutes)
     {
         // Adiciona os minutos passados
-        $this->_time += $minutes * 60;
+        $this->time += $minutes * 60;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -348,7 +350,7 @@ class TimeFormatter
     public function subMinutes($minutes)
     {
         // Subtrai os minutos passados
-        $this->_time -= $minutes * 60;
+        $this->time -= $minutes * 60;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -363,7 +365,7 @@ class TimeFormatter
     public function addHours($hours)
     {
         // Adiciona as horas passadas
-        $this->_time += $hours * 60 * 60;
+        $this->time += $hours * 60 * 60;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;
@@ -378,7 +380,7 @@ class TimeFormatter
     public function subHours($hours)
     {
         // Subtrai as horas passadas
-        $this->_time -= $hours * 60 * 60;
+        $this->time -= $hours * 60 * 60;
 
         // Retorna o \Realejo\TimeFormatter para manter a cadeia
         return $this;

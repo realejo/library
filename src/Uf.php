@@ -16,7 +16,7 @@ class Uf
      *
      * @var array
      */
-    protected $uf = array(
+    protected $uf = [
                     'AC' => 'Acre',
                     'AL' => 'Alagoas',
                     'AM' => 'Amazonas',
@@ -44,25 +44,25 @@ class Uf
                     'SP' => 'São Paulo',
                     'SE' => 'Sergipe',
                     'TO' => 'Tocantins'
-                );
+                ];
 
     /**
      * Regiões geográficas
      * @var array
      */
-    protected $regioes = array(
+    protected $regioes = [
                             'CO' => 'Centro-Oeste',
                             'NO' => 'Norte',
                             'NE' => 'Nordeste',
                             'SE' => 'Sudeste',
                             'SU' => 'Sul'
-                         );
+                         ];
 
     /**
      * Lista de UFs e sua respectiva região geográfica
      * @var array
      */
-    protected $ufRegiao = array(
+    protected $ufRegiao = [
                             'AC' => 'NO',
                             'AL' => 'NE',
                             'AM' => 'NO',
@@ -90,7 +90,7 @@ class Uf
                             'SP' => 'SE',
                             'SE' => 'NE',
                             'TO' => 'SU'
-                          );
+                          ];
 
     /**
      * Retorna as Ufs
@@ -106,12 +106,12 @@ class Uf
             return $oSelf->uf;
         }
 
-        $ufs = array();
-        if (!is_array($regiao)) {
-            $regiao = array($regiao);
+        $ufs = [];
+        if (! is_array($regiao)) {
+            $regiao = [$regiao];
         }
         foreach ($regiao as $r) {
-            foreach ($oSelf->uf as $u=>$nome) {
+            foreach ($oSelf->uf as $u => $nome) {
                 if (isset($oSelf->UfRegiao[$u]) && $oSelf->UfRegiao[$u] == $r) {
                     $ufs[$u] = $nome;
                 }

@@ -27,14 +27,18 @@ class StringFormatterTest extends \PHPUnit_Framework_TestCase
         //$allow = '<span><p><ul><li><b><strong><a>';
         $allow1 = '<span><a><p>';
         $allowAttributes1 = 'style';
-        $str1 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a href="#">Header</a>';
-        $equals1 = '<p style_-_-"text-align:center">Paragraph</p>Bold<span style_-_-"color:red">Red</span><a href="#">Header</a>';
+        $str1 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/>'
+              . '<span style="color:red">Red</span><a href="#">Header</a>';
+        $equals1 = '<p style_-_-"text-align:center">Paragraph</p>Bold<span style_-_-"color:red">Red</span>'
+                 . '<a href="#">Header</a>';
         $this->assertEquals($equals1, StringFormatter::strip_tags_attributes($str1, $allow1, $allowAttributes1));
 
         $allow2 = '<span><p><ul><li><b><strong><a>';
         $allowAttributes = 'style';
-        $str2 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/><span style="color:red">Red</span><a style="color:red" href="#">Header</a>';
-        $equals2 = '<p style_-_-"text-align:center">Paragraph</p><strong style_-_-"color:red">Bold</strong><span style_-_-"color:red">Red</span><a style_-_-"color:red" href="#">Header</a>';
+        $str2 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/>'
+              . '<span style="color:red">Red</span><a style="color:red" href="#">Header</a>';
+        $equals2 = '<p style_-_-"text-align:center">Paragraph</p><strong style_-_-"color:red">Bold</strong>'
+                 . '<span style_-_-"color:red">Red</span><a style_-_-"color:red" href="#">Header</a>';
         $this->assertEquals($equals2, StringFormatter::strip_tags_attributes($str2, $allow2, $allowAttributes));
     }
 
@@ -52,24 +56,30 @@ class StringFormatterTest extends \PHPUnit_Framework_TestCase
      */
     public function testSanitize()
     {
-        $this->assertEquals('uma frase com aáeéiíoóuú e espaços', StringFormatter::sanitize("uma frase com aáeéiíoóuú e espaços"));
+        $this->assertEquals(
+            'uma frase com aáeéiíoóuú e espaços',
+            StringFormatter::sanitize("uma frase com aáeéiíoóuú e espaços")
+        );
         $this->assertEquals('áéíóú123', StringFormatter::sanitize("áéíóú123"));
         $this->assertEquals('áéíóú123', StringFormatter::sanitize("áéíóú123\n"));
 
         // Array
-        $teste = array('linha1'=> 'áéíóú123-', 'linha2'=> "áéíóú123\n", 'linha3'=> "áéíóú123\n");
+        $teste = ['linha1' => 'áéíóú123-', 'linha2' => "áéíóú123\n", 'linha3' => "áéíóú123\n"];
 
-        $resultado = array('linha1'=> 'áéíóú123-', 'linha2'=> "áéíóú123", 'linha3' => "áéíóú123");
+        $resultado = ['linha1' => 'áéíóú123-', 'linha2' => "áéíóú123", 'linha3' => "áéíóú123"];
         $this->assertEquals($resultado, StringFormatter::sanitize($teste));
 
-        $resultado = array('linha1' => 'áéíóú123-', 'linha2' => "áéíóú123\n", 'linha3' => "áéíóú123");
-        $this->assertEquals($resultado, StringFormatter::sanitize($teste, array('ignore'=>'linha2')));
+        $resultado = ['linha1' => 'áéíóú123-', 'linha2' => "áéíóú123\n", 'linha3' => "áéíóú123"];
+        $this->assertEquals($resultado, StringFormatter::sanitize($teste, ['ignore' => 'linha2']));
 
         // Nomes com orkutify
         $this->assertEquals('Ana P.', StringFormatter::sanitize('Ana ▒ ▒ ▒ P.'));
         $this->assertEquals('Luiz M.', StringFormatter::sanitize('Luiz M. ♪♫'));
         $this->assertEquals('Luiz áéúíó M.', StringFormatter::sanitize('Luiz áéúíó M. ♪♫'));
-        $this->assertEquals('Thamyris Mendonça', StringFormatter::sanitize('•●๋• Thamyris Mendonça •●๋•'));
+        $this->assertEquals(
+            'Thamyris Mendonça',
+            StringFormatter::sanitize('•●๋• Thamyris Mendonça •●๋•')
+        );
         $this->assertEquals('FERNANDA FIGHT', StringFormatter::sanitize('☠ FERNANDA FIGHT ☠ '));
 
         // Especiais
@@ -131,7 +141,8 @@ class StringFormatterTest extends \PHPUnit_Framework_TestCase
     public function testCleanHTML()
     {
         $allow   = '<span><a><br>';
-        $str     = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br><span style="color:red">Red</span><a href="#">Header</a>';
+        $str     = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br>'
+                 . '<span style="color:red">Red</span><a href="#">Header</a>';
         $retorno = 'ParagraphBold<br><span style="color:red">Red</span><a href="#">Header</a>';
         $this->assertEquals($retorno, StringFormatter::cleanHTML($str, $allow));
     }

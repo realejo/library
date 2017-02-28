@@ -16,7 +16,7 @@ class UfTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $uf = array(
+    protected $uf = [
             'AC' => 'Acre',
             'AL' => 'Alagoas',
             'AM' => 'Amazonas',
@@ -44,7 +44,7 @@ class UfTest extends \PHPUnit_Framework_TestCase
             'SP' => 'São Paulo',
             'SE' => 'Sergipe',
             'TO' => 'Tocantins'
-    );
+    ];
 
     /**
      * Regiões geográficas
@@ -53,13 +53,13 @@ class UfTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $regioes = array(
+    protected $regioes = [
             'CO' => 'Centro-Oeste',
             'NO' => 'Norte',
             'NE' => 'Nordeste',
             'SE' => 'Sudeste',
             'SU' => 'Sul'
-    );
+    ];
 
     /**
      * UFs e sua respectiva região geográfica
@@ -68,7 +68,7 @@ class UfTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $ufRegiao = array(
+    protected $ufRegiao = [
             'AC' => 'NO',
             'AL' => 'NE',
             'AM' => 'NO',
@@ -96,7 +96,7 @@ class UfTest extends \PHPUnit_Framework_TestCase
             'SP' => 'SE',
             'SE' => 'NE',
             'TO' => 'SU'
-    );
+    ];
 
 
     /**

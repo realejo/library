@@ -227,8 +227,10 @@ class TimeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('13', $time->get(TimeFormatter::HOUR_SHORT));
 
         // 13:45:03 minutos
-        $time = new TimeFormatter('13:45:3',
-            TimeFormatter::HOUR . ':' . TimeFormatter::MINUTE . ':' . TimeFormatter::SECOND);
+        $time = new TimeFormatter(
+            '13:45:3',
+            TimeFormatter::HOUR . ':' . TimeFormatter::MINUTE . ':' . TimeFormatter::SECOND
+        );
         $this->assertSame('3', $time->get(TimeFormatter::SECOND_SHORT));
         $this->assertSame('45', $time->get(TimeFormatter::MINUTE_SHORT));
         $this->assertSame('13', $time->get(TimeFormatter::HOUR_SHORT));
@@ -579,34 +581,54 @@ class TimeTest extends \PHPUnit_Framework_TestCase
 
         $time = new TimeFormatter('27:3');
         $this->assertSame(27 * 60 + 3 + 13, $time->setTime('27:3')->addTime(13)->getSeconds());
-        $this->assertSame(27 * 60 + 3 + 13 * 60,
-            $time->setTime('27:3')->addTime(13, TimeFormatter::MINUTE)->getSeconds());
+        $this->assertSame(
+            27 * 60 + 3 + 13 * 60,
+            $time->setTime('27:3')->addTime(13, TimeFormatter::MINUTE)->getSeconds()
+        );
         $this->assertSame(27 * 60 + 3 + 13 * 60, $time->setTime('27:3')->addTime('13:00')->getSeconds());
-        $this->assertSame(27 * 60 + 3 + 13 * 60 * 60,
-            $time->setTime('27:3')->addTime(13, TimeFormatter::HOUR)->getSeconds());
+        $this->assertSame(
+            27 * 60 + 3 + 13 * 60 * 60,
+            $time->setTime('27:3')->addTime(13, TimeFormatter::HOUR)->getSeconds()
+        );
         $this->assertSame(27 * 60 + 3 + 13 * 60 * 60, $time->setTime('27:3')->addTime('13:00:00')->getSeconds());
 
         $time = new TimeFormatter('27:3', 'h:m');
         $this->assertSame(27 * 60 * 60 + 3 * 60 + 13, $time->setTime('27:3', 'h:m')->addTime(13)->getSeconds());
-        $this->assertSame(27 * 60 * 60 + 3 * 60 + 13 * 60,
-            $time->setTime('27:3', 'h:m')->addTime(13, TimeFormatter::MINUTE)->getSeconds());
-        $this->assertSame(27 * 60 * 60 + 3 * 60 + 13 * 60,
-            $time->setTime('27:3', 'h:m')->addTime('13:00')->getSeconds());
-        $this->assertSame(27 * 60 * 60 + 3 * 60 + 13 * 60 * 60,
-            $time->setTime('27:3', 'h:m')->addTime(13, TimeFormatter::HOUR)->getSeconds());
-        $this->assertSame(27 * 60 * 60 + 3 * 60 + 13 * 60 * 60,
-            $time->setTime('27:3', 'h:m')->addTime('13:00:00')->getSeconds());
+        $this->assertSame(
+            27 * 60 * 60 + 3 * 60 + 13 * 60,
+            $time->setTime('27:3', 'h:m')->addTime(13, TimeFormatter::MINUTE)->getSeconds()
+        );
+        $this->assertSame(
+            27 * 60 * 60 + 3 * 60 + 13 * 60,
+            $time->setTime('27:3', 'h:m')->addTime('13:00')->getSeconds()
+        );
+        $this->assertSame(
+            27 * 60 * 60 + 3 * 60 + 13 * 60 * 60,
+            $time->setTime('27:3', 'h:m')->addTime(13, TimeFormatter::HOUR)->getSeconds()
+        );
+        $this->assertSame(
+            27 * 60 * 60 + 3 * 60 + 13 * 60 * 60,
+            $time->setTime('27:3', 'h:m')->addTime('13:00:00')->getSeconds()
+        );
 
         $time = new TimeFormatter('13:27:3');
         $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 + 13, $time->setTime('13:27:3')->addTime(13)->getSeconds());
-        $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 + 13 * 60,
-            $time->setTime('13:27:3')->addTime(13, TimeFormatter::MINUTE)->getSeconds());
-        $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 + 13 * 60,
-            $time->setTime('13:27:3')->addTime('13:00')->getSeconds());
-        $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 + 13 * 60 * 60,
-            $time->setTime('13:27:3')->addTime(13, TimeFormatter::HOUR)->getSeconds());
-        $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 + 13 * 60 * 60,
-            $time->setTime('13:27:3')->addTime('13:00:00')->getSeconds());
+        $this->assertSame(
+            13 * 60 * 60 + 27 * 60 + 3 + 13 * 60,
+            $time->setTime('13:27:3')->addTime(13, TimeFormatter::MINUTE)->getSeconds()
+        );
+        $this->assertSame(
+            13 * 60 * 60 + 27 * 60 + 3 + 13 * 60,
+            $time->setTime('13:27:3')->addTime('13:00')->getSeconds()
+        );
+        $this->assertSame(
+            13 * 60 * 60 + 27 * 60 + 3 + 13 * 60 * 60,
+            $time->setTime('13:27:3')->addTime(13, TimeFormatter::HOUR)->getSeconds()
+        );
+        $this->assertSame(
+            13 * 60 * 60 + 27 * 60 + 3 + 13 * 60 * 60,
+            $time->setTime('13:27:3')->addTime('13:00:00')->getSeconds()
+        );
     }
 
     /**
@@ -624,34 +646,54 @@ class TimeTest extends \PHPUnit_Framework_TestCase
 
         $time = new TimeFormatter('27:3');
         $this->assertSame(27 * 60 + 3 - 13, $time->setTime('27:3')->subTime(13)->getSeconds());
-        $this->assertSame(27 * 60 + 3 - 13 * 60,
-            $time->setTime('27:3')->subTime(13, TimeFormatter::MINUTE)->getSeconds());
+        $this->assertSame(
+            27 * 60 + 3 - 13 * 60,
+            $time->setTime('27:3')->subTime(13, TimeFormatter::MINUTE)->getSeconds()
+        );
         $this->assertSame(27 * 60 + 3 - 13 * 60, $time->setTime('27:3')->subTime('13:00')->getSeconds());
-        $this->assertSame(27 * 60 + 3 - 13 * 60 * 60,
-            $time->setTime('27:3')->subTime(13, TimeFormatter::HOUR)->getSeconds());
+        $this->assertSame(
+            27 * 60 + 3 - 13 * 60 * 60,
+            $time->setTime('27:3')->subTime(13, TimeFormatter::HOUR)->getSeconds()
+        );
         $this->assertSame(27 * 60 + 3 - 13 * 60 * 60, $time->setTime('27:3')->subTime('13:00:00')->getSeconds());
 
         $time = new TimeFormatter('27:3', 'h:m');
         $this->assertSame(27 * 60 * 60 + 3 * 60 - 13, $time->setTime('27:3', 'h:m')->subTime(13)->getSeconds());
-        $this->assertSame(27 * 60 * 60 + 3 * 60 - 13 * 60,
-            $time->setTime('27:3', 'h:m')->subTime(13, TimeFormatter::MINUTE)->getSeconds());
-        $this->assertSame(27 * 60 * 60 + 3 * 60 - 13 * 60,
-            $time->setTime('27:3', 'h:m')->subTime('13:00')->getSeconds());
-        $this->assertSame(27 * 60 * 60 + 3 * 60 - 13 * 60 * 60,
-            $time->setTime('27:3', 'h:m')->subTime(13, TimeFormatter::HOUR)->getSeconds());
-        $this->assertSame(27 * 60 * 60 + 3 * 60 - 13 * 60 * 60,
-            $time->setTime('27:3', 'h:m')->subTime('13:00:00')->getSeconds());
+        $this->assertSame(
+            27 * 60 * 60 + 3 * 60 - 13 * 60,
+            $time->setTime('27:3', 'h:m')->subTime(13, TimeFormatter::MINUTE)->getSeconds()
+        );
+        $this->assertSame(
+            27 * 60 * 60 + 3 * 60 - 13 * 60,
+            $time->setTime('27:3', 'h:m')->subTime('13:00')->getSeconds()
+        );
+        $this->assertSame(
+            27 * 60 * 60 + 3 * 60 - 13 * 60 * 60,
+            $time->setTime('27:3', 'h:m')->subTime(13, TimeFormatter::HOUR)->getSeconds()
+        );
+        $this->assertSame(
+            27 * 60 * 60 + 3 * 60 - 13 * 60 * 60,
+            $time->setTime('27:3', 'h:m')->subTime('13:00:00')->getSeconds()
+        );
 
         $time = new TimeFormatter('13:27:3');
         $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 - 13, $time->setTime('13:27:3')->subTime(13)->getSeconds());
-        $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 - 13 * 60,
-            $time->setTime('13:27:3')->subTime(13, TimeFormatter::MINUTE)->getSeconds());
-        $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 - 13 * 60,
-            $time->setTime('13:27:3')->subTime('13:00')->getSeconds());
-        $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 - 13 * 60 * 60,
-            $time->setTime('13:27:3')->subTime(13, TimeFormatter::HOUR)->getSeconds());
-        $this->assertSame(13 * 60 * 60 + 27 * 60 + 3 - 13 * 60 * 60,
-            $time->setTime('13:27:3')->subTime('13:00:00')->getSeconds());
+        $this->assertSame(
+            13 * 60 * 60 + 27 * 60 + 3 - 13 * 60,
+            $time->setTime('13:27:3')->subTime(13, TimeFormatter::MINUTE)->getSeconds()
+        );
+        $this->assertSame(
+            13 * 60 * 60 + 27 * 60 + 3 - 13 * 60,
+            $time->setTime('13:27:3')->subTime('13:00')->getSeconds()
+        );
+        $this->assertSame(
+            13 * 60 * 60 + 27 * 60 + 3 - 13 * 60 * 60,
+            $time->setTime('13:27:3')->subTime(13, TimeFormatter::HOUR)->getSeconds()
+        );
+        $this->assertSame(
+            13 * 60 * 60 + 27 * 60 + 3 - 13 * 60 * 60,
+            $time->setTime('13:27:3')->subTime('13:00:00')->getSeconds()
+        );
     }
 
     /**
