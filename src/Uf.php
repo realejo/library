@@ -16,7 +16,7 @@ class Uf
      *
      * @var array
      */
-    protected $uf = [
+    protected static $uf = [
                     'AC' => 'Acre',
                     'AL' => 'Alagoas',
                     'AM' => 'Amazonas',
@@ -50,7 +50,7 @@ class Uf
      * Regiões geográficas
      * @var array
      */
-    protected $regioes = [
+    protected static $regioes = [
                             'CO' => 'Centro-Oeste',
                             'NO' => 'Norte',
                             'NE' => 'Nordeste',
@@ -62,7 +62,7 @@ class Uf
      * Lista de UFs e sua respectiva região geográfica
      * @var array
      */
-    protected $ufRegiao = [
+    protected static $ufRegiao = [
                             'AC' => 'NO',
                             'AL' => 'NE',
                             'AM' => 'NO',
@@ -89,7 +89,7 @@ class Uf
                             'SC' => 'SU',
                             'SP' => 'SE',
                             'SE' => 'NE',
-                            'TO' => 'SU'
+                            'TO' => 'NO'
                           ];
 
     /**
@@ -101,34 +101,38 @@ class Uf
      */
     public static function getUfs($regiao = null)
     {
-        $oSelf = new self();
         if (empty($regiao)) {
-            return $oSelf->uf;
+            return static::$uf;
         }
 
         $ufs = [];
         if (! is_array($regiao)) {
             $regiao = [$regiao];
         }
+
         foreach ($regiao as $r) {
-            foreach ($oSelf->uf as $u => $nome) {
-                if (isset($oSelf->UfRegiao[$u]) && $oSelf->UfRegiao[$u] == $r) {
+            foreach (static::$uf as $u => $nome) {
+                if (isset(static::$ufRegiao[$u]) && static::$ufRegiao[$u] == $r) {
                     $ufs[$u] = $nome;
                 }
             }
         }
+
         return $ufs;
     }
 
     /**
      * Retorna o nome da UF
-     * @return array
-     * @internal param $uf
+     * @param $uf
+     * @return string
      */
-    public static function getUf()
+    public static function getUf($uf)
     {
-        $oSelf = new self();
-        return $oSelf->regioes;
+        if (isset(static::$uf[$uf])) {
+            return static::$uf[$uf];
+        }
+
+        return null;
     }
 
     /**
@@ -138,8 +142,7 @@ class Uf
      */
     public static function getRegioes()
     {
-        $oSelf = new self();
-        return $oSelf->regioes;
+        return static::$regioes;
     }
 
     /**
@@ -149,7 +152,6 @@ class Uf
      */
     public static function getUfRegiao()
     {
-        $oSelf = new self();
-        return $oSelf->ufRegiao;
+        return static::$ufRegiao;
     }
 }
