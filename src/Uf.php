@@ -148,10 +148,20 @@ class Uf
     /**
      * Retorna as UF e a região a qual pertence
      *
-     * @return array
+     * @param null $uf
+     *
+     * @return array|string
      */
-    public static function getUfRegiao()
+    public static function getUfRegiao($uf = null)
     {
-        return static::$ufRegiao;
+        if (empty($uf)) {
+            return static::$ufRegiao;
+        }
+
+        if (array_key_exists($uf, static::$ufRegiao)) {
+            return static::$ufRegiao[$uf];
+        }
+
+        return null;
     }
 }

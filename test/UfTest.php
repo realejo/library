@@ -139,5 +139,7 @@ class UfTest extends \PHPUnit_Framework_TestCase
     public function testGetUfRegiao()
     {
         $this->assertEquals($this->ufRegiao, Uf::getUfRegiao());
+        $this->assertEquals('SE', Uf::getUfRegiao('RJ'));
+        $this->assertNull(Uf::getUfRegiao('XX'));
     }
 }
