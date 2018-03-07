@@ -3,6 +3,8 @@
 develop: [![Build Status](https://travis-ci.org/realejo/library.png?branch=develop)](https://travis-ci.org/realejo/library)
 master: [![Build Status](https://travis-ci.org/realejo/library.png?branch=master)](https://travis-ci.org/realejo/library)
 
+[![Coverage Status](https://coveralls.io/repos/github/realejo/library/badge.svg?branch=master)](https://coveralls.io/github/realejo/library?branch=master)
+
 Biblioteca com funções comuns
 
 ### CPF/CNPJ/CEP
