@@ -16,7 +16,7 @@ class UfTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $uf = array(
+    protected $uf = [
             'AC' => 'Acre',
             'AL' => 'Alagoas',
             'AM' => 'Amazonas',
@@ -44,7 +44,7 @@ class UfTest extends \PHPUnit_Framework_TestCase
             'SP' => 'São Paulo',
             'SE' => 'Sergipe',
             'TO' => 'Tocantins'
-    );
+    ];
 
     /**
      * Regiões geográficas
@@ -53,13 +53,13 @@ class UfTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $regioes = array(
+    protected $regioes = [
             'CO' => 'Centro-Oeste',
             'NO' => 'Norte',
             'NE' => 'Nordeste',
             'SE' => 'Sudeste',
             'SU' => 'Sul'
-    );
+    ];
 
     /**
      * UFs e sua respectiva região geográfica
@@ -68,7 +68,7 @@ class UfTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $ufRegiao = array(
+    protected $ufRegiao = [
             'AC' => 'NO',
             'AL' => 'NE',
             'AM' => 'NO',
@@ -95,51 +95,17 @@ class UfTest extends \PHPUnit_Framework_TestCase
             'SC' => 'SU',
             'SP' => 'SE',
             'SE' => 'NE',
-            'TO' => 'SU'
-    );
+            'TO' => 'NO'
+    ];
 
-
-    /**
-     * Prepares the environment before running a test.
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        // TODO Auto-generated UfTest::setUp()
-
-        $this->Uf = new Uf(/* parameters */);
-    }
-
-    /**
-     * Cleans up the environment after running a test.
-     */
-    protected function tearDown()
-    {
-        // TODO Auto-generated UfTest::tearDown()
-
-        $this->Uf = null;
-
-        parent::tearDown();
-    }
-
-    /**
-     * Constructs the test case.
-     */
-    public function __construct()
-    {
-        // TODO Auto-generated constructor
-    }
 
     /**
      * Tests Uf::getUfs()
      */
     public function testGetUfs()
     {
-        // TODO Auto-generated UfTest::testGetUfs()
-        $this->markTestSkipped("getUfs test not implemented");
-
-        Uf::getUfs(/* parameters */);
+        $this->assertEquals(array_keys($this->ufRegiao), array_keys(Uf::getUfs()));
+        $this->assertEquals(['ES', 'MG', 'RJ', 'SP'], array_keys(Uf::getUfs('SE')));
     }
 
     /**
@@ -147,10 +113,8 @@ class UfTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUf()
     {
-        // TODO Auto-generated UfTest::testGetUf()
-        $this->markTestSkipped("getUf test not implemented");
-
-        Uf::getUf(/* parameters */);
+        $this->assertEquals('Rio de Janeiro', Uf::getUf('RJ'));
+        $this->assertNull(Uf::getUf('XX'));
     }
 
     /**
@@ -158,10 +122,15 @@ class UfTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRegioes()
     {
-        // TODO Auto-generated UfTest::testGetRegioes()
-        $this->markTestSkipped("getRegioes test not implemented");
-
-        Uf::getRegioes(/* parameters */);
+        $this->assertInternalType('array', Uf::getRegioes());
+        $this->assertCount(5, Uf::getRegioes());
+        $this->assertEquals([
+            'CO' => 'Centro-Oeste',
+            'NO' => 'Norte',
+            'NE' => 'Nordeste',
+            'SE' => 'Sudeste',
+            'SU' => 'Sul'
+        ], Uf::getRegioes());
     }
 
     /**
@@ -169,9 +138,8 @@ class UfTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUfRegiao()
     {
-        // TODO Auto-generated UfTest::testGetUfRegiao()
-        $this->markTestSkipped("getUfRegiao test not implemented");
-
-        Uf::getUfRegiao(/* parameters */);
+        $this->assertEquals($this->ufRegiao, Uf::getUfRegiao());
+        $this->assertEquals('SE', Uf::getUfRegiao('RJ'));
+        $this->assertNull(Uf::getUfRegiao('XX'));
     }
 }

@@ -42,7 +42,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Image->__construct()
      */
-    public function test__construct()
+    public function testConstruct()
     {
         $oImage = new Image();
         $this->assertInstanceOf('Realejo\Image', $oImage);
@@ -54,7 +54,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Image->open() inválido
      *
-     * @expectedException  Exception
+     * @expectedException  \Exception
      */
     public function testConstructNaoExistente()
     {
@@ -65,7 +65,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Image->open() inválido
      *
-     * @expectedException  Exception
+     * @expectedException  \Exception
      */
     public function testOpenNaoExistente()
     {
@@ -139,7 +139,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testClose()
     {
-        // Cria o objeto magem
+        // Cria o objeto
         $oImage = new Image($this->imgPath.'/exemplo.jpg');
 
         // Verifica se o resource foi criado
@@ -192,7 +192,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
         // Destroi o objeto
         unset($oImage);
-
 
         // Cria o arquivo temporário
         $filenameTemp = $this->imgPath.'/temp/teste.jpg';
@@ -333,7 +332,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($oImage->save());
 
         // Recupera o tamanho da imagem após a mudança
-        list($width, $height, $type, $attr)= getimagesize($filepath);
+        list($width, $height, $type, $attr) = getimagesize($filepath);
 
         // Compara os tamanhos passados e reais da imagem
         $this->assertEquals('113', $width);

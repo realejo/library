@@ -72,7 +72,7 @@ class Phone
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
         // Verifica se sobrou numero para o Phone
-        if (!empty($phoneNumber)) {
+        if (! empty($phoneNumber)) {
             return $phoneNumber;
         }
 

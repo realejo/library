@@ -13,41 +13,41 @@ class Image
      * Imagem carregada
      * @var binary image
      */
-    protected $_image = null;
+    protected $image = null;
 
     /**
      * Mime types válidos
      * @var array
      */
-    protected $_fileTypes = array(
+    protected $fileTypes = [
         'image/gif',
         'image/jpeg',
         'image/png'
-    );
+    ];
 
     /**
      * Compressão padrão das imagens
      * @var array
      */
-    protected $_imageQuality = array(
-        'png'   =>  9, // 0..9
-        'jpeg'  =>  100,
-        'gif'   =>  100
-    );
+    protected $imageQuality = [
+        'png'   => 9, // 0..9
+        'jpeg'  => 100,
+        'gif'   => 100
+    ];
 
     /**
      * Path original da imagem
      *
      * @var string
      */
-    private $_path;
+    private $path;
 
     /**
      * Tipo imagem
      *
      * @var string
      */
-    protected $_mimeType;
+    protected $mimeType;
 
     /**
      * Carrega aimagem ao criar a classe
@@ -57,7 +57,7 @@ class Image
     public function __construct($image = null)
     {
         // Verifica se há uma imagem para carregar
-        if (!is_null($image)) {
+        if (! is_null($image)) {
             $this->open($image);
         }
     }
@@ -78,7 +78,7 @@ class Image
         }
 
         // Verifica se o arquivo existe
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             throw new \Exception("Arquivo $file não existe");
         }
 
@@ -89,19 +89,19 @@ class Image
             case IMAGETYPE_JPEG:
                 $im = imagecreatefromjpeg($file);
                 if ($im !== false) {
-                    $this->_mimeType = 'jpeg';
-                    $this->_image    = $im;
-                    $this->_path     = $file;
+                    $this->mimeType = 'jpeg';
+                    $this->image    = $im;
+                    $this->path     = $file;
                     return true;
                 }
                 break;
 
-             case IMAGETYPE_GIF:
+            case IMAGETYPE_GIF:
                 $im = imagecreatefromgif($file);
                 if ($im !== false) {
-                    $this->_mimeType = 'gif';
-                    $this->_image    = $im;
-                    $this->_path     = $file;
+                    $this->mimeType = 'gif';
+                    $this->image    = $im;
+                    $this->path     = $file;
                     return true;
                 }
                 break;
@@ -109,9 +109,9 @@ class Image
             case IMAGETYPE_PNG:
                 $im = imagecreatefrompng($file);
                 if ($im !== false) {
-                    $this->_mimeType = 'png';
-                    $this->_image    = $im;
-                    $this->_path     = $file;
+                    $this->mimeType = 'png';
+                    $this->image    = $im;
+                    $this->path     = $file;
                     return true;
                 }
                 break;
@@ -128,11 +128,11 @@ class Image
     public function close()
     {
         // Verifica se a imagem está definida
-        if (isset($this->_image)) {
-            if (is_resource($this->_image)) {
-                imagedestroy($this->_image);
+        if (isset($this->image)) {
+            if (is_resource($this->image)) {
+                imagedestroy($this->image);
             }
-            $this->_image = null;
+            $this->image = null;
 
             return true;
         }
@@ -146,7 +146,7 @@ class Image
      */
     public function isLoaded()
     {
-        return !is_null($this->_image);
+        return ! is_null($this->image);
     }
 
     /**
@@ -160,7 +160,7 @@ class Image
     public function save($file = null, $close = false)
     {
         // Verifica se tem imagem carregada
-        if (!$this->isLoaded()) {
+        if (! $this->isLoaded()) {
             throw new \Exception('Imagem não carregada em Realejo\Image::save();');
         }
 
@@ -170,19 +170,19 @@ class Image
         }
 
         if (is_null($file)) {
-            $file = $this->_path;
+            $file = $this->path;
         }
 
         // Salva a transparencia (alpha channel) dos PNGs
         if ($this->getMimeType() == 'png') {
-            imagesavealpha($this->_image, true);
+            imagesavealpha($this->image, true);
         }
 
         // Define a função de acordo com o file type
         $imageFunction = "image" . $this->getMimeType();
 
         // Salva a imagem
-        $ok = $imageFunction($this->_image, $file, $this->_imageQuality[$this->getMimeType()]);
+        $ok = $imageFunction($this->image, $file, $this->imageQuality[$this->getMimeType()]);
 
         // Verifica se deve fechar
         if ($close && $ok) {
@@ -204,18 +204,18 @@ class Image
     public function sendScreen($close = true)
     {
         // Verifica se tem imagem carregada
-        if (!$this->isLoaded()) {
+        if (! $this->isLoaded()) {
             throw new \Exception('Imagem não carregada em Realejo\Image::sendScreen();');
         }
 
        // @codeCoverageIgnoreStart
        // Define o header de acordo com o file type
-       header('Content-Type: image/'. $this->getMimeType());
+        header('Content-Type: image/'. $this->getMimeType());
        // @codeCoverageIgnoreEnd
 
         // Salva a transparencia (alpha channel) dos PNGs
         if ($this->getMimeType() === 'png') {
-            imagesavealpha($this->_image, true);
+            imagesavealpha($this->image, true);
         }
 
         // Define a função de acordo com o file type
@@ -223,7 +223,7 @@ class Image
 
         // @codeCoverageIgnoreStart
         // Envia para o browser
-        $imageFunction($this->_image);
+        $imageFunction($this->image);
         // @codeCoverageIgnoreEnd
 
         // fecha o arquivo
@@ -247,22 +247,20 @@ class Image
     public function resize($w, $h, $crop = false, $force = false)
     {
         // Verifica se tem imagem carregada
-        if (!$this->isLoaded()) {
+        if (! $this->isLoaded()) {
             throw new \Exception('Imagem não carregada em Realejo\Image::resize();');
         }
 
         // Recupera os tamanhos da imagem
-        $newwidth  = $width  = imagesx($this->_image);
-        $newheight = $height = imagesy($this->_image);
+        $newwidth  = $width  = imagesx($this->image);
+        $newheight = $height = imagesy($this->image);
 
         // Verifica se é para fazer o crop
         if ($crop) {
-
             // Redimenciona a imagem se necessário
             if (($width > $w) || ($height > $h) || $force) {
-
                 // Calcula o novo tamanho
-                if (($width/$w) > ($height/$h)) {
+                if (($width / $w) > ($height / $h)) {
                     $newheight = $h;
                     $newwidth = ($width * $h) / $height;
                 } else {
@@ -277,17 +275,17 @@ class Image
                 if ($this->getMimeType() == 'png') {
                     imagealphablending($tmp, false);
                     imagesavealpha($tmp, true);
-                    imagealphablending($this->_image, true);
+                    imagealphablending($this->image, true);
                 }
 
                 // Redimenciona
-                imagecopyresampled($tmp, $this->_image, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+                imagecopyresampled($tmp, $this->image, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
                 // Destroi a imagem original
-                imagedestroy($this->_image);
+                imagedestroy($this->image);
 
                 // Passa a usar a imagem temporaria
-                $this->_image = $tmp;
+                $this->image = $tmp;
             }
 
             /**
@@ -301,21 +299,21 @@ class Image
             if ($this->getMimeType() === 'png') {
                 imagealphablending($tmp, false);
                 imagesavealpha($tmp, true);
-                imagealphablending($this->_image, true);
+                imagealphablending($this->image, true);
             }
 
             // Define o tamanho
-            $x = ($newwidth>$w)  ? $newwidth/2  - $w/2 : 0;
-            $y = ($newheight>$h) ? $newheight/2 - $h/2 : 0;
+            $x = ($newwidth > $w) ? $newwidth / 2 - $w / 2 : 0;
+            $y = ($newheight > $h) ? $newheight / 2 - $h / 2 : 0;
 
             // Faz o crop
-            imagecopyresampled($tmp, $this->_image, 0, 0, $x, $y, $w, $h, $w, $h);
+            imagecopyresampled($tmp, $this->image, 0, 0, $x, $y, $w, $h, $w, $h);
 
             // Destroi a imagem original
-            imagedestroy($this->_image);
+            imagedestroy($this->image);
 
             // Passa a usar a imagem temporaria
-            $this->_image = $tmp;
+            $this->image = $tmp;
 
             // Finaliza com sucesso
             return true;
@@ -323,7 +321,7 @@ class Image
 
         // Define os novos tamanhos
         if (($width > $w) || ($height > $h) || $force) {
-            if (($width/$w) > ($height/$h)) {
+            if (($width / $w) > ($height / $h)) {
                 $newwidth = $w;
                 $newheight = round(($height * $w) / $width);
             } else {
@@ -334,7 +332,6 @@ class Image
 
         // Verifica se o tamamnho mudou
         if (($newheight != $height) || ($newwidth != $width)) {
-
             // Cria a imagem temporária
             $tmp = imagecreatetruecolor($newwidth, $newheight);
 
@@ -342,17 +339,17 @@ class Image
             if ($this->getMimeType() === 'png') {
                 imagealphablending($tmp, false);
                 imagesavealpha($tmp, true);
-                imagealphablending($this->_image, true);
+                imagealphablending($this->image, true);
             }
 
             // Faz o redimencionamento
-            imagecopyresampled($tmp, $this->_image, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+            imagecopyresampled($tmp, $this->image, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
             // Destroi a imagem original
-            imagedestroy($this->_image);
+            imagedestroy($this->image);
 
             // Passa a usar a imagem temporaria
-            $this->_image = $tmp;
+            $this->image = $tmp;
 
             // Finaliza com sucesso
             return true;
@@ -370,13 +367,13 @@ class Image
     public function removeMetadata()
     {
         // Verifica se tem imagem carregada
-        if (!$this->isLoaded()) {
+        if (! $this->isLoaded()) {
             throw new \Exception('Imagem não carregada em Realejo\Image::removeMetadata();');
         }
 
         // Redimenciona a imagem para o mesmo tamanho dela. Isto irá criar uma nova imagem sem os metadados
-        $width  = imagesx($this->_image);
-        $height = imagesy($this->_image);
+        $width  = imagesx($this->image);
+        $height = imagesy($this->image);
         $this->resize($width, $height, false, true);
         return true;
     }
@@ -392,27 +389,27 @@ class Image
     public function setImageQuality($quality, $mimeType = null)
     {
         // Passa o formato para minusculo se existir
-        if (!is_null($mimeType)) {
+        if (! is_null($mimeType)) {
             $mimeType = strtolower($mimeType);
         }
 
         // Verifica se foi informado um formato específico
-        if (!is_null($mimeType)) {
+        if (! is_null($mimeType)) {
             // Verifica se o formato é valido
-            if (array_key_exists($mimeType, $this->_imageQuality)) {
+            if (array_key_exists($mimeType, $this->imageQuality)) {
                 if ($mimeType === 'png') {
-                    $quality = ($quality/10)-1;
+                    $quality = ($quality / 10) - 1;
                 }
-                $this->_imageQuality[$mimeType] = $quality;
+                $this->imageQuality[$mimeType] = $quality;
             } else {
                 throw new \Exception("Formato de imagem $mimeType inválido em Realejo\Image::setImageQuality()");
             }
 
         // Altera todos os formatos
         } else {
-            $this->_imageQuality['jpg'] = $quality;
-            $this->_imageQuality['gif'] = $quality;
-            $this->_imageQuality['png'] = ($quality/10)-1;
+            $this->imageQuality['jpg'] = $quality;
+            $this->imageQuality['gif'] = $quality;
+            $this->imageQuality['png'] = ($quality / 10) - 1;
         }
 
         // Mantem a cadeia
@@ -425,7 +422,7 @@ class Image
      */
     public function getMimeType()
     {
-        return $this->_mimeType;
+        return $this->mimeType;
     }
 
     /**
@@ -434,10 +431,10 @@ class Image
     public function setMimeType($mimeType)
     {
         // Passa o formato para minusculo se existir
-        if (!is_null($mimeType)) {
+        if (! is_null($mimeType)) {
             $format = strtolower($mimeType);
         }
 
-        $this->_mimeType = $mimeType;
+        $this->mimeType = $mimeType;
     }
 }

@@ -19,10 +19,10 @@ class Csv
      * @param array $labels  Titulo alterantido para as chaves definidas no primeiro item
      * @return string
      */
-    public static function getCSV($array, $exclude = array(), $labels = array())
+    public static function getCSV($array, $exclude = [], $labels = [])
     {
         // Verifica se há dados para gerar o CSV
-        if (!is_array($array) || empty($array)) {
+        if (! is_array($array) || empty($array)) {
             return '';
         }
 
@@ -32,13 +32,13 @@ class Csv
 
         // Verifica os campos a serem excluídos
         if (is_null($exclude)) {
-            $exclude = array();
-        } elseif (!is_array($exclude)) {
-            $exclude = array($exclude);
+            $exclude = [];
+        } elseif (! is_array($exclude)) {
+            $exclude = [$exclude];
         }
 
         // Arruma o array de exclusão
-        $temp = array();
+        $temp = [];
         foreach ($exclude as $e) {
             $temp[$e] = $e;
         }
@@ -50,12 +50,12 @@ class Csv
 
         // Coloca as chaves no CSV
         $temp = $keys;
-        foreach ($temp as $i=>$k) {
+        foreach ($temp as $i => $k) {
             if (array_key_exists($k, $labels)) {
                 $temp[$i] = $labels[$k];
             }
         }
-        $csv = array(mb_strtoupper(implode(';', $temp), 'UTF-8'));
+        $csv = [mb_strtoupper(implode(';', $temp), 'UTF-8')];
 
         // Constroi o CSV
         foreach ($array as $row) {
@@ -63,7 +63,7 @@ class Csv
             $row = array_diff_key($row, $exclude);
 
             // Coloca no CSV
-            $csv[] =  '"'. implode('";"', $row) .'"';
+            $csv[] = '"'. implode('";"', $row) .'"';
         }
 
         $csv = implode("\n", $csv);
