@@ -10,6 +10,38 @@ namespace Realejo;
 class Rg
 {
     /**
+    * Verifica se o RG é valido
+    *
+    * @param string   $rg RG com ou sem formatação
+    * @return boolean
+    */
+    public static function isValid($rg, $uf='SP')
+    {
+        $rg = self::unformat($rg);
+        
+        if (strlen($rg) != 9) {
+            return false;
+        }
+        
+        // Até o momento so o estado de SP tem validação de RG
+        if ($uf == 'SP') {
+    
+            $calc = 0;
+            $key  = 0;
+            for ($t = 9; $t >=2; $t--) {
+                $calc += $rg[$key] * $t;
+                $key++;
+            }
+            
+            // Verifica se o resto é igual ao digito verificador
+            if (($calc % 11) != substr($rg, -1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
      * Formata o RG no padrão 00.000.000-0
      * Não é feita nenhuma validação
      *

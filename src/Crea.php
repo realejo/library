@@ -22,7 +22,7 @@ class Crea
         // Reduz ao CREA desformatado
         $crea = self::unformat($crea);
 
-    // Verifica se há um RG
+        // Verifica se há um CREA
         if (!empty($crea)) {
             $crea = substr($crea, 0, 9) . '-' . substr($crea, 9, 1);
         }
