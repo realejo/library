@@ -5,6 +5,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class Csv
@@ -14,15 +15,15 @@ class Csv
      * As chaves do primeiro item do array serão usadas como titulo das colunas
      * do CSV a ser criado
      *
-     * @param array $array   Array com os dados a serem transformados em CSV
+     * @param array $array Array com os dados a serem transformados em CSV
      * @param array $exclude Lista de campos que não devem ser incluídos no CSV
-     * @param array $labels  Titulo alterantido para as chaves definidas no primeiro item
+     * @param array $labels Titulo alterantido para as chaves definidas no primeiro item
      * @return string
      */
     public static function getCSV($array, $exclude = [], $labels = [])
     {
         // Verifica se há dados para gerar o CSV
-        if (! is_array($array) || empty($array)) {
+        if (!is_array($array) || empty($array)) {
             return '';
         }
 
@@ -33,7 +34,7 @@ class Csv
         // Verifica os campos a serem excluídos
         if (is_null($exclude)) {
             $exclude = [];
-        } elseif (! is_array($exclude)) {
+        } elseif (!is_array($exclude)) {
             $exclude = [$exclude];
         }
 
@@ -63,7 +64,7 @@ class Csv
             $row = array_diff_key($row, $exclude);
 
             // Coloca no CSV
-            $csv[] = '"'. implode('";"', $row) .'"';
+            $csv[] = '"' . implode('";"', $row) . '"';
         }
 
         $csv = implode("\n", $csv);

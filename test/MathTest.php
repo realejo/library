@@ -5,9 +5,11 @@ namespace RealejoTest;
 /**
  * Math test case.
  */
+
+use PHPUnit\Framework\TestCase;
 use Realejo\Math;
 
-class MathTest extends \PHPUnit_Framework_TestCase
+class MathTest extends TestCase
 {
     /**
      * Tests Math::moda()
@@ -107,7 +109,7 @@ class MathTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([1], Math::moda([1, 1, 2]));
         $this->assertEquals([1], Math::moda([1, 1, 1, 2, 2, 3]));
         $this->assertEquals([1, 2], Math::moda([1, 2]));
-        $this->assertEquals([1, 2], Math::moda([1, 1, 2, 2 ]));
+        $this->assertEquals([1, 2], Math::moda([1, 1, 2, 2]));
         $this->assertEquals([1, 2], Math::moda([1, 1, 2, 2, 3, 4]));
         $this->assertEquals([1, 2], Math::moda([1, 2, 1, 3, 4, 1, 2, 2, 3]));
     }

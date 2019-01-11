@@ -5,6 +5,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class Cnh
@@ -12,7 +13,7 @@ class Cnh
     /**
      * Verifica se o CNH é valido
      *
-     * @param string   $cnh CNH com ou sem formatação
+     * @param string $cnh CNH com ou sem formatação
      * @return boolean
      */
     public static function isValid($cnh)

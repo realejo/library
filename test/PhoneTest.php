@@ -5,9 +5,11 @@ namespace RealejoTest;
 /**
  * Phone test case.
  */
+
+use PHPUnit\Framework\TestCase;
 use Realejo\Phone;
 
-class PhoneTest extends \PHPUnit_Framework_TestCase
+class PhoneTest extends TestCase
 {
     /**
      * Tests Phone::unformat()

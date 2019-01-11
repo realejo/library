@@ -5,6 +5,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class Image
@@ -30,9 +31,9 @@ class Image
      * @var array
      */
     protected $imageQuality = [
-        'png'   => 9, // 0..9
-        'jpeg'  => 100,
-        'gif'   => 100
+        'png' => 9, // 0..9
+        'jpeg' => 100,
+        'gif' => 100
     ];
 
     /**
@@ -57,7 +58,7 @@ class Image
     public function __construct($image = null)
     {
         // Verifica se há uma imagem para carregar
-        if (! is_null($image)) {
+        if (!is_null($image)) {
             $this->open($image);
         }
     }
@@ -78,7 +79,7 @@ class Image
         }
 
         // Verifica se o arquivo existe
-        if (! file_exists($file)) {
+        if (!file_exists($file)) {
             throw new \Exception("Arquivo $file não existe");
         }
 
@@ -90,8 +91,8 @@ class Image
                 $im = imagecreatefromjpeg($file);
                 if ($im !== false) {
                     $this->mimeType = 'jpeg';
-                    $this->image    = $im;
-                    $this->path     = $file;
+                    $this->image = $im;
+                    $this->path = $file;
                     return true;
                 }
                 break;
@@ -100,8 +101,8 @@ class Image
                 $im = imagecreatefromgif($file);
                 if ($im !== false) {
                     $this->mimeType = 'gif';
-                    $this->image    = $im;
-                    $this->path     = $file;
+                    $this->image = $im;
+                    $this->path = $file;
                     return true;
                 }
                 break;
@@ -110,8 +111,8 @@ class Image
                 $im = imagecreatefrompng($file);
                 if ($im !== false) {
                     $this->mimeType = 'png';
-                    $this->image    = $im;
-                    $this->path     = $file;
+                    $this->image = $im;
+                    $this->path = $file;
                     return true;
                 }
                 break;
@@ -146,7 +147,7 @@ class Image
      */
     public function isLoaded()
     {
-        return ! is_null($this->image);
+        return !is_null($this->image);
     }
 
     /**
@@ -160,12 +161,12 @@ class Image
     public function save($file = null, $close = false)
     {
         // Verifica se tem imagem carregada
-        if (! $this->isLoaded()) {
+        if (!$this->isLoaded()) {
             throw new \Exception('Imagem não carregada em Realejo\Image::save();');
         }
 
         if ($file === true) {
-            $file  = null;
+            $file = null;
             $close = true;
         }
 
@@ -204,14 +205,14 @@ class Image
     public function sendScreen($close = true)
     {
         // Verifica se tem imagem carregada
-        if (! $this->isLoaded()) {
+        if (!$this->isLoaded()) {
             throw new \Exception('Imagem não carregada em Realejo\Image::sendScreen();');
         }
 
-       // @codeCoverageIgnoreStart
-       // Define o header de acordo com o file type
-        header('Content-Type: image/'. $this->getMimeType());
-       // @codeCoverageIgnoreEnd
+        // @codeCoverageIgnoreStart
+        // Define o header de acordo com o file type
+        header('Content-Type: image/' . $this->getMimeType());
+        // @codeCoverageIgnoreEnd
 
         // Salva a transparencia (alpha channel) dos PNGs
         if ($this->getMimeType() === 'png') {
@@ -247,12 +248,12 @@ class Image
     public function resize($w, $h, $crop = false, $force = false)
     {
         // Verifica se tem imagem carregada
-        if (! $this->isLoaded()) {
+        if (!$this->isLoaded()) {
             throw new \Exception('Imagem não carregada em Realejo\Image::resize();');
         }
 
         // Recupera os tamanhos da imagem
-        $newwidth  = $width  = imagesx($this->image);
+        $newwidth = $width = imagesx($this->image);
         $newheight = $height = imagesy($this->image);
 
         // Verifica se é para fazer o crop
@@ -367,12 +368,12 @@ class Image
     public function removeMetadata()
     {
         // Verifica se tem imagem carregada
-        if (! $this->isLoaded()) {
+        if (!$this->isLoaded()) {
             throw new \Exception('Imagem não carregada em Realejo\Image::removeMetadata();');
         }
 
         // Redimenciona a imagem para o mesmo tamanho dela. Isto irá criar uma nova imagem sem os metadados
-        $width  = imagesx($this->image);
+        $width = imagesx($this->image);
         $height = imagesy($this->image);
         $this->resize($width, $height, false, true);
         return true;
@@ -389,12 +390,12 @@ class Image
     public function setImageQuality($quality, $mimeType = null)
     {
         // Passa o formato para minusculo se existir
-        if (! is_null($mimeType)) {
+        if (!is_null($mimeType)) {
             $mimeType = strtolower($mimeType);
         }
 
         // Verifica se foi informado um formato específico
-        if (! is_null($mimeType)) {
+        if (!is_null($mimeType)) {
             // Verifica se o formato é valido
             if (array_key_exists($mimeType, $this->imageQuality)) {
                 if ($mimeType === 'png') {
@@ -405,7 +406,7 @@ class Image
                 throw new \Exception("Formato de imagem $mimeType inválido em Realejo\Image::setImageQuality()");
             }
 
-        // Altera todos os formatos
+            // Altera todos os formatos
         } else {
             $this->imageQuality['jpg'] = $quality;
             $this->imageQuality['gif'] = $quality;
@@ -431,7 +432,7 @@ class Image
     public function setMimeType($mimeType)
     {
         // Passa o formato para minusculo se existir
-        if (! is_null($mimeType)) {
+        if (!is_null($mimeType)) {
             $format = strtolower($mimeType);
         }
 

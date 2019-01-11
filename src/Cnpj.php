@@ -5,6 +5,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class Cnpj
@@ -51,7 +52,7 @@ class Cnpj
             $dig_1 = 0;
         }
         for ($i = 0; $i < 12; $i++) {
-            $dig_2 = $dig_2 + (int) (substr($cnpj, $i, 1) * $controle_2);
+            $dig_2 = $dig_2 + (int)(substr($cnpj, $i, 1) * $controle_2);
             $controle_2 = $controle_2 - 1;
             if ($i == 4) {
                 $controle_2 = 9;
@@ -82,9 +83,9 @@ class Cnpj
         $cnpj = self::unformat($cnpj);
 
         // Verifica se há um CNPJ
-        if (! empty($cnpj)) {
+        if (!empty($cnpj)) {
             $cnpj = substr($cnpj, 0, 2) . '.' . substr($cnpj, 2, 3) . '.' . substr($cnpj, 5, 3)
-                  . '/' . substr($cnpj, 8, 4) . '-' . substr($cnpj, 12, 2);
+                . '/' . substr($cnpj, 8, 4) . '-' . substr($cnpj, 12, 2);
         }
 
         // Retorna o CPF formatado
@@ -106,7 +107,7 @@ class Cnpj
 
         // Verifica se sobrou numero para o CNPJ
         //@todo verificar o tamanho minimo de um CNPJ
-        if (! empty($cnpj)) {
+        if (!empty($cnpj)) {
             return str_pad($cnpj, 14, '0', STR_PAD_LEFT);
         }
 

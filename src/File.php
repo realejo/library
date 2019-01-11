@@ -5,6 +5,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class File
@@ -48,7 +49,7 @@ class File
         }
 
         $totalBytes = 0;
-        while (! feof($handle)) {
+        while (!feof($handle)) {
             $buffer = fread($handle, $chunk);
             echo $buffer;
             ob_flush();

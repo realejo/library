@@ -5,9 +5,11 @@ namespace RealejoTest;
 /**
  * Image test case.
  */
+
+use PHPUnit\Framework\TestCase;
 use Realejo\Image;
 
-class ImageTest extends \PHPUnit_Framework_TestCase
+class ImageTest extends TestCase
 {
     /**
      * @var string
@@ -47,7 +49,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $oImage = new Image();
         $this->assertInstanceOf('Realejo\Image', $oImage);
 
-        $oImage = new Image($this->imgPath.'/exemplo.jpg');
+        $oImage = new Image($this->imgPath . '/exemplo.jpg');
         $this->assertInstanceOf('Realejo\Image', $oImage);
     }
 
@@ -59,7 +61,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function testConstructNaoExistente()
     {
         // Abre arquivo inexistente
-        new Image($this->imgPath.'/naoexiste.jpg');
+        new Image($this->imgPath . '/naoexiste.jpg');
     }
 
     /**
@@ -71,7 +73,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     {
         // Abre arquivo inexistente
         $oImage = new Image();
-        $oImage->open($this->imgPath.'/naoexiste.jpg');
+        $oImage->open($this->imgPath . '/naoexiste.jpg');
     }
 
     /**
@@ -81,7 +83,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     {
         // Abre JPG
         $oImage = new Image();
-        $this->assertTrue($oImage->open($this->imgPath.'/exemplo.jpg'));
+        $this->assertTrue($oImage->open($this->imgPath . '/exemplo.jpg'));
         $this->assertInstanceOf('Realejo\Image', $oImage);
 
         // Verifica se foi criado o resource
@@ -97,7 +99,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($oImage->isLoaded());
 
         // Abre PNG
-        $file = $this->imgPath.'/exemplo.png';
+        $file = $this->imgPath . '/exemplo.png';
         $this->assertTrue($oImage->open($file));
 
         // Verifica se foi criado o resource
@@ -113,7 +115,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($oImage->isLoaded());
 
         // Abre GIF
-        $this->assertTrue($oImage->open($this->imgPath.'/exemplo.gif'));
+        $this->assertTrue($oImage->open($this->imgPath . '/exemplo.gif'));
 
         // Verifica se foi criado o resource
         $this->assertTrue($oImage->isLoaded());
@@ -128,7 +130,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($oImage->isLoaded());
 
         // Abre um arquivo em formato nao suportado
-        $this->assertFalse($oImage->open($this->imgPath.'/exemplo.tif'));
+        $this->assertFalse($oImage->open($this->imgPath . '/exemplo.tif'));
 
         // Verifica se foi criado o resource
         $this->assertFalse($oImage->isLoaded());
@@ -140,7 +142,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function testClose()
     {
         // Cria o objeto
-        $oImage = new Image($this->imgPath.'/exemplo.jpg');
+        $oImage = new Image($this->imgPath . '/exemplo.jpg');
 
         // Verifica se o resource foi criado
         $this->assertTrue($oImage->isLoaded());
@@ -161,7 +163,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function testIsLoaded()
     {
         // Define o arquivo a ser usado para os testes
-        $filename = $this->imgPath.'/exemplo.jpg';
+        $filename = $this->imgPath . '/exemplo.jpg';
 
         // Cria o objeto da imagem
         $oImage = new Image($filename);
@@ -194,7 +196,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         unset($oImage);
 
         // Cria o arquivo temporário
-        $filenameTemp = $this->imgPath.'/temp/teste.jpg';
+        $filenameTemp = $this->imgPath . '/temp/teste.jpg';
         copy($filename, $filenameTemp);
 
         // Abre a imagem novamente
@@ -226,8 +228,8 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function testSave()
     {
         // Cria o arquivo temporário
-        $filenameTemp = $this->imgPath.'/temp/teste.jpg';
-        copy($this->imgPath.'/exemplo.jpg', $filenameTemp);
+        $filenameTemp = $this->imgPath . '/temp/teste.jpg';
+        copy($this->imgPath . '/exemplo.jpg', $filenameTemp);
 
         // Abre a imagem
         $oImage = new Image($filenameTemp);
@@ -254,10 +256,10 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function testResize()
     {
         // Cria o arquivo temporário
-        copy($this->imgPath.'/exemplo.jpg', $this->imgPath.'/temp/temp.jpg');
+        copy($this->imgPath . '/exemplo.jpg', $this->imgPath . '/temp/temp.jpg');
 
         // Carrega o JPG
-        $filepath = $this->imgPath.'/temp/temp.jpg';
+        $filepath = $this->imgPath . '/temp/temp.jpg';
         $oImage = new Image($filepath);
 
         // Reduz o tamanho do JPG com crop
@@ -322,7 +324,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         unset($oImage);
 
         // Sem Crop e reduzindo forçado
-        copy($this->imgPath.'/exemplo_800x600.jpg', $this->imgPath.'/temp/temp.jpg');
+        copy($this->imgPath . '/exemplo_800x600.jpg', $this->imgPath . '/temp/temp.jpg');
 
         // Abre JPG
         $oImage = new Image($filepath);
@@ -365,8 +367,8 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         unset($oImage);
 
         // Cria o arquivo temporário
-        copy($this->imgPath.'/exemplo_1024x768.jpg', $this->imgPath.'/temp/temp.jpg');
-        $filepath = $this->imgPath.'/temp/temp.jpg';
+        copy($this->imgPath . '/exemplo_1024x768.jpg', $this->imgPath . '/temp/temp.jpg');
+        $filepath = $this->imgPath . '/temp/temp.jpg';
 
         // Abre o arquivo
         $oImage = new Image($filepath);
@@ -393,10 +395,10 @@ class ImageTest extends \PHPUnit_Framework_TestCase
          */
 
         // Cria o arquivo temporário
-        copy($this->imgPath.'/exemplo.png', $this->imgPath.'/temp/temp.png');
+        copy($this->imgPath . '/exemplo.png', $this->imgPath . '/temp/temp.png');
 
         // Abre arquivo
-        $filepath = $this->imgPath.'/temp/temp.png';
+        $filepath = $this->imgPath . '/temp/temp.png';
         $oImage = new Image($filepath);
 
         // aumentando o PNG COM CROP
@@ -439,8 +441,8 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function testRemoveMetadata()
     {
         // Cria o arquivo temporário
-        $source = $this->imgPath.'/exemplo_800x600.jpg';
-        $target = $this->imgPath.'/temp/metadateTest.jpg';
+        $source = $this->imgPath . '/exemplo_800x600.jpg';
+        $target = $this->imgPath . '/temp/metadateTest.jpg';
         copy($source, $target);
 
         // Salva os metadados do arquivo original
@@ -464,12 +466,12 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
     public function removeTempImages()
     {
-        $files = scandir($this->imgPath.'/temp');
+        $files = scandir($this->imgPath . '/temp');
         foreach ($files as $f) {
             if ($f === '.' || $f === '..' || $f === '.gitignore') {
                 continue;
             }
-            unlink($this->imgPath."/temp/$f");
+            unlink($this->imgPath . "/temp/$f");
         }
     }
 }

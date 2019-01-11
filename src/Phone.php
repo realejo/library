@@ -5,6 +5,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class Phone
@@ -14,7 +15,7 @@ class Phone
      * Não é feita nenhuma validação
      *
      * @param string $phoneNumber Phone com ou sem formatação
-     * @param boolean $cellPhone   Se é um Celular ou não
+     * @param boolean $cellPhone Se é um Celular ou não
      *
      * @return string
      */
@@ -32,18 +33,18 @@ class Phone
         // Verifica se tem código do pais
         if (strlen($phoneNumber) > $totalNumber) {
             $countryCode = substr($phoneNumber, 0, strlen($phoneNumber) - $totalNumber);
-            $areaCode    = substr($phoneNumber, -$totalNumber, 2);
+            $areaCode = substr($phoneNumber, -$totalNumber, 2);
             $firstNumber = substr($phoneNumber, -($totalNumber - 2), $numberDigits);
-            $lastNumber  = substr($phoneNumber, -4, 4);
+            $lastNumber = substr($phoneNumber, -4, 4);
 
             return $countryCode . ' (' . $areaCode . ') ' . $firstNumber . '-' . $lastNumber;
         }
 
         // Verifica se tem código de area
         if (strlen($phoneNumber) === $totalNumber) {
-            $areaCode    = substr($phoneNumber, 0, 2);
+            $areaCode = substr($phoneNumber, 0, 2);
             $firstNumber = substr($phoneNumber, 2, $numberDigits);
-            $lastNumber   = substr($phoneNumber, ($numberDigits + 2), 4);
+            $lastNumber = substr($phoneNumber, ($numberDigits + 2), 4);
 
             return '(' . $areaCode . ') ' . $firstNumber . '-' . $lastNumber;
         }
@@ -51,9 +52,9 @@ class Phone
         // Verifica se é só o telefone
         if (strlen($phoneNumber) === ($totalNumber - 2)) {
             $firstNumber = substr($phoneNumber, 0, $numberDigits);
-            $lastNumber  = substr($phoneNumber, $numberDigits, 4);
+            $lastNumber = substr($phoneNumber, $numberDigits, 4);
 
-            return $firstNumber.'-'.$lastNumber;
+            return $firstNumber . '-' . $lastNumber;
         }
 
         // Retorna o Phone formatado
@@ -72,7 +73,7 @@ class Phone
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
         // Verifica se sobrou numero para o Phone
-        if (! empty($phoneNumber)) {
+        if (!empty($phoneNumber)) {
             return $phoneNumber;
         }
 

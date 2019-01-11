@@ -5,9 +5,11 @@ namespace RealejoTest;
 /**
  * CREA test case.
  */
+
+use PHPUnit\Framework\TestCase;
 use Realejo\Crea;
 
-class CreaTest extends \PHPUnit_Framework_TestCase
+class CreaTest extends TestCase
 {
     /**
      * Tests Crea::unformat()
@@ -65,6 +67,6 @@ class CreaTest extends \PHPUnit_Framework_TestCase
         $this->assertStringMatchesFormat('123456789-0', Crea::format('1234567890'));
         $this->assertStringMatchesFormat('000000000-1', Crea::format('000000000-1'));
         $this->assertStringMatchesFormat('123456789-1', Crea::format('123456789-1'));
-        
+
     }
 }

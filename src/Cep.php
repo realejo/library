@@ -5,6 +5,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class Cep
@@ -23,7 +24,7 @@ class Cep
         $cep = self::unformat($cep);
 
         // Verifica se há um CEP
-        if (! empty($cep)) {
+        if (!empty($cep)) {
             $cep = substr($cep, 0, 5) . '-' . substr($cep, 5, 3);
         }
 
@@ -44,7 +45,7 @@ class Cep
 
         // Verifica se sobrou numero para o CEP
         //@todo verificar o tamanho minimo de um CEP
-        if (! empty($cep)) {
+        if (!empty($cep)) {
             return str_pad($cep, 8, '0', STR_PAD_LEFT);
         }
 

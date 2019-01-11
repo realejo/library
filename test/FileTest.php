@@ -5,9 +5,11 @@ namespace RealejoTest;
 /**
  * File test case.
  */
+
+use PHPUnit\Framework\TestCase;
 use Realejo\File;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
     /**
      * Tests File::readfileChunked()

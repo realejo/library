@@ -2,19 +2,20 @@
 
 namespace RealejoTest;
 
+use PHPUnit\Framework\TestCase;
 use Realejo\StringFormatter;
 
 /**
  * Test cases para o Realejo\StringFormatter
  */
-class StringFormatterTest extends \PHPUnit_Framework_TestCase
+class StringFormatterTest extends TestCase
 {
     /**
      * Tests StringFormatter::RemoveAcentos()
      */
     public function testRemoveAcentos()
     {
-        $string  = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝŸàáâãäåæçèéêëìíîïñòóôõöùúûüýÿ';
+        $string = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝŸàáâãäåæçèéêëìíîïñòóôõöùúûüýÿ';
         $retorno = 'AAAAAAAECEEEEIIIINOOOOOUUUUYYaaaaaaaeceeeeiiiinooooouuuuyy';
         $this->assertEquals($retorno, StringFormatter::RemoveAcentos($string));
     }
@@ -28,17 +29,17 @@ class StringFormatterTest extends \PHPUnit_Framework_TestCase
         $allow1 = '<span><a><p>';
         $allowAttributes1 = 'style';
         $str1 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/>'
-              . '<span style="color:red">Red</span><a href="#">Header</a>';
+            . '<span style="color:red">Red</span><a href="#">Header</a>';
         $equals1 = '<p style_-_-"text-align:center">Paragraph</p>Bold<span style_-_-"color:red">Red</span>'
-                 . '<a href="#">Header</a>';
+            . '<a href="#">Header</a>';
         $this->assertEquals($equals1, StringFormatter::strip_tags_attributes($str1, $allow1, $allowAttributes1));
 
         $allow2 = '<span><p><ul><li><b><strong><a>';
         $allowAttributes = 'style';
         $str2 = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br/>'
-              . '<span style="color:red">Red</span><a style="color:red" href="#">Header</a>';
+            . '<span style="color:red">Red</span><a style="color:red" href="#">Header</a>';
         $equals2 = '<p style_-_-"text-align:center">Paragraph</p><strong style_-_-"color:red">Bold</strong>'
-                 . '<span style_-_-"color:red">Red</span><a style_-_-"color:red" href="#">Header</a>';
+            . '<span style_-_-"color:red">Red</span><a style_-_-"color:red" href="#">Header</a>';
         $this->assertEquals($equals2, StringFormatter::strip_tags_attributes($str2, $allow2, $allowAttributes));
     }
 
@@ -98,14 +99,14 @@ class StringFormatterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSlug()
     {
-        $url        = 'fazendo uma tremenda bagunça e uma GRANDE confusão';
+        $url = 'fazendo uma tremenda bagunça e uma GRANDE confusão';
         $urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
         $this->assertEquals($urlRetorno, StringFormatter::getSlug($url));
 
         // A partir do PHP 5.4 o enconding padrão é o UTF-8
         //@todo verificar se precisa testar outra coisa diferente
         if (PHP_MAJOR_VERSION === 5 && PHP_MINOR_VERSION === 3) {
-            $url        = utf8_decode('fazendo uma tremenda bagunça e uma GRANDE confusão');
+            $url = utf8_decode('fazendo uma tremenda bagunça e uma GRANDE confusão');
             $urlRetorno = 'fazendo-uma-tremenda-bagunca-e-uma-grande-confusao';
             $this->assertEquals($urlRetorno, StringFormatter::getSlug($url));
         }
@@ -140,9 +141,9 @@ class StringFormatterTest extends \PHPUnit_Framework_TestCase
      */
     public function testCleanHTML()
     {
-        $allow   = '<span><a><br>';
-        $str     = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br>'
-                 . '<span style="color:red">Red</span><a href="#">Header</a>';
+        $allow = '<span><a><br>';
+        $str = '<p style="text-align:center">Paragraph</p><strong style="color:red">Bold</strong><br>'
+            . '<span style="color:red">Red</span><a href="#">Header</a>';
         $retorno = 'ParagraphBold<br><span style="color:red">Red</span><a href="#">Header</a>';
         $this->assertEquals($retorno, StringFormatter::cleanHTML($str, $allow));
     }

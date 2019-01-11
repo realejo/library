@@ -7,6 +7,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class Math
@@ -29,10 +30,10 @@ class Math
         $ocorrencias = [];
         foreach ($a as $valor) {
             $valor_str = var_export($valor, true);
-            if (! isset($ocorrencias[$valor_str])) {
+            if (!isset($ocorrencias[$valor_str])) {
                 $ocorrencias[$valor_str] = [
                     'ocorrencias' => 0,
-                    'valor'       => $valor
+                    'valor' => $valor
                 ];
             }
             $ocorrencias[$valor_str]['ocorrencias'] += 1;
@@ -58,7 +59,7 @@ class Math
      * Obtem a mediana de um vetor de numeros.
      * @param array $a Vetor de numeros
      * @param callback $comparacao Função de comparacao para ordenar o vetor
-*                                  (ou null para usar a funcao sort para ordenar)
+     *                                  (ou null para usar a funcao sort para ordenar)
      * @return number|boolean Mediana do vetor ou false, caso seja passado um vetor vazio
      */
     public static function mediana(array $a, $comparacao = null)
@@ -80,7 +81,7 @@ class Math
         if ($tamanho % 2) {
             $mediana = $a[(($tamanho + 1) / 2) - 1];
 
-        // Tamanho par: obter a media simples entre os dois valores medianos
+            // Tamanho par: obter a media simples entre os dois valores medianos
         } else {
             $v1 = $a[($tamanho / 2) - 1];
             $v2 = $a[$tamanho / 2];

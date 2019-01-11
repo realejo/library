@@ -5,6 +5,7 @@
  * @link      http://github.com/realejo/library
  * @copyright Copyright (c) 2014 Realejo Design Ltda. (http://www.realejo.com.br)
  */
+
 namespace Realejo;
 
 class Cpf
@@ -12,7 +13,7 @@ class Cpf
     /**
      * Verifica se o CPF é valido
      *
-     * @param string   $cpf CPF com ou sem formatação
+     * @param string $cpf CPF com ou sem formatação
      * @return boolean
      */
     public static function isValid($cpf)
@@ -61,7 +62,7 @@ class Cpf
         $cpf = self::unformat($cpf);
 
         // Verifica se há um CPF
-        if (! empty($cpf)) {
+        if (!empty($cpf)) {
             $cpf = substr($cpf, 0, 3) . '.' . substr($cpf, 3, 3) . '.' . substr($cpf, 6, 3) . '-' . substr($cpf, 9, 2);
         }
 
@@ -82,7 +83,7 @@ class Cpf
 
         // Verifica se sobrou numero para o CPF
         //@todo verificar o tamanho minimo de um CPF
-        if (! empty($cpf)) {
+        if (!empty($cpf)) {
             return str_pad($cpf, 11, '0', STR_PAD_LEFT);
         }
 

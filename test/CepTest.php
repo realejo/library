@@ -5,9 +5,11 @@ namespace RealejoTest;
 /**
  * CEP test case.
  */
+
+use PHPUnit\Framework\TestCase;
 use Realejo\Cep;
 
-class CepTest extends \PHPUnit_Framework_TestCase
+class CepTest extends TestCase
 {
     /**
      * Tests Cep::unformat()

@@ -5,9 +5,11 @@ namespace RealejoTest;
 /**
  * CNH test case.
  */
+
+use PHPUnit\Framework\TestCase;
 use Realejo\Cnh;
 
-class CnhTest extends \PHPUnit_Framework_TestCase
+class CnhTest extends TestCase
 {
     /**
      * Tests Cnh::unformat()
@@ -62,7 +64,7 @@ class CnhTest extends \PHPUnit_Framework_TestCase
 
         $this->assertStringMatchesFormat('001.234.567-89', Cnh::format(123456789));
         $this->assertStringMatchesFormat('012.345.678-90', Cnh::format(1234567890));
-        
+
         $this->assertStringMatchesFormat('000.000.000-01', Cnh::format('00000000001'));
         $this->assertStringMatchesFormat('123.456.789-01', Cnh::format('12345678901'));
         $this->assertStringMatchesFormat('000.000.000-01', Cnh::format('000.000.000-01'));
@@ -100,24 +102,22 @@ class CnhTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(Cnh::isValid('21249574262'));
         $this->assertTrue(Cnh::isValid('212.495.742-62'));
         $this->assertTrue(Cnh::isValid(21249574262));
-       
+
         $this->assertTrue(Cnh::isValid('079.025.093-54'));
         $this->assertTrue(Cnh::isValid('79.025.093-54'));
         $this->assertTrue(Cnh::isValid('07902509354'));
         $this->assertTrue(Cnh::isValid('7902509354'));
-        $this->assertFalse(Cnh::isValid(07902509354)); 
         $this->assertTrue(Cnh::isValid(7902509354));
-    
+
         $this->assertTrue(Cnh::isValid('960.302.638-07'));
         $this->assertTrue(Cnh::isValid('96030263807'));
         $this->assertTrue(Cnh::isValid(96030263807));
-        
+
         $this->assertTrue(Cnh::isValid('015.190.508-78'));
         $this->assertTrue(Cnh::isValid('15.190.508-78'));
         $this->assertTrue(Cnh::isValid('01519050878'));
         $this->assertTrue(Cnh::isValid('1519050878'));
-        $this->assertFalse(Cnh::isValid(01519050878)); 
         $this->assertTrue(Cnh::isValid(1519050878));
-        
+
     }
 }

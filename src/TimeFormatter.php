@@ -70,11 +70,11 @@ class TimeFormatter
             $part = 'h:m:s';
         }
 
-        if (! self::isTime($time)) {
+        if (!self::isTime($time)) {
             throw new \Exception("Tempo '$time' inválido");
         }
 
-        if (strpos($time, ':') !== false || ! empty($part)) {
+        if (strpos($time, ':') !== false || !empty($part)) {
             if (empty($part)) {
                 $part = (substr_count($time, ':') == 1) ? 'm:s' : 'h:m:s';
             } else {
@@ -179,7 +179,7 @@ class TimeFormatter
             case self::SECOND:
                 return str_pad($s, 2, '0', STR_PAD_LEFT);
             case self::SECOND_SHORT:
-                return (string) $s;
+                return (string)$s;
             case self::MINUTE:
                 return str_pad($m, 2, '0', STR_PAD_LEFT);
             case self::MINUTE_SHORT:
@@ -254,7 +254,7 @@ class TimeFormatter
     public function addTime($time, $part = null)
     {
         // Verifica se é um objeto \Realejo\TimeFormatter
-        if (! ($time instanceof TimeFormatter)) {
+        if (!($time instanceof TimeFormatter)) {
             $time = new TimeFormatter($time, $part);
         }
 
@@ -285,7 +285,7 @@ class TimeFormatter
     public function subTime($time, $part = null)
     {
         // Verifica se é um objeto \Realejo\TimeFormatter
-        if (! ($time instanceof TimeFormatter)) {
+        if (!($time instanceof TimeFormatter)) {
             $time = new TimeFormatter($time, $part);
         }
 

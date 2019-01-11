@@ -2,6 +2,7 @@
 
 namespace RealejoTest;
 
+use PHPUnit\Framework\TestCase;
 use Realejo\TimeFormatter;
 
 /**
@@ -11,20 +12,12 @@ use Realejo\TimeFormatter;
  * @copyright Copyright (c) 2014 Realejo (http://realejo.com.br)
  * @license   http://unlicense.org
  */
-class TimeTest extends \PHPUnit_Framework_TestCase
+class TimeFormatterTest extends TestCase
 {
     /**
-     * @var RW_Time
+     * @var TimeFormatter
      */
-    private $RW_Time;
-
-    /**
-     * Constructs the test case.
-     */
-    public function __construct()
-    {
-        // TODO Auto-generated constructor
-    }
+    private $timeFormatter;
 
     /**
      * Tests RW_Math::moda()
@@ -378,8 +371,9 @@ class TimeTest extends \PHPUnit_Framework_TestCase
     public function testSetTimeException()
     {
         try {
-            $this->RW_Time->setTime('abcde');
+            $this->timeFormatter->setTime('abcde');
         } catch (\Exception $expected) {
+            $this->assertTrue(true, 'Exception não foi enviada.');
             return;
         }
 
@@ -771,7 +765,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->RW_Time = new TimeFormatter(/* parameters */);
+        $this->timeFormatter = new TimeFormatter(/* parameters */);
     }
 
     /**
@@ -779,7 +773,7 @@ class TimeTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->RW_Time = null;
+        $this->timeFormatter = null;
         parent::tearDown();
     }
 }
