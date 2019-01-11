@@ -5,10 +5,14 @@ master: [![Build Status](https://travis-ci.org/realejo/library.png?branch=master
 
 [![Coverage Status](https://coveralls.io/repos/github/realejo/library/badge.svg?branch=master)](https://coveralls.io/github/realejo/library?branch=master)
 
+
 Biblioteca com funções comuns
 
-### CPF/CNPJ/CEP
-Permite a validação e foprmatação de CPF, CNPJ e CEP
+### CPF/CNPJ/CNH
+Permite a validação e formatação de CPF, CNPJ e CNH
+
+### CEP/RG/CREA/Phone
+Permite formatação de CEP, RG*, CREA e Phone(fixo e celular)
 
 ### Image
 Permite a manipilação de imagens
@@ -21,3 +25,6 @@ Manipulição de strings: remover acentos, criar slug, detectar e converter para
 
 ### UF
 Manipulação das unidades federativas do Brasil. Não se chama estado por que DF não é estado.
+
+
+*Por enquanto só o RG de do orgão SSP-SP tem validação...
