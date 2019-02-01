@@ -27,4 +27,4 @@ Manipulição de strings: remover acentos, criar slug, detectar e converter para
 Manipulação das unidades federativas do Brasil. Não se chama estado por que DF não é estado.
 
 
-*Por enquanto a validação do RG só funciona para o orgão SSP-SP, os demais não se enquadram nessa validação, só usam a validação por quantidade de caracteres.
+*Por enquanto a validação do RG só funciona para o orgão SSP-SP, os demais não se enquadram nessa validação, só usam a validação por quantidade de caracteres, a maioria dos estados ainda está usando 9 caracteres, mas ja tem estados usando 10.

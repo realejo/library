@@ -20,7 +20,8 @@ class Rg
     {
         $rg = self::unformat($rg);
 
-        if (strlen($rg) != 9) {
+        if (strlen($rg) != 9 &&
+            strlen($rg) != 10 ) {
             return false;
         }
 
@@ -43,7 +44,7 @@ class Rg
     }
 
     /**
-     * Formata o RG no padrão 00.000.000-0
+     * Formata o RG no padrão 00.000.000-0 || 000.000.000-0
      * Não é feita nenhuma validação
      *
      * @param string $rg RG com ou sem formatação
@@ -56,10 +57,15 @@ class Rg
         $rg = self::unformat($rg);
 
         // Verifica se há um RG
-        if (!empty($rg)) {
+        if (! empty($rg) &&
+            strlen($rg) == 9) {
             $rg = substr($rg, 0, 2) . '.' . substr($rg, 2, 3) . '.' . substr($rg, 5, 3) . '-' . substr($rg, 8, 1);
-        }
 
+        } elseif (! empty($rg) &&
+            strlen($rg) == 10) {
+            $rg = substr($rg, 0, 3) . '.' . substr($rg, 3, 3) . '.' . substr($rg, 6, 3) . '-' . substr($rg, 9, 1);
+        }
+        
         // Retorna o RG formatado
         return $rg;
     }
