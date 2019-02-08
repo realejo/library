@@ -17,6 +17,10 @@
         "phpunit/PHPUnit": "7.1.*",
         "php-coveralls/php-coveralls": "^2.1.0"
 	},
+    "suggest": {
+        "ext-gd": "For resizing images",
+        "ext-exif": "For processing images"
+    },
 	"autoload": {
         "psr-4": {
             "Realejo\\": "src/"
