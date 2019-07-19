@@ -11,9 +11,6 @@ use Realejo\Crea;
 
 class CreaTest extends TestCase
 {
-    /**
-     * Tests Crea::unformat()
-     */
     public function testUnformat()
     {
         $this->assertStringMatchesFormat('', Crea::unformat(null));
@@ -37,9 +34,6 @@ class CreaTest extends TestCase
         $this->assertStringMatchesFormat('2345678901', Crea::unformat(2345678901));
     }
 
-    /**
-     * Tests Crea::format()
-     */
     public function testFormat()
     {
         $this->assertEquals('', Crea::format(null));
@@ -67,6 +61,5 @@ class CreaTest extends TestCase
         $this->assertStringMatchesFormat('123456789-0', Crea::format('1234567890'));
         $this->assertStringMatchesFormat('000000000-1', Crea::format('000000000-1'));
         $this->assertStringMatchesFormat('123456789-1', Crea::format('123456789-1'));
-
     }
 }

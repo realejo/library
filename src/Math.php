@@ -81,7 +81,7 @@ class Math
         if ($tamanho % 2) {
             $mediana = $a[(($tamanho + 1) / 2) - 1];
 
-            // Tamanho par: obter a media simples entre os dois valores medianos
+        // Tamanho par: obter a media simples entre os dois valores medianos
         } else {
             $v1 = $a[($tamanho / 2) - 1];
             $v2 = $a[$tamanho / 2];
