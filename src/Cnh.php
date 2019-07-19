@@ -18,8 +18,7 @@ class Cnh
      */
     public static function isValid($cnh)
     {
-        if ((strlen($input = self::unformat($cnh)) == 11)
-            && (str_repeat($input[1], 11) != $input)
+        if ((strlen($input = self::unformat($cnh)) === 11) && (str_repeat($input[1], 11) != $input)
         ) {
             $dsc = 0;
             for ($i = 0, $j = 9, $v = 0; $i < 9; ++$i, --$j) {
@@ -33,7 +32,7 @@ class Cnh
                 $v += (int)$input[$i] * $j;
             }
             $vl2 = ($x = ($v % 11)) >= 10 ? 0 : $x - $dsc;
-            if (sprintf('%d%d', $vl1, $vl2) == substr($input, -2)) {
+            if (sprintf('%d%d', $vl1, $vl2) === substr($input, -2)) {
                 return true;
             }
         }
@@ -71,7 +70,7 @@ class Cnh
     public static function unformat($cnh)
     {
         // Remove tudo que não for numeros
-        $cnh = preg_replace('/[^0-9]/', '', $cnh);
+        $cnh = preg_replace('/\D/', '', $cnh);
 
         // Verifica se sobrou numero para o CNH
         //@todo verificar o tamamho minimo de um CNH

@@ -478,10 +478,10 @@ class StringFormatter
     /**
      * Remove os caracteres que não podem estar no nome do arquivo
      *
-     * @todo remover acentos e não apaga-los
-     *
      * @param string $subject
      * @return string
+     * @todo remover acentos e não apaga-los
+     *
      */
     public static function cleanFileName($subject)
     {
@@ -494,15 +494,15 @@ class StringFormatter
     /**
      * Remove os caracteres ilegais
      *
-     * @todo un-orkutify?
-     * @todo colocar no RWLIB?
-     * @todo deveria ser um Zend_Filter?
-     * @todo HTMLPurifier?
-     *
      * @param array|string $words
      * @param array $options
      *
      * @return array|string
+     * @todo HTMLPurifier?
+     *
+     * @todo un-orkutify?
+     * @todo colocar no RWLIB?
+     * @todo deveria ser um Zend_Filter?
      */
     public static function sanitize($words, $options = null)
     {
@@ -788,11 +788,19 @@ class StringFormatter
 
         // remove os acentos considerando o UTF8
         $string = self::RemoveAcentos(mb_strtolower($string, 'UTF8'));
-        $string = preg_replace('([_|\s]+)', '-', $string); // change all spaces and underscores to a hyphen
-        $string = preg_replace('([^a-z0-9-])', '', $string); // remove all non-numeric characters except the hyphen
-        $string = preg_replace('([-]+)', '-',
-            $string); // replace multiple instances of the hyphen with a single instance
-        $string = preg_replace('(^-+|-+$)', '', $string); // trim leading and trailing hyphens
+
+        // change all spaces and underscores to a hyphen
+        $string = preg_replace('([_|\s]+)', '-', $string);
+
+        // remove all non-numeric characters except the hyphen
+        $string = preg_replace('([^a-z0-9-])', '', $string);
+
+        // replace multiple instances of the hyphen with a single instance
+        $string = preg_replace('([-]+)', '-', $string);
+
+        // trim leading and trailing hyphens
+        $string = preg_replace('(^-+|-+$)', '', $string);
+
         $string = str_replace('-', $space, $string);
 
         return trim($string);

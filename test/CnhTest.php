@@ -118,6 +118,5 @@ class CnhTest extends TestCase
         $this->assertTrue(Cnh::isValid('01519050878'));
         $this->assertTrue(Cnh::isValid('1519050878'));
         $this->assertTrue(Cnh::isValid(1519050878));
-
     }
 }

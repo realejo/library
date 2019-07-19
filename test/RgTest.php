@@ -35,13 +35,12 @@ class RgTest extends TestCase
         $this->assertStringMatchesFormat('234567890', Rg::unformat('234567890'));
         $this->assertStringMatchesFormat('345678901', Rg::unformat('345678901'));
         $this->assertStringMatchesFormat('345678901', Rg::unformat(345678901));
-        
+
         // Testando 10 caracteres
         $this->assertStringMatchesFormat('0000000001', Rg::unformat('0000000001'));
         $this->assertStringMatchesFormat('0234567890', Rg::unformat('0234567890'));
         $this->assertStringMatchesFormat('3117831771', Rg::unformat('311.783.177-1'));
         $this->assertStringMatchesFormat('3117831771', Rg::unformat('3117831771'));
-        
     }
 
     /**
@@ -78,13 +77,12 @@ class RgTest extends TestCase
         $this->assertStringMatchesFormat('023.456.789-0', Rg::format('0234567890'));
         $this->assertStringMatchesFormat('311.783.177-1', Rg::format('311.783.177-1'));
         $this->assertStringMatchesFormat('311.783.177-1', Rg::format('3117831771'));
-        
+
         // Testando 10 caracteres
         $this->assertStringMatchesFormat('000.000.000-1', Rg::format('0000000001'));
         $this->assertStringMatchesFormat('023.456.789-0', Rg::format('0234567890'));
         $this->assertStringMatchesFormat('311.783.177-1', Rg::format('311.783.177-1'));
         $this->assertStringMatchesFormat('311.783.177-1', Rg::format('3117831771'));
-        
     }
 
     /**
@@ -130,9 +128,8 @@ class RgTest extends TestCase
         $this->assertFalse(Rg::isValid(206318628));
         $this->assertTrue(Rg::isValid('206318628', 'RJ'));
         $this->assertTrue(Rg::isValid(206318628, 'RJ'));
-        
+
         $this->assertTrue(Rg::isValid('311.783.177-1', 'RS'));
         $this->assertTrue(Rg::isValid('3117831771', 'RS'));
-        
     }
 }

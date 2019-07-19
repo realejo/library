@@ -8,6 +8,9 @@
 
 namespace Realejo;
 
+use InvalidArgumentException;
+use RuntimeException;
+
 class Image
 {
     public const MIME_TYPE_JPEG = 'jpeg';
@@ -79,7 +82,7 @@ class Image
 
         // Verifica se o arquivo existe
         if (!file_exists($file)) {
-            throw new \InvalidArgumentException("Arquivo $file não existe");
+            throw new InvalidArgumentException("Arquivo $file não existe");
         }
 
         /**
@@ -160,7 +163,7 @@ class Image
     {
         // Verifica se tem imagem carregada
         if (!$this->isLoaded()) {
-            throw new \RuntimeException('Imagem não carregada em Realejo\Image::save();');
+            throw new RuntimeException('Imagem não carregada em Realejo\Image::save();');
         }
 
         if ($file === true) {
@@ -179,7 +182,7 @@ class Image
 
         // Verifica se tem imagem carregada
         if (!$this->isLoaded()) {
-            throw new \RuntimeException('Image not loaded.');
+            throw new RuntimeException('Image not loaded.');
         }
 
         // Salva a transparencia (alpha channel) dos PNGs
@@ -213,7 +216,7 @@ class Image
     {
         // Verifica se tem imagem carregada
         if (!$this->isLoaded()) {
-            throw new \RuntimeException('Image not loaded.');
+            throw new RuntimeException('Image not loaded.');
         }
 
         // @codeCoverageIgnoreStart
@@ -255,7 +258,7 @@ class Image
     {
         // Verifica se tem imagem carregada
         if (!$this->isLoaded()) {
-            throw new \RuntimeException('Imagem not loaded');
+            throw new RuntimeException('Imagem not loaded');
         }
 
         // Recupera os tamanhos da imagem
@@ -337,7 +340,7 @@ class Image
             }
         }
 
-        // Verifica se o tamamnho mudou
+        // Verifica se o tamanho mudou
         if (($newHeight !== $height) || ($newWidth !== $width)) {
             // Cria a imagem temporária
             $tmp = imagecreatetruecolor($newWidth, $newHeight);
@@ -374,7 +377,7 @@ class Image
     {
         // Verifica se tem imagem carregada
         if (!$this->isLoaded()) {
-            throw new \RuntimeException('Image not loaded.');
+            throw new RuntimeException('Image not loaded.');
         }
 
         // Redimenciona a imagem para o mesmo tamanho dela. Isto irá criar uma nova imagem sem os metadados
@@ -407,7 +410,7 @@ class Image
                 }
                 $this->imageQuality[$mimeType] = $quality;
             } else {
-                throw new \InvalidArgumentException("Invalid $mimeType format");
+                throw new InvalidArgumentException("Invalid $mimeType format");
             }
 
             // Altera todos os formatos
@@ -445,5 +448,4 @@ class Image
     {
         return $this->interlaced;
     }
-
 }
